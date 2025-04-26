@@ -3,11 +3,9 @@ import { loadEnvConfig } from '@next/env'
 const projectDir = process.cwd()
 loadEnvConfig(projectDir)
 
-const { ENDPOINT, HASURA_ADMIN_SECRET } = process.env;
+const { GRAPHQL_URL, HASURA_ADMIN_SECRET } = process.env;
 
-const URL = `${ENDPOINT}`
-
-console.log(URL)
+const URL = `${GRAPHQL_URL}`
 
 const config: CodegenConfig = {
   schema: [

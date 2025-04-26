@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -3672,3 +3673,1984 @@ export type Vote_Type_Updates = {
   /** filter the rows which have to be updated */
   where: Vote_Type_Bool_Exp;
 };
+
+export type UserInfoFragment = {
+  __typename?: 'UserInfo';
+  displayName: string;
+  fid: number;
+  followingCount: number;
+  followerCount: number;
+  isSmartUser: boolean;
+  neynarUserScore: number;
+  pfpUrl: string;
+  powerBadge: boolean;
+  username: string;
+} & { ' $fragmentName'?: 'UserInfoFragment' };
+
+export type DailyMindshareFragment = {
+  __typename?: 'DailyMindshare';
+  _time: string;
+  fid: string;
+  mindshare?: number | null;
+} & { ' $fragmentName'?: 'DailyMindshareFragment' };
+
+export type MindshareResultFragment = {
+  __typename?: 'MindshareResult';
+  change30d: number;
+  change7d: number;
+  change3d: number;
+  changeRatio30d: number;
+  changeRatio7d: number;
+  changeRatio3d: number;
+  currentMindshare: number;
+  fid: string;
+  last30dMindshare: number;
+  last7dMindshare: number;
+  last3dMindshare: number;
+  rank: number;
+  time: string;
+  userInfo: { __typename?: 'UserInfo' } & {
+    ' $fragmentRefs'?: { UserInfoFragment: UserInfoFragment };
+  };
+  daily: Array<
+    { __typename?: 'DailyMindshare' } & {
+      ' $fragmentRefs'?: { DailyMindshareFragment: DailyMindshareFragment };
+    }
+  >;
+} & { ' $fragmentName'?: 'MindshareResultFragment' };
+
+export type GetCryptoPriceQueryVariables = Exact<{
+  coinId: Scalars['String']['input'];
+  currency: Scalars['String']['input'];
+}>;
+
+export type GetCryptoPriceQuery = {
+  __typename?: 'query_root';
+  getCryptoPrice?: {
+    __typename?: 'CryptoPriceOutput';
+    phavercoin?: { __typename?: 'CurrencyPrice'; usd?: number | null } | null;
+  } | null;
+};
+
+export type GetMindshareByFidQueryVariables = Exact<{
+  fid: Scalars['String']['input'];
+}>;
+
+export type GetMindshareByFidQuery = {
+  __typename?: 'query_root';
+  getMindshareByFid?:
+    | ({ __typename?: 'MindshareResult' } & {
+        ' $fragmentRefs'?: { MindshareResultFragment: MindshareResultFragment };
+      })
+    | null;
+};
+
+export type GetPointsByFidQueryVariables = Exact<{
+  fid: Scalars['String']['input'];
+}>;
+
+export type GetPointsByFidQuery = {
+  __typename?: 'query_root';
+  user_points_by_pk?: { __typename?: 'user_points'; fid: string; totalPoints: any } | null;
+};
+
+export type GetLeaderboardQueryVariables = Exact<{
+  limit: Scalars['Int']['input'];
+  offset: Scalars['Int']['input'];
+}>;
+
+export type GetLeaderboardQuery = {
+  __typename?: 'query_root';
+  user_points: Array<{
+    __typename?: 'user_points';
+    fid: string;
+    totalPoints: any;
+    user?: {
+      __typename?: 'User';
+      displayName?: string | null;
+      fid: string;
+      pfpUrl?: string | null;
+      username?: string | null;
+      isSmartUser?: boolean | null;
+    } | null;
+  }>;
+};
+
+export type GetTopMindshareQueryVariables = Exact<{
+  duration: Scalars['String']['input'];
+  field: Scalars['String']['input'];
+  limit: Scalars['Int']['input'];
+  skip: Scalars['Int']['input'];
+  desc: Scalars['Boolean']['input'];
+}>;
+
+export type GetTopMindshareQuery = {
+  __typename?: 'query_root';
+  getTopMindshare?: Array<
+    | ({ __typename?: 'MindshareResult' } & {
+        ' $fragmentRefs'?: { MindshareResultFragment: MindshareResultFragment };
+      })
+    | null
+  > | null;
+};
+
+export type GetVoteAggregatesQueryVariables = Exact<{
+  snapshotId: Scalars['uuid']['input'];
+}>;
+
+export type GetVoteAggregatesQuery = {
+  __typename?: 'query_root';
+  upvotes_usdc: {
+    __typename?: 'vote_records_aggregate';
+    aggregate?: {
+      __typename?: 'vote_records_aggregate_fields';
+      count: number;
+      sum?: { __typename?: 'vote_records_sum_fields'; amount?: any | null } | null;
+    } | null;
+  };
+  upvotes_social: {
+    __typename?: 'vote_records_aggregate';
+    aggregate?: {
+      __typename?: 'vote_records_aggregate_fields';
+      count: number;
+      sum?: { __typename?: 'vote_records_sum_fields'; amount?: any | null } | null;
+    } | null;
+  };
+  downvotes_usdc: {
+    __typename?: 'vote_records_aggregate';
+    aggregate?: {
+      __typename?: 'vote_records_aggregate_fields';
+      count: number;
+      sum?: { __typename?: 'vote_records_sum_fields'; amount?: any | null } | null;
+    } | null;
+  };
+  downvotes_social: {
+    __typename?: 'vote_records_aggregate';
+    aggregate?: {
+      __typename?: 'vote_records_aggregate_fields';
+      count: number;
+      sum?: { __typename?: 'vote_records_sum_fields'; amount?: any | null } | null;
+    } | null;
+  };
+};
+
+export type GetVoteByVoterQueryVariables = Exact<{
+  voterId: Scalars['String']['input'];
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type GetVoteByVoterQuery = {
+  __typename?: 'query_root';
+  vote_records: Array<{
+    __typename?: 'vote_records';
+    id: any;
+    voterId: string;
+    voteType: string;
+    tokenType: string;
+    status: string;
+    amount: any;
+    createdAt?: any | null;
+    vote_snapshot: {
+      __typename?: 'vote_snapshot';
+      id: any;
+      fid: string;
+      weekStart: any;
+      updatedAt?: any | null;
+      status: string;
+      mindshare: any;
+      createdAt?: any | null;
+      user?: {
+        __typename?: 'User';
+        fid: string;
+        displayName?: string | null;
+        username?: string | null;
+        pfpUrl?: string | null;
+      } | null;
+    };
+  }>;
+};
+
+export type GetVoteHistoryQueryVariables = Exact<{
+  targetSnapshotId: Scalars['uuid']['input'];
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type GetVoteHistoryQuery = {
+  __typename?: 'query_root';
+  vote_records: Array<{
+    __typename?: 'vote_records';
+    id: any;
+    createdAt?: any | null;
+    amount: any;
+    tokenType: string;
+    txHash: string;
+    targetSnapshotId: any;
+    voteType: string;
+    voter?: {
+      __typename?: 'User';
+      fid: string;
+      displayName?: string | null;
+      pfpUrl?: string | null;
+      username?: string | null;
+    } | null;
+  }>;
+};
+
+export type GetVoteSnapshotQueryVariables = Exact<{
+  limit: Scalars['Int']['input'];
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Vote_Snapshot_Order_By> | Vote_Snapshot_Order_By>;
+  weekStart: Scalars['date']['input'];
+}>;
+
+export type GetVoteSnapshotQuery = {
+  __typename?: 'query_root';
+  vote_snapshot: Array<{
+    __typename?: 'vote_snapshot';
+    createdAt?: any | null;
+    fid: string;
+    id: any;
+    mindshare: any;
+    status: string;
+    updatedAt?: any | null;
+    weekStart: any;
+    user?: {
+      __typename?: 'User';
+      displayName?: string | null;
+      fid: string;
+      pfpUrl?: string | null;
+      username?: string | null;
+    } | null;
+  }>;
+};
+
+export type GetVoteSnapshotByFidQueryVariables = Exact<{
+  fid: Scalars['String']['input'];
+  status?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+export type GetVoteSnapshotByFidQuery = {
+  __typename?: 'query_root';
+  vote_snapshot: Array<{
+    __typename?: 'vote_snapshot';
+    createdAt?: any | null;
+    fid: string;
+    id: any;
+    mindshare: any;
+    status: string;
+    updatedAt?: any | null;
+    weekStart: any;
+    user?: {
+      __typename?: 'User';
+      displayName?: string | null;
+      fid: string;
+      pfpUrl?: string | null;
+      username?: string | null;
+    } | null;
+  }>;
+};
+
+export type GetVoteSnapshotByFidAndWeekQueryVariables = Exact<{
+  fid: Scalars['String']['input'];
+  weekStart: Scalars['date']['input'];
+}>;
+
+export type GetVoteSnapshotByFidAndWeekQuery = {
+  __typename?: 'query_root';
+  vote_snapshot: Array<{
+    __typename?: 'vote_snapshot';
+    createdAt?: any | null;
+    fid: string;
+    id: any;
+    mindshare: any;
+    status: string;
+    updatedAt?: any | null;
+    weekStart: any;
+    user?: {
+      __typename?: 'User';
+      displayName?: string | null;
+      fid: string;
+      pfpUrl?: string | null;
+      username?: string | null;
+    } | null;
+  }>;
+};
+
+export type PostVoteRecordMutationVariables = Exact<{
+  input: PostVoteRecordInput;
+}>;
+
+export type PostVoteRecordMutation = {
+  __typename?: 'mutation_root';
+  postVoteRecord?: { __typename?: 'PostVoteRecordOutput'; status?: number | null } | null;
+};
+
+export const UserInfoFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'UserInfo' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'UserInfo' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'followingCount' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'followerCount' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isSmartUser' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'neynarUserScore' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'powerBadge' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UserInfoFragment, unknown>;
+export const DailyMindshareFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'DailyMindshare' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'DailyMindshare' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: '_time' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'mindshare' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<DailyMindshareFragment, unknown>;
+export const MindshareResultFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MindshareResult' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MindshareResult' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'change30d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'change7d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'change3d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'changeRatio30d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'changeRatio7d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'changeRatio3d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'currentMindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'last30dMindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'last7dMindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'last3dMindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'rank' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'time' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'userInfo' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'UserInfo' } }],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'daily' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'DailyMindshare' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'UserInfo' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'UserInfo' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'followingCount' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'followerCount' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isSmartUser' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'neynarUserScore' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'powerBadge' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'DailyMindshare' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'DailyMindshare' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: '_time' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'mindshare' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<MindshareResultFragment, unknown>;
+export const GetCryptoPriceDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetCryptoPrice' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'coinId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'currency' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'getCryptoPrice' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'input' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'coinId' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'coinId' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'currency' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'currency' } },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'phavercoin' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'usd' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetCryptoPriceQuery, GetCryptoPriceQueryVariables>;
+export const GetMindshareByFidDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetMindshareByFid' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'getMindshareByFid' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'input' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'fid' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'MindshareResult' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'UserInfo' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'UserInfo' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'followingCount' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'followerCount' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isSmartUser' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'neynarUserScore' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'powerBadge' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'DailyMindshare' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'DailyMindshare' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: '_time' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'mindshare' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MindshareResult' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MindshareResult' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'change30d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'change7d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'change3d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'changeRatio30d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'changeRatio7d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'changeRatio3d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'currentMindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'last30dMindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'last7dMindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'last3dMindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'rank' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'time' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'userInfo' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'UserInfo' } }],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'daily' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'DailyMindshare' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetMindshareByFidQuery, GetMindshareByFidQueryVariables>;
+export const GetPointsByFidDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetPointsByFid' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'user_points_by_pk' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'fid' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'totalPoints' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetPointsByFidQuery, GetPointsByFidQueryVariables>;
+export const GetLeaderboardDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetLeaderboard' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'user_points' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'totalPoints' },
+                      value: { kind: 'EnumValue', value: 'desc' },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'limit' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'offset' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'totalPoints' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'user' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'isSmartUser' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetLeaderboardQuery, GetLeaderboardQueryVariables>;
+export const GetTopMindshareDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetTopMindshare' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'duration' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'field' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'skip' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'desc' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'getTopMindshare' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'input' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'duration' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'duration' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'field' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'field' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'limit' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'skip' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'skip' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'desc' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'desc' } },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'MindshareResult' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'UserInfo' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'UserInfo' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'followingCount' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'followerCount' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isSmartUser' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'neynarUserScore' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'powerBadge' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'DailyMindshare' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'DailyMindshare' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: '_time' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'mindshare' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MindshareResult' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'MindshareResult' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'change30d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'change7d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'change3d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'changeRatio30d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'changeRatio7d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'changeRatio3d' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'currentMindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'last30dMindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'last7dMindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'last3dMindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'rank' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'time' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'userInfo' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'UserInfo' } }],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'daily' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'DailyMindshare' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetTopMindshareQuery, GetTopMindshareQueryVariables>;
+export const GetVoteAggregatesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetVoteAggregates' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'snapshotId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'uuid' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'upvotes_usdc' },
+            name: { kind: 'Name', value: 'vote_records_aggregate' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'targetSnapshotId' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'snapshotId' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'voteType' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'StringValue', value: 'up', block: false },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'tokenType' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'StringValue', value: 'usdc', block: false },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'aggregate' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'count' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'columns' },
+                            value: { kind: 'EnumValue', value: 'id' },
+                          },
+                        ],
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'sum' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'amount' } }],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'upvotes_social' },
+            name: { kind: 'Name', value: 'vote_records_aggregate' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'targetSnapshotId' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'snapshotId' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'voteType' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'StringValue', value: 'up', block: false },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'tokenType' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'StringValue', value: 'social', block: false },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'aggregate' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'count' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'columns' },
+                            value: { kind: 'EnumValue', value: 'id' },
+                          },
+                        ],
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'sum' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'amount' } }],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'downvotes_usdc' },
+            name: { kind: 'Name', value: 'vote_records_aggregate' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'targetSnapshotId' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'snapshotId' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'voteType' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'StringValue', value: 'down', block: false },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'tokenType' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'StringValue', value: 'usdc', block: false },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'aggregate' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'count' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'columns' },
+                            value: { kind: 'EnumValue', value: 'id' },
+                          },
+                        ],
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'sum' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'amount' } }],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'downvotes_social' },
+            name: { kind: 'Name', value: 'vote_records_aggregate' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'targetSnapshotId' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'snapshotId' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'voteType' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'StringValue', value: 'down', block: false },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'tokenType' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'StringValue', value: 'social', block: false },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'aggregate' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'count' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'columns' },
+                            value: { kind: 'EnumValue', value: 'id' },
+                          },
+                        ],
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'sum' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'amount' } }],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetVoteAggregatesQuery, GetVoteAggregatesQueryVariables>;
+export const GetVoteByVoterDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetVoteByVoter' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'voterId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'vote_records' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'voterId' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'voterId' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'limit' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'offset' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'createdAt' },
+                      value: { kind: 'EnumValue', value: 'desc' },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'voterId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'voteType' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenType' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'amount' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'vote_snapshot' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'weekStart' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'mindshare' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'user' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetVoteByVoterQuery, GetVoteByVoterQueryVariables>;
+export const GetVoteHistoryDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetVoteHistory' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'targetSnapshotId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'uuid' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'vote_records' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'targetSnapshotId' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'targetSnapshotId' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'limit' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'offset' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'createdAt' },
+                      value: { kind: 'EnumValue', value: 'desc' },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'amount' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenType' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'txHash' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'targetSnapshotId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'voteType' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'voter' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetVoteHistoryQuery, GetVoteHistoryQueryVariables>;
+export const GetVoteSnapshotDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetVoteSnapshot' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'order_by' } },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: { kind: 'NamedType', name: { kind: 'Name', value: 'vote_snapshot_order_by' } },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'weekStart' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'date' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'vote_snapshot' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'limit' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'offset' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'order_by' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'weekStart' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'weekStart' } },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'mindshare' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_gte' },
+                            value: { kind: 'FloatValue', value: '0.0001' },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'mindshare' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'weekStart' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'user' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetVoteSnapshotQuery, GetVoteSnapshotQueryVariables>;
+export const GetVoteSnapshotByFidDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetVoteSnapshotByFid' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'status' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          defaultValue: { kind: 'StringValue', value: 'open', block: false },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'vote_snapshot' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'weekStart' },
+                      value: { kind: 'EnumValue', value: 'desc' },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'fid' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'status' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'status' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'mindshare' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'weekStart' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'user' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetVoteSnapshotByFidQuery, GetVoteSnapshotByFidQueryVariables>;
+export const GetVoteSnapshotByFidAndWeekDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetVoteSnapshotByFidAndWeek' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'weekStart' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'date' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'vote_snapshot' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'weekStart' },
+                      value: { kind: 'EnumValue', value: 'desc' },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'fid' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'weekStart' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'weekStart' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'mindshare' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'weekStart' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'user' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetVoteSnapshotByFidAndWeekQuery,
+  GetVoteSnapshotByFidAndWeekQueryVariables
+>;
+export const PostVoteRecordDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'PostVoteRecord' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'PostVoteRecordInput' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'postVoteRecord' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'input' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'status' } }],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PostVoteRecordMutation, PostVoteRecordMutationVariables>;

@@ -1,6 +1,5 @@
 'use client';
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { type Context } from '@farcaster/frame-sdk';
 import { useMiniKit } from '@coinbase/onchainkit/minikit';
 
 interface FarcasterContextType {
@@ -20,9 +19,13 @@ export const FarcasterProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       setFrameReady();
     }
 
-    if (context) {
-      setIsLoaded(true);
-    }
+    const loadContext = async () => {
+      if (context) {
+        setIsLoaded(true);
+      }
+    };
+
+    loadContext();
   }, [setFrameReady, isFrameReady, context]);
 
   return <FarcasterContext.Provider value={{ isLoaded }}>{children}</FarcasterContext.Provider>;

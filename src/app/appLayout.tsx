@@ -15,7 +15,7 @@ import { usePrivy } from '@privy-io/react-auth';
 import { useLoginToFrame } from '@privy-io/react-auth/farcaster';
 import { useEffect } from 'react';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
-import { useMiniKit } from '@coinbase/onchainkit/minikit';
+import { useMiniKit, useAddFrame } from '@coinbase/onchainkit/minikit';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -24,10 +24,11 @@ interface LayoutProps {
 const AppLayout: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
   const { context } = useMiniKit();
-
+  const addFrame = useAddFrame();
   const pathname = usePathname();
   const { ready, authenticated } = usePrivy();
   const { initLoginToFrame, loginToFrame } = useLoginToFrame();
+
 
   useEffect(() => {
     if (ready && !authenticated) {
@@ -45,6 +46,18 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
       login();
     }
   }, [ready, authenticated]);
+
+  useEffect(() => {
+    const checkAddFrame = async () => {
+      const result = await addFrame();
+      console.log("result", result);
+    };
+
+    // if (context?.user?.fid) {
+      checkAddFrame();
+    // }
+  }, [context]);
+
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     router.push(newValue);

@@ -12,7 +12,7 @@ export const contentType = 'image/png';
 // Direct fetch function for server-side data fetching
 async function fetchMindshareData(fid: string) {
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_ENDPOINT ?? '', {
+    const response = await fetch(process.env.GRAPHQL_URL ?? '', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ async function fetchMindshareData(fid: string) {
 // Add this function to fetch points data
 async function fetchPointsData(fid: string) {
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_ENDPOINT ?? '', {
+    const response = await fetch(process.env.GRAPHQL_URL ?? '', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

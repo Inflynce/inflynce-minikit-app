@@ -10,6 +10,7 @@ export async function GET() {
     frame: {
       version: process.env.NEXT_PUBLIC_VERSION,
       name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
+      primaryCategory: "social",
       homeUrl: URL,
       iconUrl: process.env.NEXT_PUBLIC_ICON_URL,
       imageUrl: process.env.NEXT_PUBLIC_IMAGE_URL,

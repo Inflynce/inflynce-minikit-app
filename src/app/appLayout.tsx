@@ -16,6 +16,9 @@ import { useLoginToFrame } from '@privy-io/react-auth/farcaster';
 import { useEffect } from 'react';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import { useMiniKit, useAddFrame } from '@coinbase/onchainkit/minikit';
+import { useIdentityToken } from '@privy-io/react-auth';
+import { useMutation } from '@tanstack/react-query';
+import { PostNotificationTokenMutationOptions } from '@/queryFn/postNotificationToken';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -29,6 +32,18 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
   const { ready, authenticated } = usePrivy();
   const { initLoginToFrame, loginToFrame } = useLoginToFrame();
 
+  const { identityToken } = useIdentityToken();
+
+  const { mutate: postNotificationToken } = useMutation(
+    PostNotificationTokenMutationOptions({
+      token: identityToken ?? '',
+      options: {
+        onSuccess: (data) => {
+          // TODO: handle success
+        },
+      },
+    })
+  );
 
   useEffect(() => {
     if (ready && !authenticated) {
@@ -50,14 +65,18 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
   useEffect(() => {
     const checkAddFrame = async () => {
       const result = await addFrame();
-      console.log("result", result);
+      if (result && result.url && result.token) {
+        postNotificationToken({
+          userId: context?.user?.fid?.toString() ?? '',
+          url: result.url,
+          token: result.token,
+        });
+      }
     };
-
-    // if (context?.user?.fid) {
+    if (!context?.client.added && identityToken) {
       checkAddFrame();
-    // }
-  }, [context]);
-
+    }
+  }, [context, identityToken]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     router.push(newValue);

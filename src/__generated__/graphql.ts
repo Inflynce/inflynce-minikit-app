@@ -21,6 +21,7 @@ export type Scalars = {
   date: { input: any; output: any };
   numeric: { input: any; output: any };
   timestamp: { input: any; output: any };
+  timestamptz: { input: any; output: any };
   uuid: { input: any; output: any };
 };
 
@@ -187,6 +188,10 @@ export type Mutation_Root = {
   delete_point_transactions?: Maybe<Point_Transactions_Mutation_Response>;
   /** delete single row from the table: "point_transactions" */
   delete_point_transactions_by_pk?: Maybe<Point_Transactions>;
+  /** delete data from the table: "user_notification_tokens" */
+  delete_user_notification_tokens?: Maybe<User_Notification_Tokens_Mutation_Response>;
+  /** delete single row from the table: "user_notification_tokens" */
+  delete_user_notification_tokens_by_pk?: Maybe<User_Notification_Tokens>;
   /** delete data from the table: "user_points" */
   delete_user_points?: Maybe<User_Points_Mutation_Response>;
   /** delete single row from the table: "user_points" */
@@ -231,6 +236,10 @@ export type Mutation_Root = {
   insert_point_transactions?: Maybe<Point_Transactions_Mutation_Response>;
   /** insert a single row into the table: "point_transactions" */
   insert_point_transactions_one?: Maybe<Point_Transactions>;
+  /** insert data into the table: "user_notification_tokens" */
+  insert_user_notification_tokens?: Maybe<User_Notification_Tokens_Mutation_Response>;
+  /** insert a single row into the table: "user_notification_tokens" */
+  insert_user_notification_tokens_one?: Maybe<User_Notification_Tokens>;
   /** insert data into the table: "user_points" */
   insert_user_points?: Maybe<User_Points_Mutation_Response>;
   /** insert a single row into the table: "user_points" */
@@ -287,6 +296,14 @@ export type Mutation_Root = {
   update_point_transactions_by_pk?: Maybe<Point_Transactions>;
   /** update multiples rows of table: "point_transactions" */
   update_point_transactions_many?: Maybe<Array<Maybe<Point_Transactions_Mutation_Response>>>;
+  /** update data of the table: "user_notification_tokens" */
+  update_user_notification_tokens?: Maybe<User_Notification_Tokens_Mutation_Response>;
+  /** update single row of the table: "user_notification_tokens" */
+  update_user_notification_tokens_by_pk?: Maybe<User_Notification_Tokens>;
+  /** update multiples rows of table: "user_notification_tokens" */
+  update_user_notification_tokens_many?: Maybe<
+    Array<Maybe<User_Notification_Tokens_Mutation_Response>>
+  >;
   /** update data of the table: "user_points" */
   update_user_points?: Maybe<User_Points_Mutation_Response>;
   /** update single row of the table: "user_points" */
@@ -364,6 +381,16 @@ export type Mutation_RootDelete_Point_TransactionsArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Point_Transactions_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_User_Notification_TokensArgs = {
+  where: User_Notification_Tokens_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_User_Notification_Tokens_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -481,6 +508,18 @@ export type Mutation_RootInsert_Point_TransactionsArgs = {
 export type Mutation_RootInsert_Point_Transactions_OneArgs = {
   object: Point_Transactions_Insert_Input;
   on_conflict?: InputMaybe<Point_Transactions_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_User_Notification_TokensArgs = {
+  objects: Array<User_Notification_Tokens_Insert_Input>;
+  on_conflict?: InputMaybe<User_Notification_Tokens_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_User_Notification_Tokens_OneArgs = {
+  object: User_Notification_Tokens_Insert_Input;
+  on_conflict?: InputMaybe<User_Notification_Tokens_On_Conflict>;
 };
 
 /** mutation root */
@@ -635,6 +674,23 @@ export type Mutation_RootUpdate_Point_Transactions_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Point_Transactions_ManyArgs = {
   updates: Array<Point_Transactions_Updates>;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_User_Notification_TokensArgs = {
+  _set?: InputMaybe<User_Notification_Tokens_Set_Input>;
+  where: User_Notification_Tokens_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_User_Notification_Tokens_By_PkArgs = {
+  _set?: InputMaybe<User_Notification_Tokens_Set_Input>;
+  pk_columns: User_Notification_Tokens_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_User_Notification_Tokens_ManyArgs = {
+  updates: Array<User_Notification_Tokens_Updates>;
 };
 
 /** mutation root */
@@ -1409,6 +1465,12 @@ export type Query_Root = {
   /** fetch data from the table: "point_transactions" using primary key columns */
   point_transactions_by_pk?: Maybe<Point_Transactions>;
   user?: Maybe<User>;
+  /** fetch data from the table: "user_notification_tokens" */
+  user_notification_tokens: Array<User_Notification_Tokens>;
+  /** fetch aggregated fields from the table: "user_notification_tokens" */
+  user_notification_tokens_aggregate: User_Notification_Tokens_Aggregate;
+  /** fetch data from the table: "user_notification_tokens" using primary key columns */
+  user_notification_tokens_by_pk?: Maybe<User_Notification_Tokens>;
   /** fetch data from the table: "user_points" */
   user_points: Array<User_Points>;
   /** fetch aggregated fields from the table: "user_points" */
@@ -1533,6 +1595,26 @@ export type Query_RootPoint_Transactions_By_PkArgs = {
 
 export type Query_RootUserArgs = {
   fid: Scalars['String']['input'];
+};
+
+export type Query_RootUser_Notification_TokensArgs = {
+  distinct_on?: InputMaybe<Array<User_Notification_Tokens_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Notification_Tokens_Order_By>>;
+  where?: InputMaybe<User_Notification_Tokens_Bool_Exp>;
+};
+
+export type Query_RootUser_Notification_Tokens_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Notification_Tokens_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Notification_Tokens_Order_By>>;
+  where?: InputMaybe<User_Notification_Tokens_Bool_Exp>;
+};
+
+export type Query_RootUser_Notification_Tokens_By_PkArgs = {
+  id: Scalars['uuid']['input'];
 };
 
 export type Query_RootUser_PointsArgs = {
@@ -1721,6 +1803,14 @@ export type Subscription_Root = {
   point_transactions_by_pk?: Maybe<Point_Transactions>;
   /** fetch data from the table in a streaming manner: "point_transactions" */
   point_transactions_stream: Array<Point_Transactions>;
+  /** fetch data from the table: "user_notification_tokens" */
+  user_notification_tokens: Array<User_Notification_Tokens>;
+  /** fetch aggregated fields from the table: "user_notification_tokens" */
+  user_notification_tokens_aggregate: User_Notification_Tokens_Aggregate;
+  /** fetch data from the table: "user_notification_tokens" using primary key columns */
+  user_notification_tokens_by_pk?: Maybe<User_Notification_Tokens>;
+  /** fetch data from the table in a streaming manner: "user_notification_tokens" */
+  user_notification_tokens_stream: Array<User_Notification_Tokens>;
   /** fetch data from the table: "user_points" */
   user_points: Array<User_Points>;
   /** fetch aggregated fields from the table: "user_points" */
@@ -1863,6 +1953,32 @@ export type Subscription_RootPoint_Transactions_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Point_Transactions_Stream_Cursor_Input>>;
   where?: InputMaybe<Point_Transactions_Bool_Exp>;
+};
+
+export type Subscription_RootUser_Notification_TokensArgs = {
+  distinct_on?: InputMaybe<Array<User_Notification_Tokens_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Notification_Tokens_Order_By>>;
+  where?: InputMaybe<User_Notification_Tokens_Bool_Exp>;
+};
+
+export type Subscription_RootUser_Notification_Tokens_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Notification_Tokens_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Notification_Tokens_Order_By>>;
+  where?: InputMaybe<User_Notification_Tokens_Bool_Exp>;
+};
+
+export type Subscription_RootUser_Notification_Tokens_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Subscription_RootUser_Notification_Tokens_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<User_Notification_Tokens_Stream_Cursor_Input>>;
+  where?: InputMaybe<User_Notification_Tokens_Bool_Exp>;
 };
 
 export type Subscription_RootUser_PointsArgs = {
@@ -2084,6 +2200,214 @@ export type Timestamp_Comparison_Exp = {
   _lte?: InputMaybe<Scalars['timestamp']['input']>;
   _neq?: InputMaybe<Scalars['timestamp']['input']>;
   _nin?: InputMaybe<Array<Scalars['timestamp']['input']>>;
+};
+
+/** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
+export type Timestamptz_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['timestamptz']['input']>;
+  _gt?: InputMaybe<Scalars['timestamptz']['input']>;
+  _gte?: InputMaybe<Scalars['timestamptz']['input']>;
+  _in?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['timestamptz']['input']>;
+  _lte?: InputMaybe<Scalars['timestamptz']['input']>;
+  _neq?: InputMaybe<Scalars['timestamptz']['input']>;
+  _nin?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
+};
+
+/** columns and relationships of "user_notification_tokens" */
+export type User_Notification_Tokens = {
+  __typename?: 'user_notification_tokens';
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  id: Scalars['uuid']['output'];
+  provider: Scalars['String']['output'];
+  token: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  url: Scalars['String']['output'];
+  userId: Scalars['String']['output'];
+};
+
+/** aggregated selection of "user_notification_tokens" */
+export type User_Notification_Tokens_Aggregate = {
+  __typename?: 'user_notification_tokens_aggregate';
+  aggregate?: Maybe<User_Notification_Tokens_Aggregate_Fields>;
+  nodes: Array<User_Notification_Tokens>;
+};
+
+/** aggregate fields of "user_notification_tokens" */
+export type User_Notification_Tokens_Aggregate_Fields = {
+  __typename?: 'user_notification_tokens_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<User_Notification_Tokens_Max_Fields>;
+  min?: Maybe<User_Notification_Tokens_Min_Fields>;
+};
+
+/** aggregate fields of "user_notification_tokens" */
+export type User_Notification_Tokens_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<User_Notification_Tokens_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "user_notification_tokens". All fields are combined with a logical 'AND'. */
+export type User_Notification_Tokens_Bool_Exp = {
+  _and?: InputMaybe<Array<User_Notification_Tokens_Bool_Exp>>;
+  _not?: InputMaybe<User_Notification_Tokens_Bool_Exp>;
+  _or?: InputMaybe<Array<User_Notification_Tokens_Bool_Exp>>;
+  createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  provider?: InputMaybe<String_Comparison_Exp>;
+  token?: InputMaybe<String_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+  url?: InputMaybe<String_Comparison_Exp>;
+  userId?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "user_notification_tokens" */
+export enum User_Notification_Tokens_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  UserNotificationTokensPkey = 'user_notification_tokens_pkey',
+  /** unique or primary key constraint on columns "user_id", "provider" */
+  UserNotificationTokensUserIdProviderKey = 'user_notification_tokens_user_id_provider_key',
+}
+
+/** input type for inserting data into table "user_notification_tokens" */
+export type User_Notification_Tokens_Insert_Input = {
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  provider?: InputMaybe<Scalars['String']['input']>;
+  token?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type User_Notification_Tokens_Max_Fields = {
+  __typename?: 'user_notification_tokens_max_fields';
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  provider?: Maybe<Scalars['String']['output']>;
+  token?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  userId?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type User_Notification_Tokens_Min_Fields = {
+  __typename?: 'user_notification_tokens_min_fields';
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  provider?: Maybe<Scalars['String']['output']>;
+  token?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  userId?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "user_notification_tokens" */
+export type User_Notification_Tokens_Mutation_Response = {
+  __typename?: 'user_notification_tokens_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<User_Notification_Tokens>;
+};
+
+/** on_conflict condition type for table "user_notification_tokens" */
+export type User_Notification_Tokens_On_Conflict = {
+  constraint: User_Notification_Tokens_Constraint;
+  update_columns?: Array<User_Notification_Tokens_Update_Column>;
+  where?: InputMaybe<User_Notification_Tokens_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "user_notification_tokens". */
+export type User_Notification_Tokens_Order_By = {
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  provider?: InputMaybe<Order_By>;
+  token?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+  url?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: user_notification_tokens */
+export type User_Notification_Tokens_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "user_notification_tokens" */
+export enum User_Notification_Tokens_Select_Column {
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Provider = 'provider',
+  /** column name */
+  Token = 'token',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+  /** column name */
+  Url = 'url',
+  /** column name */
+  UserId = 'userId',
+}
+
+/** input type for updating data in table "user_notification_tokens" */
+export type User_Notification_Tokens_Set_Input = {
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  provider?: InputMaybe<Scalars['String']['input']>;
+  token?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "user_notification_tokens" */
+export type User_Notification_Tokens_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: User_Notification_Tokens_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type User_Notification_Tokens_Stream_Cursor_Value_Input = {
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  provider?: InputMaybe<Scalars['String']['input']>;
+  token?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "user_notification_tokens" */
+export enum User_Notification_Tokens_Update_Column {
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Provider = 'provider',
+  /** column name */
+  Token = 'token',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+  /** column name */
+  Url = 'url',
+  /** column name */
+  UserId = 'userId',
+}
+
+export type User_Notification_Tokens_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<User_Notification_Tokens_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: User_Notification_Tokens_Bool_Exp;
 };
 
 /** columns and relationships of "user_points" */
@@ -3978,6 +4302,30 @@ export type GetVoteSnapshotByFidAndWeekQuery = {
   }>;
 };
 
+export type PostNotificationTokenMutationVariables = Exact<{
+  userId: Scalars['String']['input'];
+  url: Scalars['String']['input'];
+  token: Scalars['String']['input'];
+}>;
+
+export type PostNotificationTokenMutation = {
+  __typename?: 'mutation_root';
+  insert_user_notification_tokens?: {
+    __typename?: 'user_notification_tokens_mutation_response';
+    affected_rows: number;
+    returning: Array<{
+      __typename?: 'user_notification_tokens';
+      id: any;
+      token: string;
+      url: string;
+      userId: string;
+      createdAt?: any | null;
+      updatedAt?: any | null;
+      provider: string;
+    }>;
+  } | null;
+};
+
 export type PostVoteRecordMutationVariables = Exact<{
   input: PostVoteRecordInput;
 }>;
@@ -5614,6 +5962,113 @@ export const GetVoteSnapshotByFidAndWeekDocument = {
   GetVoteSnapshotByFidAndWeekQuery,
   GetVoteSnapshotByFidAndWeekQueryVariables
 >;
+export const PostNotificationTokenDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'PostNotificationToken' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'url' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'token' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'insert_user_notification_tokens' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'objects' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'userId' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'url' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'url' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'token' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'token' } },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'on_conflict' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'constraint' },
+                      value: { kind: 'EnumValue', value: 'user_notification_tokens_pkey' },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'affected_rows' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'returning' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'token' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'userId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'provider' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PostNotificationTokenMutation, PostNotificationTokenMutationVariables>;
 export const PostVoteRecordDocument = {
   kind: 'Document',
   definitions: [

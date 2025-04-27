@@ -11,6 +11,10 @@ interface QueryFnParams {
   options?: QueryOptions;
 }
 
+interface AuthQueryFnParams extends QueryFnParams {
+  token?: string;
+}
+
 export const queryFn = async ({ document, variables = {}, options = {} }: QueryFnParams) => {
   try {
     let baseUrl = process.env.NEXT_PUBLIC_URL;
@@ -25,6 +29,38 @@ export const queryFn = async ({ document, variables = {}, options = {} }: QueryF
     return response;
   } catch (error) {
     console.error('Error in queryFn:', error);
+    throw error;
+  }
+};
+
+export const authQueryFn = async ({
+  document,
+  variables = {},
+  options = {},
+  token,
+}: AuthQueryFnParams) => {
+  try {
+    let baseUrl = process.env.NEXT_PUBLIC_URL;
+    if (typeof window !== 'undefined') {
+      baseUrl = window.location.origin;
+    }
+
+    console.log('token', token);
+
+    // Prepare headers with authorization if token is provided
+    const headers = {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(options.headers || {}),
+    };
+
+    const url = new URL('/api/graphql', baseUrl).toString();
+    const response = await request(url as string, document, variables, {
+      ...options,
+      ...headers, // Add the headers to the request options
+    });
+    return response;
+  } catch (error) {
+    console.error('Error in authQueryFn:', error);
     throw error;
   }
 };

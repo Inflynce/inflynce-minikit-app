@@ -28,6 +28,7 @@ type Documents = {
   '\n  query GetVoteSnapshot(\n    $limit: Int!\n    $offset: Int\n    $order_by: [vote_snapshot_order_by!]\n    $weekStart: date!\n  ) {\n    vote_snapshot(\n      limit: $limit\n      offset: $offset\n      order_by: $order_by\n      where: {\n        weekStart: {_eq: $weekStart}\n        mindshare: {_gte: 0.0001}\n      }\n    ) {\n      createdAt\n      fid\n      id\n      mindshare\n      status\n      updatedAt\n      weekStart\n      user {\n        displayName\n        fid\n        pfpUrl\n        username\n      }\n    }\n  }\n': typeof types.GetVoteSnapshotDocument;
   '\n  query GetVoteSnapshotByFid(\n    $fid: String!, \n    $status: String = "open"\n  ) {\n    vote_snapshot(\n      order_by: { weekStart: desc }\n      where: {\n        fid: {_eq: $fid}\n        status: {_eq: $status}\n      }\n    ) {\n      createdAt\n      fid\n      id\n      mindshare\n      status\n      updatedAt\n      weekStart\n      user {\n        displayName\n        fid\n        pfpUrl\n        username\n      }\n    }\n  }\n': typeof types.GetVoteSnapshotByFidDocument;
   '\n  query GetVoteSnapshotByFidAndWeek(\n    $fid: String!, \n    $weekStart: date!\n  ) {\n    vote_snapshot(\n      order_by: { weekStart: desc }\n      where: {\n        fid: {_eq: $fid}\n        weekStart: {_eq: $weekStart}\n      }\n    ) {\n      createdAt\n      fid\n      id\n      mindshare\n      status\n      updatedAt\n      weekStart\n      user {\n        displayName\n        fid\n        pfpUrl\n        username\n      }\n    }\n  }\n': typeof types.GetVoteSnapshotByFidAndWeekDocument;
+  '\n  mutation PostNotificationToken($userId: String!, $url: String!, $token: String!) {\n    insert_user_notification_tokens(\n      objects: { userId: $userId, url: $url, token: $token }\n      on_conflict: { constraint: user_notification_tokens_pkey }\n    ) {\n      affected_rows\n      returning {\n        id\n        token\n        url\n        userId\n        createdAt\n        updatedAt\n        provider\n      }\n    }\n  }\n': typeof types.PostNotificationTokenDocument;
   '\n  mutation PostVoteRecord($input: PostVoteRecordInput!) {\n    postVoteRecord(input: $input) {\n      status\n    }\n  }\n': typeof types.PostVoteRecordDocument;
 };
 const documents: Documents = {
@@ -59,6 +60,8 @@ const documents: Documents = {
     types.GetVoteSnapshotByFidDocument,
   '\n  query GetVoteSnapshotByFidAndWeek(\n    $fid: String!, \n    $weekStart: date!\n  ) {\n    vote_snapshot(\n      order_by: { weekStart: desc }\n      where: {\n        fid: {_eq: $fid}\n        weekStart: {_eq: $weekStart}\n      }\n    ) {\n      createdAt\n      fid\n      id\n      mindshare\n      status\n      updatedAt\n      weekStart\n      user {\n        displayName\n        fid\n        pfpUrl\n        username\n      }\n    }\n  }\n':
     types.GetVoteSnapshotByFidAndWeekDocument,
+  '\n  mutation PostNotificationToken($userId: String!, $url: String!, $token: String!) {\n    insert_user_notification_tokens(\n      objects: { userId: $userId, url: $url, token: $token }\n      on_conflict: { constraint: user_notification_tokens_pkey }\n    ) {\n      affected_rows\n      returning {\n        id\n        token\n        url\n        userId\n        createdAt\n        updatedAt\n        provider\n      }\n    }\n  }\n':
+    types.PostNotificationTokenDocument,
   '\n  mutation PostVoteRecord($input: PostVoteRecordInput!) {\n    postVoteRecord(input: $input) {\n      status\n    }\n  }\n':
     types.PostVoteRecordDocument,
 };
@@ -161,6 +164,12 @@ export function gql(
 export function gql(
   source: '\n  query GetVoteSnapshotByFidAndWeek(\n    $fid: String!, \n    $weekStart: date!\n  ) {\n    vote_snapshot(\n      order_by: { weekStart: desc }\n      where: {\n        fid: {_eq: $fid}\n        weekStart: {_eq: $weekStart}\n      }\n    ) {\n      createdAt\n      fid\n      id\n      mindshare\n      status\n      updatedAt\n      weekStart\n      user {\n        displayName\n        fid\n        pfpUrl\n        username\n      }\n    }\n  }\n'
 ): (typeof documents)['\n  query GetVoteSnapshotByFidAndWeek(\n    $fid: String!, \n    $weekStart: date!\n  ) {\n    vote_snapshot(\n      order_by: { weekStart: desc }\n      where: {\n        fid: {_eq: $fid}\n        weekStart: {_eq: $weekStart}\n      }\n    ) {\n      createdAt\n      fid\n      id\n      mindshare\n      status\n      updatedAt\n      weekStart\n      user {\n        displayName\n        fid\n        pfpUrl\n        username\n      }\n    }\n  }\n'];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  mutation PostNotificationToken($userId: String!, $url: String!, $token: String!) {\n    insert_user_notification_tokens(\n      objects: { userId: $userId, url: $url, token: $token }\n      on_conflict: { constraint: user_notification_tokens_pkey }\n    ) {\n      affected_rows\n      returning {\n        id\n        token\n        url\n        userId\n        createdAt\n        updatedAt\n        provider\n      }\n    }\n  }\n'
+): (typeof documents)['\n  mutation PostNotificationToken($userId: String!, $url: String!, $token: String!) {\n    insert_user_notification_tokens(\n      objects: { userId: $userId, url: $url, token: $token }\n      on_conflict: { constraint: user_notification_tokens_pkey }\n    ) {\n      affected_rows\n      returning {\n        id\n        token\n        url\n        userId\n        createdAt\n        updatedAt\n        provider\n      }\n    }\n  }\n'];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

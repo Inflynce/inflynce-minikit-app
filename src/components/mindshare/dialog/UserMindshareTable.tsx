@@ -77,21 +77,21 @@ export const UserMindshareTable: React.FC<UserMindshareTableProps> = ({
             <TableRow>
               <TableCell sx={bodyCellStyles}>3D</TableCell>
               <TableCell align="right" sx={bodyCellStyles}>
-                {(selectedUser?.last7dMindshare * 100).toFixed(0)}%
+                {(selectedUser?.last3dMindshare * 100).toFixed(2)}%
               </TableCell>
               <TableCell align="right" sx={deltaStyles(selectedUser?.change3d)}>
                 {selectedUser?.change3d > 0 ? '↑' : '↓'}{' '}
                 {Math.abs(selectedUser?.change3d || 0).toFixed(0)}bps
               </TableCell>
-              <TableCell align="right" sx={deltaStyles(selectedUser?.changeRatio7d)}>
-                {selectedUser?.changeRatio7d > 0 ? '↑' : '↓'}{' '}
-                {Math.abs(selectedUser?.changeRatio7d || 0).toFixed(0)}%
+              <TableCell align="right" sx={deltaStyles(selectedUser?.changeRatio3d)}>
+                {selectedUser?.changeRatio3d > 0 ? '↑' : '↓'}{' '}
+                {Math.abs(selectedUser?.changeRatio3d || 0).toFixed(0)}%
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell sx={bodyCellStyles}>7D</TableCell>
               <TableCell align="right" sx={bodyCellStyles}>
-                {(selectedUser?.last7dMindshare * 100).toFixed(0)}%
+                {(selectedUser?.last7dMindshare * 100).toFixed(2)}%
               </TableCell>
               <TableCell align="right" sx={deltaStyles(selectedUser?.change7d)}>
                 {selectedUser?.change7d > 0 ? '↑' : '↓'}{' '}
@@ -105,7 +105,7 @@ export const UserMindshareTable: React.FC<UserMindshareTableProps> = ({
             <TableRow>
               <TableCell sx={bodyCellStyles}>30D</TableCell>
               <TableCell align="right" sx={bodyCellStyles}>
-                {(selectedUser?.last30dMindshare * 100).toFixed(0)}%
+                {(selectedUser?.last30dMindshare * 100).toFixed(2)}%
               </TableCell>
               <TableCell align="right" sx={deltaStyles(selectedUser?.change30d)}>
                 {selectedUser?.change30d > 0 ? '↑' : '↓'}{' '}

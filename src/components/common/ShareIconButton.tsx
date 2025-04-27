@@ -25,10 +25,10 @@ export default function ShareIconButton({
     try {
       // Compose a cast with the URL
       const shareUrl = `${process.env.NEXT_PUBLIC_URL}/profile/${fid}`;
-      const shareText = `Check out ${displayName}'s profile on Inflynce with a mindshare of ${((mindshare || 0) * 100).toFixed(2)}%!`;
+      const shareText = `Check out ${displayName}'s profile on Inflynce!`;
 
       await sdk.actions.composeCast({
-        text: encodeURIComponent(shareText),
+        text: shareText,
         embeds: [shareUrl],
       });
     } catch (err) {

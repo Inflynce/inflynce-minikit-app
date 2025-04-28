@@ -93,7 +93,6 @@ const CustomizedContent = (props: any) => {
   const rank = data?.rank;
   const svgRef = useRef<SVGSVGElement | null>(null);
   const router = useRouter();
-  console.log('data', width, height);
 
   useEffect(() => {
     if (!data?.daily || !svgRef.current) return;

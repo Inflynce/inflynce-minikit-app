@@ -42,7 +42,10 @@ export const GetPointTransactionsByFidQueryOptions = ({
 interface GetPointTransactionsByFidInfiniteQueryOptionsProps
   extends GetPointTransactionsByFidProps {
   keys?: string[];
-  options?: Omit<UseInfiniteQueryOptions<Point_Transactions[]>, 'queryKey' | 'queryFn'>;
+  options?: Omit<
+    UseInfiniteQueryOptions<Point_Transactions[]>,
+    'queryKey' | 'queryFn' | 'initialPageParam' | 'getNextPageParam' | 'getPreviousPageParam'
+  >;
 }
 
 export const GetPointTransactionsByFidInfiniteQueryOptions = ({

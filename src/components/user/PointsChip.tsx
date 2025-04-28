@@ -17,7 +17,12 @@ import { InflyncePointsInfo } from '@/components/dialogs/FAQContent';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { GetPointTransactionsByFidQueryOptions } from '@/queryFn/getPointTransactionByFid';
 import { POINT_TRANSACTION_TYPE } from '@/utils/constants';
-import { greenColor } from '@/utils/color';
+import dynamic from 'next/dynamic';
+const PointTransactionsDrawer = dynamic(
+  () => import('@/components/mindshare/dialog/PointTransactionsDrawer'),
+  { ssr: false }
+);
+
 interface PointsChipProps extends Omit<ChipProps, 'avatar' | 'label'> {
   showUnit?: boolean;
   avatarSrc?: string;
@@ -60,7 +65,7 @@ export const PointsChip: React.FC<PointsChipProps> = ({
   );
   const points = pointsData?.totalPoints ?? 0;
   const [infoDialogOpen, setInfoDialogOpen] = React.useState(false);
-
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
   const label = showUnit ? `${formatPoints(points)} IP` : formatPoints(points);
 
   const handleInfoClick = (event: React.MouseEvent) => {
@@ -70,6 +75,15 @@ export const PointsChip: React.FC<PointsChipProps> = ({
 
   const handleCloseDialog = () => {
     setInfoDialogOpen(false);
+  };
+
+  const handleOpenDrawer = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setDrawerOpen(true);
+  };
+
+  const handleCloseDrawer = () => {
+    setDrawerOpen(false);
   };
 
   return (
@@ -85,6 +99,7 @@ export const PointsChip: React.FC<PointsChipProps> = ({
           height: 24,
           ...sx,
         }}
+        onClick={handleOpenDrawer}
         onDelete={handleInfoClick}
         deleteIcon={showInfoIcon ? <InfoOutlineIcon /> : undefined}
         {...chipProps}
@@ -101,6 +116,7 @@ export const PointsChip: React.FC<PointsChipProps> = ({
           <Button onClick={handleCloseDialog}>Close</Button>
         </DialogActions>
       </Dialog>
+      <PointTransactionsDrawer fid={fid.toString()} open={drawerOpen} onClose={handleCloseDrawer} />
     </>
   );
 };

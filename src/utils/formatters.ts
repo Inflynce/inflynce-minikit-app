@@ -42,3 +42,7 @@ export const formatNumber = (num: number): string => {
     maximumFractionDigits: 4,
   }).format(num);
 };
+
+export const formatMindshare = (mindshare: number): string => {
+  return `${(mindshare * 100).toFixed(2)}%`;
+};

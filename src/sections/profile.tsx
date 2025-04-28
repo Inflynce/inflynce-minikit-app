@@ -2,7 +2,17 @@
 
 import sdk, { type Context } from '@farcaster/frame-sdk';
 import { useState, useEffect, Suspense } from 'react';
-import { Box, Typography, AppBar, Tabs, Tab, Skeleton, Stack } from '@mui/material';
+import {
+  Box,
+  Typography,
+  AppBar,
+  Tabs,
+  Tab,
+  Skeleton,
+  Stack,
+  Button,
+  IconButton,
+} from '@mui/material';
 import { UserInfoCard } from '@/components/user/UserInfoCard';
 import { useQuery } from '@tanstack/react-query';
 import { GetMindshareByFidQueryOptions } from '@/queryFn/getMindshareByFid';
@@ -17,8 +27,14 @@ import dynamic from 'next/dynamic';
 import { VoteDrawer } from '@/sections/vote/VoteDrawer';
 import { VoterVoteRecords } from '@/components/profile/VoterVoteRecords';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { UserPointChart } from '@/components/mindshare/dialog/UserPointChart';
+import ReadMoreIcon from '@mui/icons-material/ReadMore';
 
 const Vote = dynamic(() => import('@/components/vote/UserVote'), { ssr: false });
+const PointTransactionsDrawer = dynamic(
+  () => import('@/components/mindshare/dialog/PointTransactionsDrawer'),
+  { ssr: false }
+);
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -66,7 +82,7 @@ export default function Profile() {
   const params = useParams();
   const theme = useTheme();
   const [tabValue, setTabValue] = useState(0);
-
+  const [pointTransactionsDrawerOpen, setPointTransactionsDrawerOpen] = useState(false);
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
@@ -146,6 +162,20 @@ export default function Profile() {
             <UserMindshareChart
               isLoading={isLoading}
               selectedUser={data ?? ({} as MindshareResult)}
+            />
+          </StyledCard>
+          <StyledCard>
+            <Stack direction="row" justifyContent="space-between">
+              <Typography sx={{ color: 'white' }}>Daily Rewarded IP</Typography>
+              <IconButton onClick={() => setPointTransactionsDrawerOpen(true)}>
+                <ReadMoreIcon />
+              </IconButton>
+            </Stack>
+            <UserPointChart fid={params?.fid as string} />
+            <PointTransactionsDrawer
+              open={pointTransactionsDrawerOpen}
+              onClose={() => setPointTransactionsDrawerOpen(false)}
+              fid={params?.fid as string}
             />
           </StyledCard>
         </TabPanel>

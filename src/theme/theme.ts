@@ -37,12 +37,21 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#1E1E1E',
+          // borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
         },
       },
     },
     MuiDialogContent: {
       styleOverrides: {
         root: {
+          backgroundColor: '#1E1E1E',
+        },
+      },
+    },
+    MuiDialogActions: {
+      styleOverrides: {
+        root: {
+          // borderTop: '1px solid rgba(255, 255, 255, 0.1)',
           backgroundColor: '#1E1E1E',
         },
       },

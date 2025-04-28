@@ -10,3 +10,10 @@ export const MINDSHARE_DURATION = {
   THIRTY: '30',
   LAST_WEEK: 'lastWeek',
 };
+
+export const POINT_TRANSACTION_TYPE = {
+  DAILY: 'daily_reward',
+  PURCHASE: 'purchase',
+  REDEEM: 'redeem',
+  CONSUME: 'consume',
+};

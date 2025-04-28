@@ -4,10 +4,7 @@ import { GetTopMindshareQueryOptions } from '@/queryFn/getTopMindshare';
 import { MINDSHARE_DURATION, MINDSHARE_FIELDS } from '@/utils/constants';
 import { Treemap, ResponsiveContainer } from 'recharts';
 import { useState, useEffect, useRef } from 'react';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
-import { Stack, Typography } from '@mui/material';
 import { UserDialog } from '../dialog/UserDialog';
 import * as d3 from 'd3';
 import MindshareTreemapSkeleton from '@/components/skeleton/MindshareTreemapSkeleton';
@@ -60,11 +57,11 @@ export const getRankColor = (rank: number) => {
 export const getRankSize = (rank: number) => {
   switch (rank) {
     case 1:
-      return 28; // Largest for rank 1
+      return 22; // Largest for rank 1
     case 2:
-      return 24; // Slightly smaller for rank 2
+      return 18; // Slightly smaller for rank 2
     case 3:
-      return 20; // Smallest for rank 3
+      return 14; // Smallest for rank 3
     default:
       return 20;
   }
@@ -96,6 +93,7 @@ const CustomizedContent = (props: any) => {
   const rank = data?.rank;
   const svgRef = useRef<SVGSVGElement | null>(null);
   const router = useRouter();
+  console.log('data', width, height);
 
   useEffect(() => {
     if (!data?.daily || !svgRef.current) return;
@@ -213,17 +211,17 @@ const CustomizedContent = (props: any) => {
         {pfpUrl && (
           <image
             href={pfpUrl}
-            x={8}
-            y={8}
+            x={4}
+            y={4}
             style={{ cursor: 'pointer' }}
-            width={24}
-            height={24}
+            width={20}
+            height={20}
             clipPath="circle()"
             onClick={handleNameClick}
           />
         )}
         {/* User Name with ellipsis */}
-        <foreignObject x={35} y={8} width={width - 40} height={24}>
+        <foreignObject x={26} y={4} width={width - 28} height={24}>
           <div
             style={{
               whiteSpace: 'nowrap',
@@ -239,18 +237,21 @@ const CustomizedContent = (props: any) => {
           </div>
         </foreignObject>
         {/* Mindshare Percentage */}
-        <text
-          x={8}
-          y={48}
-          fill={rank <= 3 ? getTextColor() : THEME.textPrimary}
-          fontSize={12}
+        <foreignObject
+          x={26}
+          y={20}
+          width={width - 28}
+          height={24}
+          // fill={rank <= 3 ? getTextColor() : THEME.textPrimary}
+          // fontSize={10}
           // fontWeight="bold"
         >
-          {mindshare}%
-        </text>
+          <div style={{ fontSize: '10px', color: THEME.textPrimary }}>{mindshare}%</div>
+          {/* {mindshare}% */}
+        </foreignObject>
         {/* Ranking Badge */}
         {data?.rank <= 3 && (
-          <g transform={`translate(${8}, ${65})`}>
+          <g transform={`translate(${26}, ${36})`}>
             <svg
               width={getRankSize(data.rank)}
               height={getRankSize(data.rank)}
@@ -267,8 +268,8 @@ const CustomizedContent = (props: any) => {
           </g>
         )}
         {/* New SVG for chartData using D3 */}
-        <g transform={`translate(${0}, ${height - 40})`}>
-          <svg ref={svgRef} width="100%" height={40} />
+        <g transform={`translate(${0}, ${height - 32})`}>
+          <svg ref={svgRef} width="100%" height={32} />
         </g>
       </g>
     </>
@@ -309,7 +310,7 @@ export const MindshareTreemap = ({
       variables: {
         duration: duration,
         field: MINDSHARE_FIELDS.MINDSHARE,
-        limit: 30,
+        limit: 24,
         skip: 0,
         desc: true,
       },

@@ -19,6 +19,7 @@ type Documents = {
   '\n  fragment MindshareResult on MindshareResult {\n    change30d\n    change7d\n    change3d\n    changeRatio30d\n    changeRatio7d\n    changeRatio3d\n    currentMindshare\n    fid\n    last30dMindshare\n    last7dMindshare\n    last3dMindshare\n    rank\n    time\n    userInfo {\n      ...UserInfo\n    }\n    daily {\n      ...DailyMindshare\n    }\n  }\n': typeof types.MindshareResultFragmentDoc;
   '\n  query GetCryptoPrice($coinId: String!, $currency: String!) {\n    getCryptoPrice(input: { coinId: $coinId, currency: $currency }) {\n      phavercoin {\n        usd\n      }\n    }\n  }\n': typeof types.GetCryptoPriceDocument;
   '\n  query GetMindshareByFid($fid: String!) {\n    getMindshareByFid(input: { fid: $fid }) {\n      ...MindshareResult\n    }\n  }\n': typeof types.GetMindshareByFidDocument;
+  '\n  query GetPointTransactionByFid($fid: String!, $type: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid }, type: { _eq: $type } }\n      order_by: { date: desc }\n      limit: $limit\n      offset: $offset\n    ) {\n      date\n      createdAt\n      direction\n      fid\n      id\n      mindshare\n      points\n      reason\n      type\n      usdcAmount\n    }\n  }\n': typeof types.GetPointTransactionByFidDocument;
   '\n  query GetPointsByFid($fid: String!) {\n    user_points_by_pk(fid: $fid) {\n      fid\n      totalPoints\n    }\n  }\n': typeof types.GetPointsByFidDocument;
   '\n  query GetLeaderboard($limit: Int!, $offset: Int!) {\n    user_points(order_by: { totalPoints: desc }, limit: $limit, offset: $offset) {\n      fid\n      totalPoints\n      user {\n        displayName\n        fid\n        pfpUrl\n        username\n        isSmartUser\n      }\n    }\n  }\n': typeof types.GetLeaderboardDocument;
   '\n  query GetTopMindshare(\n    $duration: String!\n    $field: String!\n    $limit: Int!\n    $skip: Int!\n    $desc: Boolean!\n  ) {\n    getTopMindshare(\n      input: { duration: $duration, field: $field, limit: $limit, skip: $skip, desc: $desc }\n    ) {\n      ...MindshareResult\n    }\n  }\n': typeof types.GetTopMindshareDocument;
@@ -42,6 +43,8 @@ const documents: Documents = {
     types.GetCryptoPriceDocument,
   '\n  query GetMindshareByFid($fid: String!) {\n    getMindshareByFid(input: { fid: $fid }) {\n      ...MindshareResult\n    }\n  }\n':
     types.GetMindshareByFidDocument,
+  '\n  query GetPointTransactionByFid($fid: String!, $type: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid }, type: { _eq: $type } }\n      order_by: { date: desc }\n      limit: $limit\n      offset: $offset\n    ) {\n      date\n      createdAt\n      direction\n      fid\n      id\n      mindshare\n      points\n      reason\n      type\n      usdcAmount\n    }\n  }\n':
+    types.GetPointTransactionByFidDocument,
   '\n  query GetPointsByFid($fid: String!) {\n    user_points_by_pk(fid: $fid) {\n      fid\n      totalPoints\n    }\n  }\n':
     types.GetPointsByFidDocument,
   '\n  query GetLeaderboard($limit: Int!, $offset: Int!) {\n    user_points(order_by: { totalPoints: desc }, limit: $limit, offset: $offset) {\n      fid\n      totalPoints\n      user {\n        displayName\n        fid\n        pfpUrl\n        username\n        isSmartUser\n      }\n    }\n  }\n':
@@ -110,6 +113,12 @@ export function gql(
 export function gql(
   source: '\n  query GetMindshareByFid($fid: String!) {\n    getMindshareByFid(input: { fid: $fid }) {\n      ...MindshareResult\n    }\n  }\n'
 ): (typeof documents)['\n  query GetMindshareByFid($fid: String!) {\n    getMindshareByFid(input: { fid: $fid }) {\n      ...MindshareResult\n    }\n  }\n'];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: '\n  query GetPointTransactionByFid($fid: String!, $type: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid }, type: { _eq: $type } }\n      order_by: { date: desc }\n      limit: $limit\n      offset: $offset\n    ) {\n      date\n      createdAt\n      direction\n      fid\n      id\n      mindshare\n      points\n      reason\n      type\n      usdcAmount\n    }\n  }\n'
+): (typeof documents)['\n  query GetPointTransactionByFid($fid: String!, $type: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid }, type: { _eq: $type } }\n      order_by: { date: desc }\n      limit: $limit\n      offset: $offset\n    ) {\n      date\n      createdAt\n      direction\n      fid\n      id\n      mindshare\n      points\n      reason\n      type\n      usdcAmount\n    }\n  }\n'];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

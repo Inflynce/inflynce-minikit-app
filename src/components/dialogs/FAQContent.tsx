@@ -2,6 +2,16 @@ import React from 'react';
 import { Box, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+export const InflyncePointsInfo = () => {
+  return (
+    <Typography variant="body2">
+      Inflynce Points are off-chain units used within the protocol's economy. Every day, 1,000 IPs
+      are distributed to users based on their mindshare performance. You can earn more by completing
+      daily tasks and winning predictions.
+    </Typography>
+  );
+};
+
 const FAQContent: React.FC = () => {
   const faqs = [
     {
@@ -26,13 +36,7 @@ const FAQContent: React.FC = () => {
     },
     {
       question: 'What are Inflynce Points (IP)?',
-      answer: (
-        <Typography variant="body2">
-          Inflynce Points are off-chain units used within the protocol's economy. Every day, 1,000
-          IPs are distributed to users based on their mindshare performance. You can earn more by
-          completing daily tasks, winning predictions or purchasing IP directly with USDC.
-        </Typography>
-      ),
+      answer: <InflyncePointsInfo />,
     },
     {
       question: 'What can I do with IP?',

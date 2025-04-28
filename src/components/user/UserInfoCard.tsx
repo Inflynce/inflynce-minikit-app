@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import { BaseCard } from '@/components/common/BaseCard';
 import { PointsChip } from './PointsChip';
 import { MindshareChip } from './MindshareChip';
+import { PointsEarnedTodayChip } from './PointsChip';
 import { MindshareResult } from '@/__generated__/graphql';
 import ShareIconButton from '@/components/common/ShareIconButton';
 
@@ -56,8 +57,11 @@ export const UserInfoCard: React.FC<{
               @{user.username || 'username'}
             </Typography>
 
-            <PointsChip fid={user.fid ?? 0} />
-            <MindshareChip mindshare={mindshare?.currentMindshare} />
+            <Stack direction="row" spacing={1}>
+              <PointsChip fid={user.fid ?? 0} />
+              <PointsEarnedTodayChip fid={user.fid ?? 0} />
+              <MindshareChip mindshare={mindshare?.currentMindshare} />
+            </Stack>
 
             {user.location?.description && (
               <Typography

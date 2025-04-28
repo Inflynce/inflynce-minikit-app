@@ -3,7 +3,7 @@ import InfoMenu from '@/components/common/InfoMenu';
 import VoteCountdown from '@/components/vote/VoteCountdown';
 import { getCurrentWeekStart } from '@/utils/dateUtils';
 import { useRouter } from 'next/navigation';
-import { PointsChip } from '@/components/user/PointsChip';
+import { PointsChip, PointsEarnedTodayChip } from '@/components/user/PointsChip';
 import { useMiniKit } from '@coinbase/onchainkit/minikit';
 interface HeaderProps {
   title?: string;
@@ -13,6 +13,7 @@ interface HeaderProps {
   showTitle?: boolean;
   rightContent?: React.ReactNode;
   leftContent?: React.ReactNode;
+  showPointsEarnedToday?: boolean;
 }
 
 const Header = ({
@@ -23,6 +24,7 @@ const Header = ({
   showTitle = false,
   rightContent,
   leftContent,
+  showPointsEarnedToday = false,
 }: HeaderProps) => {
   const router = useRouter();
   const { context } = useMiniKit();
@@ -56,6 +58,7 @@ const Header = ({
         )}
         {leftContent}
         <PointsChip fid={context?.user?.fid ?? 0} />
+        {showPointsEarnedToday && <PointsEarnedTodayChip fid={context?.user?.fid ?? 0} />}
         {showTitle && (
           <Typography variant="h2" fontSize={18} fontWeight={600} color="white">
             {title}

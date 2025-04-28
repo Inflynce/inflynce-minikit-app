@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <Box width="100%" height="100%" sx={{ bgcolor: '#121212', color: 'white' }}>
-      <Header title="MindShare" showAvatar={true} />
+      <Header title="MindShare" showAvatar={true} showPointsEarnedToday={true} />
       <TabContext value={value}>
         <Box
           sx={{

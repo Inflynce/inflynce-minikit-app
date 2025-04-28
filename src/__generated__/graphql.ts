@@ -4069,6 +4069,30 @@ export type GetMindshareByFidQuery = {
     | null;
 };
 
+export type GetPointTransactionByFidQueryVariables = Exact<{
+  fid: Scalars['String']['input'];
+  type: Scalars['String']['input'];
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type GetPointTransactionByFidQuery = {
+  __typename?: 'query_root';
+  point_transactions: Array<{
+    __typename?: 'point_transactions';
+    date?: any | null;
+    createdAt?: any | null;
+    direction: string;
+    fid: string;
+    id: any;
+    mindshare?: any | null;
+    points: any;
+    reason?: string | null;
+    type: string;
+    usdcAmount?: any | null;
+  }>;
+};
+
 export type GetPointsByFidQueryVariables = Exact<{
   fid: Scalars['String']['input'];
 }>;
@@ -4650,6 +4674,131 @@ export const GetMindshareByFidDocument = {
     },
   ],
 } as unknown as DocumentNode<GetMindshareByFidQuery, GetMindshareByFidQueryVariables>;
+export const GetPointTransactionByFidDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetPointTransactionByFid' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'type' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'point_transactions' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'fid' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'type' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'type' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'date' },
+                      value: { kind: 'EnumValue', value: 'desc' },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'limit' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'offset' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'date' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'direction' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'mindshare' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'points' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'reason' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'usdcAmount' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetPointTransactionByFidQuery, GetPointTransactionByFidQueryVariables>;
 export const GetPointsByFidDocument = {
   kind: 'Document',
   definitions: [

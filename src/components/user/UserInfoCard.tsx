@@ -83,6 +83,7 @@ export const UserInfoCard: React.FC<{
             <ShareIconButton
               fid={user.fid?.toString() ?? '0'}
               displayName={user.displayName}
+              userName={user.username}
               mindshare={mindshare?.currentMindshare}
             />
           </Box>

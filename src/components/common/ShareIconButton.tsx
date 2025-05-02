@@ -37,7 +37,6 @@ export default function ShareIconButton({
         shareText = `Check out @${userName}'s profile on @inflynce! What's your Mindshare Score and Inflynce Points?`;
       }
 
-
       await sdk.actions.composeCast({
         text: shareText,
         embeds: [shareUrl],

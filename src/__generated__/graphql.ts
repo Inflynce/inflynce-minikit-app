@@ -6089,6 +6089,20 @@ export type GetTopMindshareQuery = {
   > | null;
 };
 
+export type GetUserRankQueryVariables = Exact<{
+  fid: Scalars['String']['input'];
+}>;
+
+export type GetUserRankQuery = {
+  __typename?: 'query_root';
+  user_rank_view: Array<{
+    __typename?: 'user_rank_view';
+    fid?: string | null;
+    rank?: any | null;
+    totalPoints?: any | null;
+  }>;
+};
+
 export type GetVoteAggregatesQueryVariables = Exact<{
   snapshotId: Scalars['uuid']['input'];
 }>;
@@ -7417,6 +7431,68 @@ export const GetTopMindshareDocument = {
     },
   ],
 } as unknown as DocumentNode<GetTopMindshareQuery, GetTopMindshareQueryVariables>;
+export const GetUserRankDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetUserRank' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'user_rank_view' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'fid' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'rank' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'totalPoints' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetUserRankQuery, GetUserRankQueryVariables>;
 export const GetVoteAggregatesDocument = {
   kind: 'Document',
   definitions: [

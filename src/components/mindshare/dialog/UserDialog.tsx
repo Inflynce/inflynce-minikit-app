@@ -80,6 +80,7 @@ export const UserDialog: React.FC<UserDialogProps> = ({
           <ShareIconButton
             fid={userInfo?.fid?.toString() ?? '0'}
             displayName={userInfo?.displayName}
+            userName={userInfo?.username}
             mindshare={mindshare?.currentMindshare}
           />
         </Box>

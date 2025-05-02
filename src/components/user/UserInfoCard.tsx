@@ -39,8 +39,8 @@ export const UserInfoCard: React.FC<{
 }> = ({ user, customElement, mindshare }) => {
   return (
     <StyledCard elevation={0}>
-      <Box p={2.5} sx={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
-        <Stack direction="row" spacing={2} alignItems="flex-start">
+      <Box py={2} px={1} sx={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        <Stack direction="row" spacing={2} alignItems="flex-start" justifyContent="center">
           <StyledAvatar src={user.pfpUrl} alt={user.displayName} />
 
           <Box flex={1}>

@@ -13,6 +13,7 @@ export const MINDSHARE_DURATION = {
 
 export const POINT_TRANSACTION_TYPE = {
   DAILY: 'daily_reward',
+  DAILY_TASK: 'daily_task',
   PURCHASE: 'purchase',
   REDEEM: 'redeem',
   CONSUME: 'consume',

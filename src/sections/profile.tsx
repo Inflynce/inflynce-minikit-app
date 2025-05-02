@@ -148,7 +148,7 @@ export default function Profile() {
           </AppBar>
         }
       />
-      <Box p={1} sx={{ height: '100%', bgcolor: '#121212' }}>
+      <Box p={1} sx={{ height: 'auto', bgcolor: '#121212' }}>
         <TabPanel value={tabValue} index={0} dir={theme.direction}>
           <StyledCard>
             <Typography sx={{ color: 'white' }}>Mindshare Summary</Typography>

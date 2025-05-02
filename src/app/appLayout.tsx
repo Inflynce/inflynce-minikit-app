@@ -19,7 +19,7 @@ import { useMiniKit, useAddFrame } from '@coinbase/onchainkit/minikit';
 import { useIdentityToken } from '@privy-io/react-auth';
 import { useMutation } from '@tanstack/react-query';
 import { PostNotificationTokenMutationOptions } from '@/queryFn/postNotificationToken';
-
+import { handleFarcasterLogin } from '@/utils/auth';
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -48,15 +48,7 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
   useEffect(() => {
     if (ready && !authenticated) {
       const login = async () => {
-        // Initialize a new login attempt to get a nonce for the Farcaster wallet to sign
-        const { nonce } = await initLoginToFrame();
-        // Request a signature from Warpcast
-        const result = await frameSdk.actions.signIn({ nonce: nonce });
-        // Send the received signature from Warpcast to Privy for authentication
-        await loginToFrame({
-          message: result.message,
-          signature: result.signature,
-        });
+        await handleFarcasterLogin(initLoginToFrame, loginToFrame);
       };
       login();
     }

@@ -3,19 +3,22 @@ import {
   Point_Transactions,
   GetPointTransactionByFidQueryVariables,
 } from '@/__generated__/graphql';
-import { GetPointTransactionByFidGql } from '@/gql/getPointTransaction';
+import {
+  GetPointTransactionByFidAndTypeGql,
+  GetPointTransactionByFidGql,
+} from '@/gql/getPointTransaction';
 import { UseInfiniteQueryOptions, UseQueryOptions } from '@tanstack/react-query';
 import { queryFn, getNextPageParam, getPreviousPageParam } from './queryFn';
 
 interface GetPointTransactionsByFidProps {
-  variables: GetPointTransactionByFidQueryVariables;
+  variables: GetPointTransactionByFidQueryVariables & { type?: string };
 }
 
 export const GetPointTransactionsByFid = async ({
   variables,
 }: GetPointTransactionsByFidProps): Promise<Point_Transactions[]> => {
   const data = (await queryFn({
-    document: GetPointTransactionByFidGql,
+    document: variables.type ? GetPointTransactionByFidAndTypeGql : GetPointTransactionByFidGql,
     variables,
   })) as GetPointTransactionByFidQuery;
 

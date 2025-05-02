@@ -25,6 +25,19 @@ export type Scalars = {
   uuid: { input: any; output: any };
 };
 
+/** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
+export type Boolean_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['Boolean']['input']>;
+  _gt?: InputMaybe<Scalars['Boolean']['input']>;
+  _gte?: InputMaybe<Scalars['Boolean']['input']>;
+  _in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['Boolean']['input']>;
+  _lte?: InputMaybe<Scalars['Boolean']['input']>;
+  _neq?: InputMaybe<Scalars['Boolean']['input']>;
+  _nin?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+};
+
 export type CryptoPriceOutput = {
   __typename?: 'CryptoPriceOutput';
   phavercoin?: Maybe<CurrencyPrice>;
@@ -59,6 +72,19 @@ export type GetMindshareInput = {
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
+/** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
+export type Int_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['Int']['input']>;
+  _gt?: InputMaybe<Scalars['Int']['input']>;
+  _gte?: InputMaybe<Scalars['Int']['input']>;
+  _in?: InputMaybe<Array<Scalars['Int']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['Int']['input']>;
+  _lte?: InputMaybe<Scalars['Int']['input']>;
+  _neq?: InputMaybe<Scalars['Int']['input']>;
+  _nin?: InputMaybe<Array<Scalars['Int']['input']>>;
+};
+
 export type MindshareResult = {
   __typename?: 'MindshareResult';
   change3d: Scalars['Float']['output'];
@@ -76,6 +102,15 @@ export type MindshareResult = {
   rank: Scalars['Int']['output'];
   time: Scalars['String']['output'];
   userInfo: UserInfo;
+};
+
+export type PostTasksInput = {
+  userId: Scalars['String']['input'];
+};
+
+export type PostTasksOutput = {
+  __typename?: 'PostTasksOutput';
+  status?: Maybe<Scalars['Int']['output']>;
 };
 
 export type PostVoteRecordInput = {
@@ -126,6 +161,16 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type UpdateTaskInput = {
+  taskId: Scalars['String']['input'];
+};
+
+export type UpdateTaskOutput = {
+  __typename?: 'UpdateTaskOutput';
+  message?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Scalars['Int']['output']>;
+};
+
 export type User = {
   __typename?: 'User';
   displayName?: Maybe<Scalars['String']['output']>;
@@ -152,6 +197,211 @@ export type UserInfo = {
   username: Scalars['String']['output'];
 };
 
+/** columns and relationships of "action_types" */
+export type Action_Types = {
+  __typename?: 'action_types';
+  id: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+};
+
+/** aggregated selection of "action_types" */
+export type Action_Types_Aggregate = {
+  __typename?: 'action_types_aggregate';
+  aggregate?: Maybe<Action_Types_Aggregate_Fields>;
+  nodes: Array<Action_Types>;
+};
+
+/** aggregate fields of "action_types" */
+export type Action_Types_Aggregate_Fields = {
+  __typename?: 'action_types_aggregate_fields';
+  avg?: Maybe<Action_Types_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Action_Types_Max_Fields>;
+  min?: Maybe<Action_Types_Min_Fields>;
+  stddev?: Maybe<Action_Types_Stddev_Fields>;
+  stddev_pop?: Maybe<Action_Types_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Action_Types_Stddev_Samp_Fields>;
+  sum?: Maybe<Action_Types_Sum_Fields>;
+  var_pop?: Maybe<Action_Types_Var_Pop_Fields>;
+  var_samp?: Maybe<Action_Types_Var_Samp_Fields>;
+  variance?: Maybe<Action_Types_Variance_Fields>;
+};
+
+/** aggregate fields of "action_types" */
+export type Action_Types_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Action_Types_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Action_Types_Avg_Fields = {
+  __typename?: 'action_types_avg_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "action_types". All fields are combined with a logical 'AND'. */
+export type Action_Types_Bool_Exp = {
+  _and?: InputMaybe<Array<Action_Types_Bool_Exp>>;
+  _not?: InputMaybe<Action_Types_Bool_Exp>;
+  _or?: InputMaybe<Array<Action_Types_Bool_Exp>>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "action_types" */
+export enum Action_Types_Constraint {
+  /** unique or primary key constraint on columns "name" */
+  ActionTypesNameKey = 'action_types_name_key',
+  /** unique or primary key constraint on columns "id" */
+  ActionTypesPkey = 'action_types_pkey',
+}
+
+/** input type for incrementing numeric columns in table "action_types" */
+export type Action_Types_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "action_types" */
+export type Action_Types_Insert_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type Action_Types_Max_Fields = {
+  __typename?: 'action_types_max_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type Action_Types_Min_Fields = {
+  __typename?: 'action_types_min_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "action_types" */
+export type Action_Types_Mutation_Response = {
+  __typename?: 'action_types_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Action_Types>;
+};
+
+/** input type for inserting object relation for remote table "action_types" */
+export type Action_Types_Obj_Rel_Insert_Input = {
+  data: Action_Types_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Action_Types_On_Conflict>;
+};
+
+/** on_conflict condition type for table "action_types" */
+export type Action_Types_On_Conflict = {
+  constraint: Action_Types_Constraint;
+  update_columns?: Array<Action_Types_Update_Column>;
+  where?: InputMaybe<Action_Types_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "action_types". */
+export type Action_Types_Order_By = {
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: action_types */
+export type Action_Types_Pk_Columns_Input = {
+  id: Scalars['Int']['input'];
+};
+
+/** select columns of table "action_types" */
+export enum Action_Types_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+}
+
+/** input type for updating data in table "action_types" */
+export type Action_Types_Set_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Action_Types_Stddev_Fields = {
+  __typename?: 'action_types_stddev_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Action_Types_Stddev_Pop_Fields = {
+  __typename?: 'action_types_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Action_Types_Stddev_Samp_Fields = {
+  __typename?: 'action_types_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "action_types" */
+export type Action_Types_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Action_Types_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Action_Types_Stream_Cursor_Value_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Action_Types_Sum_Fields = {
+  __typename?: 'action_types_sum_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** update columns of table "action_types" */
+export enum Action_Types_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+}
+
+export type Action_Types_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Action_Types_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Action_Types_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Action_Types_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Action_Types_Var_Pop_Fields = {
+  __typename?: 'action_types_var_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Action_Types_Var_Samp_Fields = {
+  __typename?: 'action_types_var_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Action_Types_Variance_Fields = {
+  __typename?: 'action_types_variance_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
 /** ordering argument of a cursor */
 export enum Cursor_Ordering {
   /** ascending ordering of the cursor */
@@ -176,6 +426,10 @@ export type Date_Comparison_Exp = {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
+  /** delete data from the table: "action_types" */
+  delete_action_types?: Maybe<Action_Types_Mutation_Response>;
+  /** delete single row from the table: "action_types" */
+  delete_action_types_by_pk?: Maybe<Action_Types>;
   /** delete data from the table: "point_transaction_directions" */
   delete_point_transaction_directions?: Maybe<Point_Transaction_Directions_Mutation_Response>;
   /** delete single row from the table: "point_transaction_directions" */
@@ -188,6 +442,14 @@ export type Mutation_Root = {
   delete_point_transactions?: Maybe<Point_Transactions_Mutation_Response>;
   /** delete single row from the table: "point_transactions" */
   delete_point_transactions_by_pk?: Maybe<Point_Transactions>;
+  /** delete data from the table: "task_types" */
+  delete_task_types?: Maybe<Task_Types_Mutation_Response>;
+  /** delete single row from the table: "task_types" */
+  delete_task_types_by_pk?: Maybe<Task_Types>;
+  /** delete data from the table: "tasks" */
+  delete_tasks?: Maybe<Tasks_Mutation_Response>;
+  /** delete single row from the table: "tasks" */
+  delete_tasks_by_pk?: Maybe<Tasks>;
   /** delete data from the table: "user_notification_tokens" */
   delete_user_notification_tokens?: Maybe<User_Notification_Tokens_Mutation_Response>;
   /** delete single row from the table: "user_notification_tokens" */
@@ -196,6 +458,10 @@ export type Mutation_Root = {
   delete_user_points?: Maybe<User_Points_Mutation_Response>;
   /** delete single row from the table: "user_points" */
   delete_user_points_by_pk?: Maybe<User_Points>;
+  /** delete data from the table: "user_tasks" */
+  delete_user_tasks?: Maybe<User_Tasks_Mutation_Response>;
+  /** delete single row from the table: "user_tasks" */
+  delete_user_tasks_by_pk?: Maybe<User_Tasks>;
   /** delete data from the table: "vote_outcome" */
   delete_vote_outcome?: Maybe<Vote_Outcome_Mutation_Response>;
   /** delete single row from the table: "vote_outcome" */
@@ -224,6 +490,10 @@ export type Mutation_Root = {
   delete_vote_type?: Maybe<Vote_Type_Mutation_Response>;
   /** delete single row from the table: "vote_type" */
   delete_vote_type_by_pk?: Maybe<Vote_Type>;
+  /** insert data into the table: "action_types" */
+  insert_action_types?: Maybe<Action_Types_Mutation_Response>;
+  /** insert a single row into the table: "action_types" */
+  insert_action_types_one?: Maybe<Action_Types>;
   /** insert data into the table: "point_transaction_directions" */
   insert_point_transaction_directions?: Maybe<Point_Transaction_Directions_Mutation_Response>;
   /** insert a single row into the table: "point_transaction_directions" */
@@ -236,6 +506,14 @@ export type Mutation_Root = {
   insert_point_transactions?: Maybe<Point_Transactions_Mutation_Response>;
   /** insert a single row into the table: "point_transactions" */
   insert_point_transactions_one?: Maybe<Point_Transactions>;
+  /** insert data into the table: "task_types" */
+  insert_task_types?: Maybe<Task_Types_Mutation_Response>;
+  /** insert a single row into the table: "task_types" */
+  insert_task_types_one?: Maybe<Task_Types>;
+  /** insert data into the table: "tasks" */
+  insert_tasks?: Maybe<Tasks_Mutation_Response>;
+  /** insert a single row into the table: "tasks" */
+  insert_tasks_one?: Maybe<Tasks>;
   /** insert data into the table: "user_notification_tokens" */
   insert_user_notification_tokens?: Maybe<User_Notification_Tokens_Mutation_Response>;
   /** insert a single row into the table: "user_notification_tokens" */
@@ -244,6 +522,10 @@ export type Mutation_Root = {
   insert_user_points?: Maybe<User_Points_Mutation_Response>;
   /** insert a single row into the table: "user_points" */
   insert_user_points_one?: Maybe<User_Points>;
+  /** insert data into the table: "user_tasks" */
+  insert_user_tasks?: Maybe<User_Tasks_Mutation_Response>;
+  /** insert a single row into the table: "user_tasks" */
+  insert_user_tasks_one?: Maybe<User_Tasks>;
   /** insert data into the table: "vote_outcome" */
   insert_vote_outcome?: Maybe<Vote_Outcome_Mutation_Response>;
   /** insert a single row into the table: "vote_outcome" */
@@ -272,8 +554,18 @@ export type Mutation_Root = {
   insert_vote_type?: Maybe<Vote_Type_Mutation_Response>;
   /** insert a single row into the table: "vote_type" */
   insert_vote_type_one?: Maybe<Vote_Type>;
+  /** postTasks */
+  postTasks?: Maybe<PostTasksOutput>;
   /** postVoteRecord */
   postVoteRecord?: Maybe<PostVoteRecordOutput>;
+  /** updateTask */
+  updateTask?: Maybe<UpdateTaskOutput>;
+  /** update data of the table: "action_types" */
+  update_action_types?: Maybe<Action_Types_Mutation_Response>;
+  /** update single row of the table: "action_types" */
+  update_action_types_by_pk?: Maybe<Action_Types>;
+  /** update multiples rows of table: "action_types" */
+  update_action_types_many?: Maybe<Array<Maybe<Action_Types_Mutation_Response>>>;
   /** update data of the table: "point_transaction_directions" */
   update_point_transaction_directions?: Maybe<Point_Transaction_Directions_Mutation_Response>;
   /** update single row of the table: "point_transaction_directions" */
@@ -296,6 +588,18 @@ export type Mutation_Root = {
   update_point_transactions_by_pk?: Maybe<Point_Transactions>;
   /** update multiples rows of table: "point_transactions" */
   update_point_transactions_many?: Maybe<Array<Maybe<Point_Transactions_Mutation_Response>>>;
+  /** update data of the table: "task_types" */
+  update_task_types?: Maybe<Task_Types_Mutation_Response>;
+  /** update single row of the table: "task_types" */
+  update_task_types_by_pk?: Maybe<Task_Types>;
+  /** update multiples rows of table: "task_types" */
+  update_task_types_many?: Maybe<Array<Maybe<Task_Types_Mutation_Response>>>;
+  /** update data of the table: "tasks" */
+  update_tasks?: Maybe<Tasks_Mutation_Response>;
+  /** update single row of the table: "tasks" */
+  update_tasks_by_pk?: Maybe<Tasks>;
+  /** update multiples rows of table: "tasks" */
+  update_tasks_many?: Maybe<Array<Maybe<Tasks_Mutation_Response>>>;
   /** update data of the table: "user_notification_tokens" */
   update_user_notification_tokens?: Maybe<User_Notification_Tokens_Mutation_Response>;
   /** update single row of the table: "user_notification_tokens" */
@@ -310,6 +614,12 @@ export type Mutation_Root = {
   update_user_points_by_pk?: Maybe<User_Points>;
   /** update multiples rows of table: "user_points" */
   update_user_points_many?: Maybe<Array<Maybe<User_Points_Mutation_Response>>>;
+  /** update data of the table: "user_tasks" */
+  update_user_tasks?: Maybe<User_Tasks_Mutation_Response>;
+  /** update single row of the table: "user_tasks" */
+  update_user_tasks_by_pk?: Maybe<User_Tasks>;
+  /** update multiples rows of table: "user_tasks" */
+  update_user_tasks_many?: Maybe<Array<Maybe<User_Tasks_Mutation_Response>>>;
   /** update data of the table: "vote_outcome" */
   update_vote_outcome?: Maybe<Vote_Outcome_Mutation_Response>;
   /** update single row of the table: "vote_outcome" */
@@ -355,6 +665,16 @@ export type Mutation_Root = {
 };
 
 /** mutation root */
+export type Mutation_RootDelete_Action_TypesArgs = {
+  where: Action_Types_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Action_Types_By_PkArgs = {
+  id: Scalars['Int']['input'];
+};
+
+/** mutation root */
 export type Mutation_RootDelete_Point_Transaction_DirectionsArgs = {
   where: Point_Transaction_Directions_Bool_Exp;
 };
@@ -385,6 +705,26 @@ export type Mutation_RootDelete_Point_Transactions_By_PkArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootDelete_Task_TypesArgs = {
+  where: Task_Types_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Task_Types_By_PkArgs = {
+  id: Scalars['Int']['input'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_TasksArgs = {
+  where: Tasks_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Tasks_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+/** mutation root */
 export type Mutation_RootDelete_User_Notification_TokensArgs = {
   where: User_Notification_Tokens_Bool_Exp;
 };
@@ -402,6 +742,16 @@ export type Mutation_RootDelete_User_PointsArgs = {
 /** mutation root */
 export type Mutation_RootDelete_User_Points_By_PkArgs = {
   fid: Scalars['String']['input'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_User_TasksArgs = {
+  where: User_Tasks_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_User_Tasks_By_PkArgs = {
+  id: Scalars['uuid']['input'];
 };
 
 /** mutation root */
@@ -475,6 +825,18 @@ export type Mutation_RootDelete_Vote_Type_By_PkArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootInsert_Action_TypesArgs = {
+  objects: Array<Action_Types_Insert_Input>;
+  on_conflict?: InputMaybe<Action_Types_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Action_Types_OneArgs = {
+  object: Action_Types_Insert_Input;
+  on_conflict?: InputMaybe<Action_Types_On_Conflict>;
+};
+
+/** mutation root */
 export type Mutation_RootInsert_Point_Transaction_DirectionsArgs = {
   objects: Array<Point_Transaction_Directions_Insert_Input>;
   on_conflict?: InputMaybe<Point_Transaction_Directions_On_Conflict>;
@@ -511,6 +873,30 @@ export type Mutation_RootInsert_Point_Transactions_OneArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootInsert_Task_TypesArgs = {
+  objects: Array<Task_Types_Insert_Input>;
+  on_conflict?: InputMaybe<Task_Types_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Task_Types_OneArgs = {
+  object: Task_Types_Insert_Input;
+  on_conflict?: InputMaybe<Task_Types_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_TasksArgs = {
+  objects: Array<Tasks_Insert_Input>;
+  on_conflict?: InputMaybe<Tasks_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Tasks_OneArgs = {
+  object: Tasks_Insert_Input;
+  on_conflict?: InputMaybe<Tasks_On_Conflict>;
+};
+
+/** mutation root */
 export type Mutation_RootInsert_User_Notification_TokensArgs = {
   objects: Array<User_Notification_Tokens_Insert_Input>;
   on_conflict?: InputMaybe<User_Notification_Tokens_On_Conflict>;
@@ -532,6 +918,18 @@ export type Mutation_RootInsert_User_PointsArgs = {
 export type Mutation_RootInsert_User_Points_OneArgs = {
   object: User_Points_Insert_Input;
   on_conflict?: InputMaybe<User_Points_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_User_TasksArgs = {
+  objects: Array<User_Tasks_Insert_Input>;
+  on_conflict?: InputMaybe<User_Tasks_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_User_Tasks_OneArgs = {
+  object: User_Tasks_Insert_Input;
+  on_conflict?: InputMaybe<User_Tasks_On_Conflict>;
 };
 
 /** mutation root */
@@ -619,8 +1017,37 @@ export type Mutation_RootInsert_Vote_Type_OneArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootPostTasksArgs = {
+  input: PostTasksInput;
+};
+
+/** mutation root */
 export type Mutation_RootPostVoteRecordArgs = {
   input: PostVoteRecordInput;
+};
+
+/** mutation root */
+export type Mutation_RootUpdateTaskArgs = {
+  input: UpdateTaskInput;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Action_TypesArgs = {
+  _inc?: InputMaybe<Action_Types_Inc_Input>;
+  _set?: InputMaybe<Action_Types_Set_Input>;
+  where: Action_Types_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Action_Types_By_PkArgs = {
+  _inc?: InputMaybe<Action_Types_Inc_Input>;
+  _set?: InputMaybe<Action_Types_Set_Input>;
+  pk_columns: Action_Types_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Action_Types_ManyArgs = {
+  updates: Array<Action_Types_Updates>;
 };
 
 /** mutation root */
@@ -677,6 +1104,44 @@ export type Mutation_RootUpdate_Point_Transactions_ManyArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootUpdate_Task_TypesArgs = {
+  _inc?: InputMaybe<Task_Types_Inc_Input>;
+  _set?: InputMaybe<Task_Types_Set_Input>;
+  where: Task_Types_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Task_Types_By_PkArgs = {
+  _inc?: InputMaybe<Task_Types_Inc_Input>;
+  _set?: InputMaybe<Task_Types_Set_Input>;
+  pk_columns: Task_Types_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Task_Types_ManyArgs = {
+  updates: Array<Task_Types_Updates>;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_TasksArgs = {
+  _inc?: InputMaybe<Tasks_Inc_Input>;
+  _set?: InputMaybe<Tasks_Set_Input>;
+  where: Tasks_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Tasks_By_PkArgs = {
+  _inc?: InputMaybe<Tasks_Inc_Input>;
+  _set?: InputMaybe<Tasks_Set_Input>;
+  pk_columns: Tasks_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Tasks_ManyArgs = {
+  updates: Array<Tasks_Updates>;
+};
+
+/** mutation root */
 export type Mutation_RootUpdate_User_Notification_TokensArgs = {
   _set?: InputMaybe<User_Notification_Tokens_Set_Input>;
   where: User_Notification_Tokens_Bool_Exp;
@@ -710,6 +1175,25 @@ export type Mutation_RootUpdate_User_Points_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_User_Points_ManyArgs = {
   updates: Array<User_Points_Updates>;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_User_TasksArgs = {
+  _inc?: InputMaybe<User_Tasks_Inc_Input>;
+  _set?: InputMaybe<User_Tasks_Set_Input>;
+  where: User_Tasks_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_User_Tasks_By_PkArgs = {
+  _inc?: InputMaybe<User_Tasks_Inc_Input>;
+  _set?: InputMaybe<User_Tasks_Set_Input>;
+  pk_columns: User_Tasks_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_User_Tasks_ManyArgs = {
+  updates: Array<User_Tasks_Updates>;
 };
 
 /** mutation root */
@@ -1141,8 +1625,11 @@ export type Point_Transactions = {
   mindshare?: Maybe<Scalars['numeric']['output']>;
   points: Scalars['numeric']['output'];
   reason?: Maybe<Scalars['String']['output']>;
+  taskId?: Maybe<Scalars['uuid']['output']>;
   type: Scalars['String']['output'];
   usdcAmount?: Maybe<Scalars['numeric']['output']>;
+  /** An object relationship */
+  userTask?: Maybe<User_Tasks>;
 };
 
 /** aggregated selection of "point_transactions" */
@@ -1195,8 +1682,10 @@ export type Point_Transactions_Bool_Exp = {
   mindshare?: InputMaybe<Numeric_Comparison_Exp>;
   points?: InputMaybe<Numeric_Comparison_Exp>;
   reason?: InputMaybe<String_Comparison_Exp>;
+  taskId?: InputMaybe<Uuid_Comparison_Exp>;
   type?: InputMaybe<String_Comparison_Exp>;
   usdcAmount?: InputMaybe<Numeric_Comparison_Exp>;
+  userTask?: InputMaybe<User_Tasks_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "point_transactions" */
@@ -1222,8 +1711,10 @@ export type Point_Transactions_Insert_Input = {
   mindshare?: InputMaybe<Scalars['numeric']['input']>;
   points?: InputMaybe<Scalars['numeric']['input']>;
   reason?: InputMaybe<Scalars['String']['input']>;
+  taskId?: InputMaybe<Scalars['uuid']['input']>;
   type?: InputMaybe<Scalars['String']['input']>;
   usdcAmount?: InputMaybe<Scalars['numeric']['input']>;
+  userTask?: InputMaybe<User_Tasks_Obj_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -1237,6 +1728,7 @@ export type Point_Transactions_Max_Fields = {
   mindshare?: Maybe<Scalars['numeric']['output']>;
   points?: Maybe<Scalars['numeric']['output']>;
   reason?: Maybe<Scalars['String']['output']>;
+  taskId?: Maybe<Scalars['uuid']['output']>;
   type?: Maybe<Scalars['String']['output']>;
   usdcAmount?: Maybe<Scalars['numeric']['output']>;
 };
@@ -1252,6 +1744,7 @@ export type Point_Transactions_Min_Fields = {
   mindshare?: Maybe<Scalars['numeric']['output']>;
   points?: Maybe<Scalars['numeric']['output']>;
   reason?: Maybe<Scalars['String']['output']>;
+  taskId?: Maybe<Scalars['uuid']['output']>;
   type?: Maybe<Scalars['String']['output']>;
   usdcAmount?: Maybe<Scalars['numeric']['output']>;
 };
@@ -1282,8 +1775,10 @@ export type Point_Transactions_Order_By = {
   mindshare?: InputMaybe<Order_By>;
   points?: InputMaybe<Order_By>;
   reason?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
   usdcAmount?: InputMaybe<Order_By>;
+  userTask?: InputMaybe<User_Tasks_Order_By>;
 };
 
 /** primary key columns input for table: point_transactions */
@@ -1310,6 +1805,8 @@ export enum Point_Transactions_Select_Column {
   /** column name */
   Reason = 'reason',
   /** column name */
+  TaskId = 'taskId',
+  /** column name */
   Type = 'type',
   /** column name */
   UsdcAmount = 'usdcAmount',
@@ -1325,6 +1822,7 @@ export type Point_Transactions_Set_Input = {
   mindshare?: InputMaybe<Scalars['numeric']['input']>;
   points?: InputMaybe<Scalars['numeric']['input']>;
   reason?: InputMaybe<Scalars['String']['input']>;
+  taskId?: InputMaybe<Scalars['uuid']['input']>;
   type?: InputMaybe<Scalars['String']['input']>;
   usdcAmount?: InputMaybe<Scalars['numeric']['input']>;
 };
@@ -1371,6 +1869,7 @@ export type Point_Transactions_Stream_Cursor_Value_Input = {
   mindshare?: InputMaybe<Scalars['numeric']['input']>;
   points?: InputMaybe<Scalars['numeric']['input']>;
   reason?: InputMaybe<Scalars['String']['input']>;
+  taskId?: InputMaybe<Scalars['uuid']['input']>;
   type?: InputMaybe<Scalars['String']['input']>;
   usdcAmount?: InputMaybe<Scalars['numeric']['input']>;
 };
@@ -1401,6 +1900,8 @@ export enum Point_Transactions_Update_Column {
   Points = 'points',
   /** column name */
   Reason = 'reason',
+  /** column name */
+  TaskId = 'taskId',
   /** column name */
   Type = 'type',
   /** column name */
@@ -1442,6 +1943,12 @@ export type Point_Transactions_Variance_Fields = {
 
 export type Query_Root = {
   __typename?: 'query_root';
+  /** fetch data from the table: "action_types" */
+  action_types: Array<Action_Types>;
+  /** fetch aggregated fields from the table: "action_types" */
+  action_types_aggregate: Action_Types_Aggregate;
+  /** fetch data from the table: "action_types" using primary key columns */
+  action_types_by_pk?: Maybe<Action_Types>;
   /** getCryptoPrice */
   getCryptoPrice?: Maybe<CryptoPriceOutput>;
   getMindshareByFid?: Maybe<MindshareResult>;
@@ -1464,6 +1971,18 @@ export type Query_Root = {
   point_transactions_aggregate: Point_Transactions_Aggregate;
   /** fetch data from the table: "point_transactions" using primary key columns */
   point_transactions_by_pk?: Maybe<Point_Transactions>;
+  /** fetch data from the table: "task_types" */
+  task_types: Array<Task_Types>;
+  /** fetch aggregated fields from the table: "task_types" */
+  task_types_aggregate: Task_Types_Aggregate;
+  /** fetch data from the table: "task_types" using primary key columns */
+  task_types_by_pk?: Maybe<Task_Types>;
+  /** fetch data from the table: "tasks" */
+  tasks: Array<Tasks>;
+  /** fetch aggregated fields from the table: "tasks" */
+  tasks_aggregate: Tasks_Aggregate;
+  /** fetch data from the table: "tasks" using primary key columns */
+  tasks_by_pk?: Maybe<Tasks>;
   user?: Maybe<User>;
   /** fetch data from the table: "user_notification_tokens" */
   user_notification_tokens: Array<User_Notification_Tokens>;
@@ -1477,6 +1996,12 @@ export type Query_Root = {
   user_points_aggregate: User_Points_Aggregate;
   /** fetch data from the table: "user_points" using primary key columns */
   user_points_by_pk?: Maybe<User_Points>;
+  /** fetch data from the table: "user_tasks" */
+  user_tasks: Array<User_Tasks>;
+  /** fetch aggregated fields from the table: "user_tasks" */
+  user_tasks_aggregate: User_Tasks_Aggregate;
+  /** fetch data from the table: "user_tasks" using primary key columns */
+  user_tasks_by_pk?: Maybe<User_Tasks>;
   /** fetch data from the table: "vote_outcome" */
   vote_outcome: Array<Vote_Outcome>;
   /** fetch aggregated fields from the table: "vote_outcome" */
@@ -1519,6 +2044,26 @@ export type Query_Root = {
   vote_type_aggregate: Vote_Type_Aggregate;
   /** fetch data from the table: "vote_type" using primary key columns */
   vote_type_by_pk?: Maybe<Vote_Type>;
+};
+
+export type Query_RootAction_TypesArgs = {
+  distinct_on?: InputMaybe<Array<Action_Types_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Action_Types_Order_By>>;
+  where?: InputMaybe<Action_Types_Bool_Exp>;
+};
+
+export type Query_RootAction_Types_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Action_Types_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Action_Types_Order_By>>;
+  where?: InputMaybe<Action_Types_Bool_Exp>;
+};
+
+export type Query_RootAction_Types_By_PkArgs = {
+  id: Scalars['Int']['input'];
 };
 
 export type Query_RootGetCryptoPriceArgs = {
@@ -1593,6 +2138,46 @@ export type Query_RootPoint_Transactions_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
+export type Query_RootTask_TypesArgs = {
+  distinct_on?: InputMaybe<Array<Task_Types_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Task_Types_Order_By>>;
+  where?: InputMaybe<Task_Types_Bool_Exp>;
+};
+
+export type Query_RootTask_Types_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Task_Types_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Task_Types_Order_By>>;
+  where?: InputMaybe<Task_Types_Bool_Exp>;
+};
+
+export type Query_RootTask_Types_By_PkArgs = {
+  id: Scalars['Int']['input'];
+};
+
+export type Query_RootTasksArgs = {
+  distinct_on?: InputMaybe<Array<Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Tasks_Order_By>>;
+  where?: InputMaybe<Tasks_Bool_Exp>;
+};
+
+export type Query_RootTasks_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Tasks_Order_By>>;
+  where?: InputMaybe<Tasks_Bool_Exp>;
+};
+
+export type Query_RootTasks_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
 export type Query_RootUserArgs = {
   fid: Scalars['String']['input'];
 };
@@ -1635,6 +2220,26 @@ export type Query_RootUser_Points_AggregateArgs = {
 
 export type Query_RootUser_Points_By_PkArgs = {
   fid: Scalars['String']['input'];
+};
+
+export type Query_RootUser_TasksArgs = {
+  distinct_on?: InputMaybe<Array<User_Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Tasks_Order_By>>;
+  where?: InputMaybe<User_Tasks_Bool_Exp>;
+};
+
+export type Query_RootUser_Tasks_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Tasks_Order_By>>;
+  where?: InputMaybe<User_Tasks_Bool_Exp>;
+};
+
+export type Query_RootUser_Tasks_By_PkArgs = {
+  id: Scalars['uuid']['input'];
 };
 
 export type Query_RootVote_OutcomeArgs = {
@@ -1779,6 +2384,14 @@ export type Query_RootVote_Type_By_PkArgs = {
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
+  /** fetch data from the table: "action_types" */
+  action_types: Array<Action_Types>;
+  /** fetch aggregated fields from the table: "action_types" */
+  action_types_aggregate: Action_Types_Aggregate;
+  /** fetch data from the table: "action_types" using primary key columns */
+  action_types_by_pk?: Maybe<Action_Types>;
+  /** fetch data from the table in a streaming manner: "action_types" */
+  action_types_stream: Array<Action_Types>;
   /** fetch data from the table: "point_transaction_directions" */
   point_transaction_directions: Array<Point_Transaction_Directions>;
   /** fetch aggregated fields from the table: "point_transaction_directions" */
@@ -1803,6 +2416,22 @@ export type Subscription_Root = {
   point_transactions_by_pk?: Maybe<Point_Transactions>;
   /** fetch data from the table in a streaming manner: "point_transactions" */
   point_transactions_stream: Array<Point_Transactions>;
+  /** fetch data from the table: "task_types" */
+  task_types: Array<Task_Types>;
+  /** fetch aggregated fields from the table: "task_types" */
+  task_types_aggregate: Task_Types_Aggregate;
+  /** fetch data from the table: "task_types" using primary key columns */
+  task_types_by_pk?: Maybe<Task_Types>;
+  /** fetch data from the table in a streaming manner: "task_types" */
+  task_types_stream: Array<Task_Types>;
+  /** fetch data from the table: "tasks" */
+  tasks: Array<Tasks>;
+  /** fetch aggregated fields from the table: "tasks" */
+  tasks_aggregate: Tasks_Aggregate;
+  /** fetch data from the table: "tasks" using primary key columns */
+  tasks_by_pk?: Maybe<Tasks>;
+  /** fetch data from the table in a streaming manner: "tasks" */
+  tasks_stream: Array<Tasks>;
   /** fetch data from the table: "user_notification_tokens" */
   user_notification_tokens: Array<User_Notification_Tokens>;
   /** fetch aggregated fields from the table: "user_notification_tokens" */
@@ -1819,6 +2448,14 @@ export type Subscription_Root = {
   user_points_by_pk?: Maybe<User_Points>;
   /** fetch data from the table in a streaming manner: "user_points" */
   user_points_stream: Array<User_Points>;
+  /** fetch data from the table: "user_tasks" */
+  user_tasks: Array<User_Tasks>;
+  /** fetch aggregated fields from the table: "user_tasks" */
+  user_tasks_aggregate: User_Tasks_Aggregate;
+  /** fetch data from the table: "user_tasks" using primary key columns */
+  user_tasks_by_pk?: Maybe<User_Tasks>;
+  /** fetch data from the table in a streaming manner: "user_tasks" */
+  user_tasks_stream: Array<User_Tasks>;
   /** fetch data from the table: "vote_outcome" */
   vote_outcome: Array<Vote_Outcome>;
   /** fetch aggregated fields from the table: "vote_outcome" */
@@ -1875,6 +2512,32 @@ export type Subscription_Root = {
   vote_type_by_pk?: Maybe<Vote_Type>;
   /** fetch data from the table in a streaming manner: "vote_type" */
   vote_type_stream: Array<Vote_Type>;
+};
+
+export type Subscription_RootAction_TypesArgs = {
+  distinct_on?: InputMaybe<Array<Action_Types_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Action_Types_Order_By>>;
+  where?: InputMaybe<Action_Types_Bool_Exp>;
+};
+
+export type Subscription_RootAction_Types_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Action_Types_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Action_Types_Order_By>>;
+  where?: InputMaybe<Action_Types_Bool_Exp>;
+};
+
+export type Subscription_RootAction_Types_By_PkArgs = {
+  id: Scalars['Int']['input'];
+};
+
+export type Subscription_RootAction_Types_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Action_Types_Stream_Cursor_Input>>;
+  where?: InputMaybe<Action_Types_Bool_Exp>;
 };
 
 export type Subscription_RootPoint_Transaction_DirectionsArgs = {
@@ -1955,6 +2618,58 @@ export type Subscription_RootPoint_Transactions_StreamArgs = {
   where?: InputMaybe<Point_Transactions_Bool_Exp>;
 };
 
+export type Subscription_RootTask_TypesArgs = {
+  distinct_on?: InputMaybe<Array<Task_Types_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Task_Types_Order_By>>;
+  where?: InputMaybe<Task_Types_Bool_Exp>;
+};
+
+export type Subscription_RootTask_Types_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Task_Types_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Task_Types_Order_By>>;
+  where?: InputMaybe<Task_Types_Bool_Exp>;
+};
+
+export type Subscription_RootTask_Types_By_PkArgs = {
+  id: Scalars['Int']['input'];
+};
+
+export type Subscription_RootTask_Types_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Task_Types_Stream_Cursor_Input>>;
+  where?: InputMaybe<Task_Types_Bool_Exp>;
+};
+
+export type Subscription_RootTasksArgs = {
+  distinct_on?: InputMaybe<Array<Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Tasks_Order_By>>;
+  where?: InputMaybe<Tasks_Bool_Exp>;
+};
+
+export type Subscription_RootTasks_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Tasks_Order_By>>;
+  where?: InputMaybe<Tasks_Bool_Exp>;
+};
+
+export type Subscription_RootTasks_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Subscription_RootTasks_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Tasks_Stream_Cursor_Input>>;
+  where?: InputMaybe<Tasks_Bool_Exp>;
+};
+
 export type Subscription_RootUser_Notification_TokensArgs = {
   distinct_on?: InputMaybe<Array<User_Notification_Tokens_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2005,6 +2720,32 @@ export type Subscription_RootUser_Points_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<User_Points_Stream_Cursor_Input>>;
   where?: InputMaybe<User_Points_Bool_Exp>;
+};
+
+export type Subscription_RootUser_TasksArgs = {
+  distinct_on?: InputMaybe<Array<User_Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Tasks_Order_By>>;
+  where?: InputMaybe<User_Tasks_Bool_Exp>;
+};
+
+export type Subscription_RootUser_Tasks_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Tasks_Order_By>>;
+  where?: InputMaybe<User_Tasks_Bool_Exp>;
+};
+
+export type Subscription_RootUser_Tasks_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Subscription_RootUser_Tasks_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<User_Tasks_Stream_Cursor_Input>>;
+  where?: InputMaybe<User_Tasks_Bool_Exp>;
 };
 
 export type Subscription_RootVote_OutcomeArgs = {
@@ -2187,6 +2928,571 @@ export type Subscription_RootVote_Type_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Vote_Type_Stream_Cursor_Input>>;
   where?: InputMaybe<Vote_Type_Bool_Exp>;
+};
+
+/** columns and relationships of "task_types" */
+export type Task_Types = {
+  __typename?: 'task_types';
+  id: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+};
+
+/** aggregated selection of "task_types" */
+export type Task_Types_Aggregate = {
+  __typename?: 'task_types_aggregate';
+  aggregate?: Maybe<Task_Types_Aggregate_Fields>;
+  nodes: Array<Task_Types>;
+};
+
+/** aggregate fields of "task_types" */
+export type Task_Types_Aggregate_Fields = {
+  __typename?: 'task_types_aggregate_fields';
+  avg?: Maybe<Task_Types_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Task_Types_Max_Fields>;
+  min?: Maybe<Task_Types_Min_Fields>;
+  stddev?: Maybe<Task_Types_Stddev_Fields>;
+  stddev_pop?: Maybe<Task_Types_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Task_Types_Stddev_Samp_Fields>;
+  sum?: Maybe<Task_Types_Sum_Fields>;
+  var_pop?: Maybe<Task_Types_Var_Pop_Fields>;
+  var_samp?: Maybe<Task_Types_Var_Samp_Fields>;
+  variance?: Maybe<Task_Types_Variance_Fields>;
+};
+
+/** aggregate fields of "task_types" */
+export type Task_Types_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Task_Types_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Task_Types_Avg_Fields = {
+  __typename?: 'task_types_avg_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "task_types". All fields are combined with a logical 'AND'. */
+export type Task_Types_Bool_Exp = {
+  _and?: InputMaybe<Array<Task_Types_Bool_Exp>>;
+  _not?: InputMaybe<Task_Types_Bool_Exp>;
+  _or?: InputMaybe<Array<Task_Types_Bool_Exp>>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "task_types" */
+export enum Task_Types_Constraint {
+  /** unique or primary key constraint on columns "name" */
+  TaskTypesNameKey = 'task_types_name_key',
+  /** unique or primary key constraint on columns "id" */
+  TaskTypesPkey = 'task_types_pkey',
+}
+
+/** input type for incrementing numeric columns in table "task_types" */
+export type Task_Types_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "task_types" */
+export type Task_Types_Insert_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type Task_Types_Max_Fields = {
+  __typename?: 'task_types_max_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type Task_Types_Min_Fields = {
+  __typename?: 'task_types_min_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "task_types" */
+export type Task_Types_Mutation_Response = {
+  __typename?: 'task_types_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Task_Types>;
+};
+
+/** input type for inserting object relation for remote table "task_types" */
+export type Task_Types_Obj_Rel_Insert_Input = {
+  data: Task_Types_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Task_Types_On_Conflict>;
+};
+
+/** on_conflict condition type for table "task_types" */
+export type Task_Types_On_Conflict = {
+  constraint: Task_Types_Constraint;
+  update_columns?: Array<Task_Types_Update_Column>;
+  where?: InputMaybe<Task_Types_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "task_types". */
+export type Task_Types_Order_By = {
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: task_types */
+export type Task_Types_Pk_Columns_Input = {
+  id: Scalars['Int']['input'];
+};
+
+/** select columns of table "task_types" */
+export enum Task_Types_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+}
+
+/** input type for updating data in table "task_types" */
+export type Task_Types_Set_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Task_Types_Stddev_Fields = {
+  __typename?: 'task_types_stddev_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Task_Types_Stddev_Pop_Fields = {
+  __typename?: 'task_types_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Task_Types_Stddev_Samp_Fields = {
+  __typename?: 'task_types_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "task_types" */
+export type Task_Types_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Task_Types_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Task_Types_Stream_Cursor_Value_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Task_Types_Sum_Fields = {
+  __typename?: 'task_types_sum_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** update columns of table "task_types" */
+export enum Task_Types_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+}
+
+export type Task_Types_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Task_Types_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Task_Types_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Task_Types_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Task_Types_Var_Pop_Fields = {
+  __typename?: 'task_types_var_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Task_Types_Var_Samp_Fields = {
+  __typename?: 'task_types_var_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Task_Types_Variance_Fields = {
+  __typename?: 'task_types_variance_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** columns and relationships of "tasks" */
+export type Tasks = {
+  __typename?: 'tasks';
+  /** An object relationship */
+  actionType: Action_Types;
+  actionTypeId: Scalars['Int']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['uuid']['output'];
+  isActive: Scalars['Boolean']['output'];
+  rewardIp: Scalars['Int']['output'];
+  target: Scalars['Int']['output'];
+  /** An object relationship */
+  taskType: Task_Types;
+  taskTypeId: Scalars['Int']['output'];
+  title: Scalars['String']['output'];
+  /** An array relationship */
+  userTasks: Array<User_Tasks>;
+  /** An aggregate relationship */
+  userTasks_aggregate: User_Tasks_Aggregate;
+  validFrom?: Maybe<Scalars['date']['output']>;
+  validUntil?: Maybe<Scalars['date']['output']>;
+};
+
+/** columns and relationships of "tasks" */
+export type TasksUserTasksArgs = {
+  distinct_on?: InputMaybe<Array<User_Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Tasks_Order_By>>;
+  where?: InputMaybe<User_Tasks_Bool_Exp>;
+};
+
+/** columns and relationships of "tasks" */
+export type TasksUserTasks_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Tasks_Order_By>>;
+  where?: InputMaybe<User_Tasks_Bool_Exp>;
+};
+
+/** aggregated selection of "tasks" */
+export type Tasks_Aggregate = {
+  __typename?: 'tasks_aggregate';
+  aggregate?: Maybe<Tasks_Aggregate_Fields>;
+  nodes: Array<Tasks>;
+};
+
+/** aggregate fields of "tasks" */
+export type Tasks_Aggregate_Fields = {
+  __typename?: 'tasks_aggregate_fields';
+  avg?: Maybe<Tasks_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Tasks_Max_Fields>;
+  min?: Maybe<Tasks_Min_Fields>;
+  stddev?: Maybe<Tasks_Stddev_Fields>;
+  stddev_pop?: Maybe<Tasks_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Tasks_Stddev_Samp_Fields>;
+  sum?: Maybe<Tasks_Sum_Fields>;
+  var_pop?: Maybe<Tasks_Var_Pop_Fields>;
+  var_samp?: Maybe<Tasks_Var_Samp_Fields>;
+  variance?: Maybe<Tasks_Variance_Fields>;
+};
+
+/** aggregate fields of "tasks" */
+export type Tasks_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Tasks_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Tasks_Avg_Fields = {
+  __typename?: 'tasks_avg_fields';
+  actionTypeId?: Maybe<Scalars['Float']['output']>;
+  rewardIp?: Maybe<Scalars['Float']['output']>;
+  target?: Maybe<Scalars['Float']['output']>;
+  taskTypeId?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "tasks". All fields are combined with a logical 'AND'. */
+export type Tasks_Bool_Exp = {
+  _and?: InputMaybe<Array<Tasks_Bool_Exp>>;
+  _not?: InputMaybe<Tasks_Bool_Exp>;
+  _or?: InputMaybe<Array<Tasks_Bool_Exp>>;
+  actionType?: InputMaybe<Action_Types_Bool_Exp>;
+  actionTypeId?: InputMaybe<Int_Comparison_Exp>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  isActive?: InputMaybe<Boolean_Comparison_Exp>;
+  rewardIp?: InputMaybe<Int_Comparison_Exp>;
+  target?: InputMaybe<Int_Comparison_Exp>;
+  taskType?: InputMaybe<Task_Types_Bool_Exp>;
+  taskTypeId?: InputMaybe<Int_Comparison_Exp>;
+  title?: InputMaybe<String_Comparison_Exp>;
+  userTasks?: InputMaybe<User_Tasks_Bool_Exp>;
+  userTasks_aggregate?: InputMaybe<User_Tasks_Aggregate_Bool_Exp>;
+  validFrom?: InputMaybe<Date_Comparison_Exp>;
+  validUntil?: InputMaybe<Date_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "tasks" */
+export enum Tasks_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  TasksPkey = 'tasks_pkey',
+}
+
+/** input type for incrementing numeric columns in table "tasks" */
+export type Tasks_Inc_Input = {
+  actionTypeId?: InputMaybe<Scalars['Int']['input']>;
+  rewardIp?: InputMaybe<Scalars['Int']['input']>;
+  target?: InputMaybe<Scalars['Int']['input']>;
+  taskTypeId?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "tasks" */
+export type Tasks_Insert_Input = {
+  actionType?: InputMaybe<Action_Types_Obj_Rel_Insert_Input>;
+  actionTypeId?: InputMaybe<Scalars['Int']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  rewardIp?: InputMaybe<Scalars['Int']['input']>;
+  target?: InputMaybe<Scalars['Int']['input']>;
+  taskType?: InputMaybe<Task_Types_Obj_Rel_Insert_Input>;
+  taskTypeId?: InputMaybe<Scalars['Int']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  userTasks?: InputMaybe<User_Tasks_Arr_Rel_Insert_Input>;
+  validFrom?: InputMaybe<Scalars['date']['input']>;
+  validUntil?: InputMaybe<Scalars['date']['input']>;
+};
+
+/** aggregate max on columns */
+export type Tasks_Max_Fields = {
+  __typename?: 'tasks_max_fields';
+  actionTypeId?: Maybe<Scalars['Int']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  rewardIp?: Maybe<Scalars['Int']['output']>;
+  target?: Maybe<Scalars['Int']['output']>;
+  taskTypeId?: Maybe<Scalars['Int']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  validFrom?: Maybe<Scalars['date']['output']>;
+  validUntil?: Maybe<Scalars['date']['output']>;
+};
+
+/** aggregate min on columns */
+export type Tasks_Min_Fields = {
+  __typename?: 'tasks_min_fields';
+  actionTypeId?: Maybe<Scalars['Int']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  rewardIp?: Maybe<Scalars['Int']['output']>;
+  target?: Maybe<Scalars['Int']['output']>;
+  taskTypeId?: Maybe<Scalars['Int']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  validFrom?: Maybe<Scalars['date']['output']>;
+  validUntil?: Maybe<Scalars['date']['output']>;
+};
+
+/** response of any mutation on the table "tasks" */
+export type Tasks_Mutation_Response = {
+  __typename?: 'tasks_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Tasks>;
+};
+
+/** input type for inserting object relation for remote table "tasks" */
+export type Tasks_Obj_Rel_Insert_Input = {
+  data: Tasks_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Tasks_On_Conflict>;
+};
+
+/** on_conflict condition type for table "tasks" */
+export type Tasks_On_Conflict = {
+  constraint: Tasks_Constraint;
+  update_columns?: Array<Tasks_Update_Column>;
+  where?: InputMaybe<Tasks_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "tasks". */
+export type Tasks_Order_By = {
+  actionType?: InputMaybe<Action_Types_Order_By>;
+  actionTypeId?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  isActive?: InputMaybe<Order_By>;
+  rewardIp?: InputMaybe<Order_By>;
+  target?: InputMaybe<Order_By>;
+  taskType?: InputMaybe<Task_Types_Order_By>;
+  taskTypeId?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+  userTasks_aggregate?: InputMaybe<User_Tasks_Aggregate_Order_By>;
+  validFrom?: InputMaybe<Order_By>;
+  validUntil?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: tasks */
+export type Tasks_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "tasks" */
+export enum Tasks_Select_Column {
+  /** column name */
+  ActionTypeId = 'actionTypeId',
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsActive = 'isActive',
+  /** column name */
+  RewardIp = 'rewardIp',
+  /** column name */
+  Target = 'target',
+  /** column name */
+  TaskTypeId = 'taskTypeId',
+  /** column name */
+  Title = 'title',
+  /** column name */
+  ValidFrom = 'validFrom',
+  /** column name */
+  ValidUntil = 'validUntil',
+}
+
+/** input type for updating data in table "tasks" */
+export type Tasks_Set_Input = {
+  actionTypeId?: InputMaybe<Scalars['Int']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  rewardIp?: InputMaybe<Scalars['Int']['input']>;
+  target?: InputMaybe<Scalars['Int']['input']>;
+  taskTypeId?: InputMaybe<Scalars['Int']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  validFrom?: InputMaybe<Scalars['date']['input']>;
+  validUntil?: InputMaybe<Scalars['date']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Tasks_Stddev_Fields = {
+  __typename?: 'tasks_stddev_fields';
+  actionTypeId?: Maybe<Scalars['Float']['output']>;
+  rewardIp?: Maybe<Scalars['Float']['output']>;
+  target?: Maybe<Scalars['Float']['output']>;
+  taskTypeId?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Tasks_Stddev_Pop_Fields = {
+  __typename?: 'tasks_stddev_pop_fields';
+  actionTypeId?: Maybe<Scalars['Float']['output']>;
+  rewardIp?: Maybe<Scalars['Float']['output']>;
+  target?: Maybe<Scalars['Float']['output']>;
+  taskTypeId?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Tasks_Stddev_Samp_Fields = {
+  __typename?: 'tasks_stddev_samp_fields';
+  actionTypeId?: Maybe<Scalars['Float']['output']>;
+  rewardIp?: Maybe<Scalars['Float']['output']>;
+  target?: Maybe<Scalars['Float']['output']>;
+  taskTypeId?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "tasks" */
+export type Tasks_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Tasks_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Tasks_Stream_Cursor_Value_Input = {
+  actionTypeId?: InputMaybe<Scalars['Int']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  isActive?: InputMaybe<Scalars['Boolean']['input']>;
+  rewardIp?: InputMaybe<Scalars['Int']['input']>;
+  target?: InputMaybe<Scalars['Int']['input']>;
+  taskTypeId?: InputMaybe<Scalars['Int']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  validFrom?: InputMaybe<Scalars['date']['input']>;
+  validUntil?: InputMaybe<Scalars['date']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Tasks_Sum_Fields = {
+  __typename?: 'tasks_sum_fields';
+  actionTypeId?: Maybe<Scalars['Int']['output']>;
+  rewardIp?: Maybe<Scalars['Int']['output']>;
+  target?: Maybe<Scalars['Int']['output']>;
+  taskTypeId?: Maybe<Scalars['Int']['output']>;
+};
+
+/** update columns of table "tasks" */
+export enum Tasks_Update_Column {
+  /** column name */
+  ActionTypeId = 'actionTypeId',
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsActive = 'isActive',
+  /** column name */
+  RewardIp = 'rewardIp',
+  /** column name */
+  Target = 'target',
+  /** column name */
+  TaskTypeId = 'taskTypeId',
+  /** column name */
+  Title = 'title',
+  /** column name */
+  ValidFrom = 'validFrom',
+  /** column name */
+  ValidUntil = 'validUntil',
+}
+
+export type Tasks_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Tasks_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Tasks_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Tasks_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Tasks_Var_Pop_Fields = {
+  __typename?: 'tasks_var_pop_fields';
+  actionTypeId?: Maybe<Scalars['Float']['output']>;
+  rewardIp?: Maybe<Scalars['Float']['output']>;
+  target?: Maybe<Scalars['Float']['output']>;
+  taskTypeId?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Tasks_Var_Samp_Fields = {
+  __typename?: 'tasks_var_samp_fields';
+  actionTypeId?: Maybe<Scalars['Float']['output']>;
+  rewardIp?: Maybe<Scalars['Float']['output']>;
+  target?: Maybe<Scalars['Float']['output']>;
+  taskTypeId?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Tasks_Variance_Fields = {
+  __typename?: 'tasks_variance_fields';
+  actionTypeId?: Maybe<Scalars['Float']['output']>;
+  rewardIp?: Maybe<Scalars['Float']['output']>;
+  target?: Maybe<Scalars['Float']['output']>;
+  taskTypeId?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'. */
@@ -2617,6 +3923,381 @@ export type User_Points_Var_Samp_Fields = {
 export type User_Points_Variance_Fields = {
   __typename?: 'user_points_variance_fields';
   totalPoints?: Maybe<Scalars['Float']['output']>;
+};
+
+/** columns and relationships of "user_tasks" */
+export type User_Tasks = {
+  __typename?: 'user_tasks';
+  completed: Scalars['Boolean']['output'];
+  date: Scalars['date']['output'];
+  id: Scalars['uuid']['output'];
+  progress: Scalars['Int']['output'];
+  /** An object relationship */
+  task: Tasks;
+  taskId: Scalars['uuid']['output'];
+  userId: Scalars['String']['output'];
+};
+
+/** aggregated selection of "user_tasks" */
+export type User_Tasks_Aggregate = {
+  __typename?: 'user_tasks_aggregate';
+  aggregate?: Maybe<User_Tasks_Aggregate_Fields>;
+  nodes: Array<User_Tasks>;
+};
+
+export type User_Tasks_Aggregate_Bool_Exp = {
+  bool_and?: InputMaybe<User_Tasks_Aggregate_Bool_Exp_Bool_And>;
+  bool_or?: InputMaybe<User_Tasks_Aggregate_Bool_Exp_Bool_Or>;
+  count?: InputMaybe<User_Tasks_Aggregate_Bool_Exp_Count>;
+};
+
+export type User_Tasks_Aggregate_Bool_Exp_Bool_And = {
+  arguments: User_Tasks_Select_Column_User_Tasks_Aggregate_Bool_Exp_Bool_And_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<User_Tasks_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
+};
+
+export type User_Tasks_Aggregate_Bool_Exp_Bool_Or = {
+  arguments: User_Tasks_Select_Column_User_Tasks_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<User_Tasks_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
+};
+
+export type User_Tasks_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<User_Tasks_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<User_Tasks_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "user_tasks" */
+export type User_Tasks_Aggregate_Fields = {
+  __typename?: 'user_tasks_aggregate_fields';
+  avg?: Maybe<User_Tasks_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<User_Tasks_Max_Fields>;
+  min?: Maybe<User_Tasks_Min_Fields>;
+  stddev?: Maybe<User_Tasks_Stddev_Fields>;
+  stddev_pop?: Maybe<User_Tasks_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<User_Tasks_Stddev_Samp_Fields>;
+  sum?: Maybe<User_Tasks_Sum_Fields>;
+  var_pop?: Maybe<User_Tasks_Var_Pop_Fields>;
+  var_samp?: Maybe<User_Tasks_Var_Samp_Fields>;
+  variance?: Maybe<User_Tasks_Variance_Fields>;
+};
+
+/** aggregate fields of "user_tasks" */
+export type User_Tasks_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<User_Tasks_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "user_tasks" */
+export type User_Tasks_Aggregate_Order_By = {
+  avg?: InputMaybe<User_Tasks_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<User_Tasks_Max_Order_By>;
+  min?: InputMaybe<User_Tasks_Min_Order_By>;
+  stddev?: InputMaybe<User_Tasks_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<User_Tasks_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<User_Tasks_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<User_Tasks_Sum_Order_By>;
+  var_pop?: InputMaybe<User_Tasks_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<User_Tasks_Var_Samp_Order_By>;
+  variance?: InputMaybe<User_Tasks_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "user_tasks" */
+export type User_Tasks_Arr_Rel_Insert_Input = {
+  data: Array<User_Tasks_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<User_Tasks_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type User_Tasks_Avg_Fields = {
+  __typename?: 'user_tasks_avg_fields';
+  progress?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "user_tasks" */
+export type User_Tasks_Avg_Order_By = {
+  progress?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "user_tasks". All fields are combined with a logical 'AND'. */
+export type User_Tasks_Bool_Exp = {
+  _and?: InputMaybe<Array<User_Tasks_Bool_Exp>>;
+  _not?: InputMaybe<User_Tasks_Bool_Exp>;
+  _or?: InputMaybe<Array<User_Tasks_Bool_Exp>>;
+  completed?: InputMaybe<Boolean_Comparison_Exp>;
+  date?: InputMaybe<Date_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  progress?: InputMaybe<Int_Comparison_Exp>;
+  task?: InputMaybe<Tasks_Bool_Exp>;
+  taskId?: InputMaybe<Uuid_Comparison_Exp>;
+  userId?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "user_tasks" */
+export enum User_Tasks_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  UserTasksPkey = 'user_tasks_pkey',
+  /** unique or primary key constraint on columns "user_id", "task_id", "date" */
+  UserTasksUserIdTaskIdDateKey = 'user_tasks_user_id_task_id_date_key',
+}
+
+/** input type for incrementing numeric columns in table "user_tasks" */
+export type User_Tasks_Inc_Input = {
+  progress?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "user_tasks" */
+export type User_Tasks_Insert_Input = {
+  completed?: InputMaybe<Scalars['Boolean']['input']>;
+  date?: InputMaybe<Scalars['date']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  progress?: InputMaybe<Scalars['Int']['input']>;
+  task?: InputMaybe<Tasks_Obj_Rel_Insert_Input>;
+  taskId?: InputMaybe<Scalars['uuid']['input']>;
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type User_Tasks_Max_Fields = {
+  __typename?: 'user_tasks_max_fields';
+  date?: Maybe<Scalars['date']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  progress?: Maybe<Scalars['Int']['output']>;
+  taskId?: Maybe<Scalars['uuid']['output']>;
+  userId?: Maybe<Scalars['String']['output']>;
+};
+
+/** order by max() on columns of table "user_tasks" */
+export type User_Tasks_Max_Order_By = {
+  date?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  progress?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type User_Tasks_Min_Fields = {
+  __typename?: 'user_tasks_min_fields';
+  date?: Maybe<Scalars['date']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  progress?: Maybe<Scalars['Int']['output']>;
+  taskId?: Maybe<Scalars['uuid']['output']>;
+  userId?: Maybe<Scalars['String']['output']>;
+};
+
+/** order by min() on columns of table "user_tasks" */
+export type User_Tasks_Min_Order_By = {
+  date?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  progress?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "user_tasks" */
+export type User_Tasks_Mutation_Response = {
+  __typename?: 'user_tasks_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<User_Tasks>;
+};
+
+/** input type for inserting object relation for remote table "user_tasks" */
+export type User_Tasks_Obj_Rel_Insert_Input = {
+  data: User_Tasks_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<User_Tasks_On_Conflict>;
+};
+
+/** on_conflict condition type for table "user_tasks" */
+export type User_Tasks_On_Conflict = {
+  constraint: User_Tasks_Constraint;
+  update_columns?: Array<User_Tasks_Update_Column>;
+  where?: InputMaybe<User_Tasks_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "user_tasks". */
+export type User_Tasks_Order_By = {
+  completed?: InputMaybe<Order_By>;
+  date?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  progress?: InputMaybe<Order_By>;
+  task?: InputMaybe<Tasks_Order_By>;
+  taskId?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: user_tasks */
+export type User_Tasks_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "user_tasks" */
+export enum User_Tasks_Select_Column {
+  /** column name */
+  Completed = 'completed',
+  /** column name */
+  Date = 'date',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Progress = 'progress',
+  /** column name */
+  TaskId = 'taskId',
+  /** column name */
+  UserId = 'userId',
+}
+
+/** select "user_tasks_aggregate_bool_exp_bool_and_arguments_columns" columns of table "user_tasks" */
+export enum User_Tasks_Select_Column_User_Tasks_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
+  /** column name */
+  Completed = 'completed',
+}
+
+/** select "user_tasks_aggregate_bool_exp_bool_or_arguments_columns" columns of table "user_tasks" */
+export enum User_Tasks_Select_Column_User_Tasks_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
+  /** column name */
+  Completed = 'completed',
+}
+
+/** input type for updating data in table "user_tasks" */
+export type User_Tasks_Set_Input = {
+  completed?: InputMaybe<Scalars['Boolean']['input']>;
+  date?: InputMaybe<Scalars['date']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  progress?: InputMaybe<Scalars['Int']['input']>;
+  taskId?: InputMaybe<Scalars['uuid']['input']>;
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type User_Tasks_Stddev_Fields = {
+  __typename?: 'user_tasks_stddev_fields';
+  progress?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "user_tasks" */
+export type User_Tasks_Stddev_Order_By = {
+  progress?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type User_Tasks_Stddev_Pop_Fields = {
+  __typename?: 'user_tasks_stddev_pop_fields';
+  progress?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "user_tasks" */
+export type User_Tasks_Stddev_Pop_Order_By = {
+  progress?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type User_Tasks_Stddev_Samp_Fields = {
+  __typename?: 'user_tasks_stddev_samp_fields';
+  progress?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "user_tasks" */
+export type User_Tasks_Stddev_Samp_Order_By = {
+  progress?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "user_tasks" */
+export type User_Tasks_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: User_Tasks_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type User_Tasks_Stream_Cursor_Value_Input = {
+  completed?: InputMaybe<Scalars['Boolean']['input']>;
+  date?: InputMaybe<Scalars['date']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  progress?: InputMaybe<Scalars['Int']['input']>;
+  taskId?: InputMaybe<Scalars['uuid']['input']>;
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate sum on columns */
+export type User_Tasks_Sum_Fields = {
+  __typename?: 'user_tasks_sum_fields';
+  progress?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "user_tasks" */
+export type User_Tasks_Sum_Order_By = {
+  progress?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "user_tasks" */
+export enum User_Tasks_Update_Column {
+  /** column name */
+  Completed = 'completed',
+  /** column name */
+  Date = 'date',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Progress = 'progress',
+  /** column name */
+  TaskId = 'taskId',
+  /** column name */
+  UserId = 'userId',
+}
+
+export type User_Tasks_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<User_Tasks_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<User_Tasks_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: User_Tasks_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type User_Tasks_Var_Pop_Fields = {
+  __typename?: 'user_tasks_var_pop_fields';
+  progress?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "user_tasks" */
+export type User_Tasks_Var_Pop_Order_By = {
+  progress?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type User_Tasks_Var_Samp_Fields = {
+  __typename?: 'user_tasks_var_samp_fields';
+  progress?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "user_tasks" */
+export type User_Tasks_Var_Samp_Order_By = {
+  progress?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type User_Tasks_Variance_Fields = {
+  __typename?: 'user_tasks_variance_fields';
+  progress?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "user_tasks" */
+export type User_Tasks_Variance_Order_By = {
+  progress?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
@@ -4069,28 +5750,50 @@ export type GetMindshareByFidQuery = {
     | null;
 };
 
+export type PointTransactionFieldsFragment = {
+  __typename?: 'point_transactions';
+  date?: any | null;
+  createdAt?: any | null;
+  direction: string;
+  fid: string;
+  id: any;
+  mindshare?: any | null;
+  points: any;
+  reason?: string | null;
+  type: string;
+  usdcAmount?: any | null;
+  userTask?: { __typename?: 'user_tasks'; task: { __typename?: 'tasks'; title: string } } | null;
+} & { ' $fragmentName'?: 'PointTransactionFieldsFragment' };
+
 export type GetPointTransactionByFidQueryVariables = Exact<{
   fid: Scalars['String']['input'];
-  type: Scalars['String']['input'];
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 export type GetPointTransactionByFidQuery = {
   __typename?: 'query_root';
-  point_transactions: Array<{
-    __typename?: 'point_transactions';
-    date?: any | null;
-    createdAt?: any | null;
-    direction: string;
-    fid: string;
-    id: any;
-    mindshare?: any | null;
-    points: any;
-    reason?: string | null;
-    type: string;
-    usdcAmount?: any | null;
-  }>;
+  point_transactions: Array<
+    { __typename?: 'point_transactions' } & {
+      ' $fragmentRefs'?: { PointTransactionFieldsFragment: PointTransactionFieldsFragment };
+    }
+  >;
+};
+
+export type GetPointTransactionByFidAndTypeQueryVariables = Exact<{
+  fid: Scalars['String']['input'];
+  type: Scalars['String']['input'];
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type GetPointTransactionByFidAndTypeQuery = {
+  __typename?: 'query_root';
+  point_transactions: Array<
+    { __typename?: 'point_transactions' } & {
+      ' $fragmentRefs'?: { PointTransactionFieldsFragment: PointTransactionFieldsFragment };
+    }
+  >;
 };
 
 export type GetPointsByFidQueryVariables = Exact<{
@@ -4121,6 +5824,36 @@ export type GetLeaderboardQuery = {
       username?: string | null;
       isSmartUser?: boolean | null;
     } | null;
+  }>;
+};
+
+export type GetUserTasksQueryVariables = Exact<{
+  userId: Scalars['String']['input'];
+  limit: Scalars['Int']['input'];
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  date: Scalars['date']['input'];
+}>;
+
+export type GetUserTasksQuery = {
+  __typename?: 'query_root';
+  user_tasks: Array<{
+    __typename?: 'user_tasks';
+    completed: boolean;
+    date: any;
+    id: any;
+    progress: number;
+    taskId: any;
+    userId: string;
+    task: {
+      __typename?: 'tasks';
+      title: string;
+      target: number;
+      rewardIp: number;
+      isActive: boolean;
+      description?: string | null;
+      taskType: { __typename?: 'task_types'; id: number; name: string };
+      actionType: { __typename?: 'action_types'; id: number; name: string };
+    };
   }>;
 };
 
@@ -4350,6 +6083,15 @@ export type PostNotificationTokenMutation = {
   } | null;
 };
 
+export type PostTasksMutationVariables = Exact<{
+  userId: Scalars['String']['input'];
+}>;
+
+export type PostTasksMutation = {
+  __typename?: 'mutation_root';
+  postTasks?: { __typename?: 'PostTasksOutput'; status?: number | null } | null;
+};
+
 export type PostVoteRecordMutationVariables = Exact<{
   input: PostVoteRecordInput;
 }>;
@@ -4357,6 +6099,15 @@ export type PostVoteRecordMutationVariables = Exact<{
 export type PostVoteRecordMutation = {
   __typename?: 'mutation_root';
   postVoteRecord?: { __typename?: 'PostVoteRecordOutput'; status?: number | null } | null;
+};
+
+export type UpdateTaskMutationVariables = Exact<{
+  taskId: Scalars['String']['input'];
+}>;
+
+export type UpdateTaskMutation = {
+  __typename?: 'mutation_root';
+  updateTask?: { __typename?: 'UpdateTaskOutput'; status?: number | null } | null;
 };
 
 export const UserInfoFragmentDoc = {
@@ -4479,6 +6230,48 @@ export const MindshareResultFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<MindshareResultFragment, unknown>;
+export const PointTransactionFieldsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PointTransactionFields' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'point_transactions' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'date' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'direction' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'mindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'points' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'reason' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'usdcAmount' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'userTask' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'task' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'title' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PointTransactionFieldsFragment, unknown>;
 export const GetCryptoPriceDocument = {
   kind: 'Document',
   definitions: [
@@ -4692,6 +6485,137 @@ export const GetPointTransactionByFidDocument = {
         },
         {
           kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'point_transactions' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'fid' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'date' },
+                      value: { kind: 'EnumValue', value: 'desc' },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'limit' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'offset' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'PointTransactionFields' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PointTransactionFields' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'point_transactions' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'date' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'direction' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'mindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'points' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'reason' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'usdcAmount' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'userTask' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'task' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'title' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetPointTransactionByFidQuery, GetPointTransactionByFidQueryVariables>;
+export const GetPointTransactionByFidAndTypeDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetPointTransactionByFidAndType' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'type' } },
           type: {
             kind: 'NonNullType',
@@ -4755,20 +6679,6 @@ export const GetPointTransactionByFidDocument = {
               },
               {
                 kind: 'Argument',
-                name: { kind: 'Name', value: 'order_by' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'date' },
-                      value: { kind: 'EnumValue', value: 'desc' },
-                    },
-                  ],
-                },
-              },
-              {
-                kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
                 value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
               },
@@ -4781,16 +6691,44 @@ export const GetPointTransactionByFidDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'date' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'direction' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'mindshare' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'points' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'reason' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'usdcAmount' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'PointTransactionFields' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PointTransactionFields' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'point_transactions' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'date' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'direction' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'mindshare' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'points' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'reason' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'usdcAmount' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'userTask' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'task' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'title' } }],
+                  },
+                },
               ],
             },
           },
@@ -4798,7 +6736,10 @@ export const GetPointTransactionByFidDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<GetPointTransactionByFidQuery, GetPointTransactionByFidQueryVariables>;
+} as unknown as DocumentNode<
+  GetPointTransactionByFidAndTypeQuery,
+  GetPointTransactionByFidAndTypeQueryVariables
+>;
 export const GetPointsByFidDocument = {
   kind: 'Document',
   definitions: [
@@ -4926,6 +6867,152 @@ export const GetLeaderboardDocument = {
     },
   ],
 } as unknown as DocumentNode<GetLeaderboardQuery, GetLeaderboardQueryVariables>;
+export const GetUserTasksDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetUserTasks' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'date' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'date' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'user_tasks' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'userId' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'date' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'date' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'limit' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'offset' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'completed' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'date' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'progress' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'taskId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'userId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'task' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'target' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'rewardIp' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'isActive' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'taskType' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'actionType' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetUserTasksQuery, GetUserTasksQueryVariables>;
 export const GetTopMindshareDocument = {
   kind: 'Document',
   definitions: [
@@ -6218,6 +8305,55 @@ export const PostNotificationTokenDocument = {
     },
   ],
 } as unknown as DocumentNode<PostNotificationTokenMutation, PostNotificationTokenMutationVariables>;
+export const PostTasksDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'PostTasks' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'postTasks' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'input' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'userId' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'status' } }],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PostTasksMutation, PostTasksMutationVariables>;
 export const PostVoteRecordDocument = {
   kind: 'Document',
   definitions: [
@@ -6258,3 +8394,52 @@ export const PostVoteRecordDocument = {
     },
   ],
 } as unknown as DocumentNode<PostVoteRecordMutation, PostVoteRecordMutationVariables>;
+export const UpdateTaskDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'UpdateTask' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'taskId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'updateTask' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'input' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'taskId' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'taskId' } },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'status' } }],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UpdateTaskMutation, UpdateTaskMutationVariables>;

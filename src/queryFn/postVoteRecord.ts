@@ -1,4 +1,4 @@
-import { PostVoteRecordGql } from '@/gql/postVoteRecord';
+import { PostVoteRecordGql } from '@/gql/postVoteRecord.gql';
 import { queryFn } from './queryFn';
 import {
   PostVoteRecordMutation,

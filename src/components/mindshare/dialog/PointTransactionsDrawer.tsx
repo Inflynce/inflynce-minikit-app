@@ -38,7 +38,7 @@ export const PointTransactionsDrawer: React.FC<PointTransactionsDrawerProps> = (
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     GetPointTransactionsByFidInfiniteQueryOptions({
       keys: [fid.toString(), 'all'],
-      variables: { fid: fid.toString(), type: POINT_TRANSACTION_TYPE.DAILY, limit: 20 },
+      variables: { fid: fid.toString(), limit: 40 },
       options: {
         enabled: !!fid && open,
       },
@@ -52,9 +52,15 @@ export const PointTransactionsDrawer: React.FC<PointTransactionsDrawerProps> = (
     return date.toLocaleDateString();
   };
 
-  const getTransactionTitle = (type: string) => {
-    if (POINT_TRANSACTION_TYPE.DAILY === type) {
+  const getTransactionTitle = (transaction: Point_Transactions) => {
+    if (POINT_TRANSACTION_TYPE.DAILY === transaction.type) {
       return 'Daily Rewarded IP';
+    }
+    if (POINT_TRANSACTION_TYPE.DAILY_TASK === transaction.type) {
+      if (transaction.userTask?.task?.title) {
+        return `${transaction.userTask?.task?.title}`;
+      }
+      return 'Daily Task Rewarded IP';
     }
     return 'Point Transaction';
   };
@@ -62,6 +68,9 @@ export const PointTransactionsDrawer: React.FC<PointTransactionsDrawerProps> = (
   const getTransactionDescription = (type: string, transaction: Point_Transactions) => {
     if (POINT_TRANSACTION_TYPE.DAILY === type) {
       return `Daily Rewarded IP for Mindshare: ${formatMindshare(transaction.mindshare)}`;
+    }
+    if (POINT_TRANSACTION_TYPE.DAILY_TASK === type) {
+      return `Daily Task Rewarded IP`;
     }
     return '';
   };
@@ -80,7 +89,13 @@ export const PointTransactionsDrawer: React.FC<PointTransactionsDrawerProps> = (
       }}
     >
       <Box sx={{ p: 2 }}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          pb={2}
+          sx={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}
+        >
           <Typography variant="h6">Inflynce Point History</Typography>
           <IconButton onClick={onClose} sx={{ color: 'white' }}>
             <CloseIcon />
@@ -104,7 +119,7 @@ export const PointTransactionsDrawer: React.FC<PointTransactionsDrawerProps> = (
                       primary={
                         <Box display="flex" justifyContent="space-between">
                           <Typography variant="body1">
-                            {getTransactionTitle(transaction.type)}
+                            {getTransactionTitle(transaction)}
                           </Typography>
                           <Typography
                             variant="body2"

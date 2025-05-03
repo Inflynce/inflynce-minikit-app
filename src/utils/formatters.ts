@@ -46,3 +46,16 @@ export const formatNumber = (num: number): string => {
 export const formatMindshare = (mindshare: number): string => {
   return `${(mindshare * 100).toFixed(2)}%`;
 };
+
+
+export const formatPoints = (value: number): string => {
+  if (value >= 1_000_000_000) {
+    return `${(value / 1_000_000_000).toFixed(1)}B`;
+  } else if (value >= 1_000_000) {
+    return `${(value / 1_000_000).toFixed(1)}M`;
+  } else if (value >= 1_000) {
+    return `${(value / 1_000).toFixed(1)}K`;
+  } else {
+    return value.toString();
+  }
+};

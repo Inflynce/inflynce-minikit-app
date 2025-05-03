@@ -15,6 +15,7 @@ import { GetUserRankByFidQueryOptions } from '@/queryFn/getUserRankByFid';
 import { UserDialog } from '@/components/mindshare/dialog/UserDialog';
 import { useState } from 'react';
 import { useMiniKit } from '@coinbase/onchainkit/minikit';
+import ShareRankButton from '@/components/common/ShareRankButton';
 interface LeaderboardTableProps {}
 
 export default function LeaderboardTable({}: LeaderboardTableProps) {
@@ -66,13 +67,27 @@ export default function LeaderboardTable({}: LeaderboardTableProps) {
         bgcolor: '#121212',
       }}
     >
-      <Box sx={{ width: '100%', p: 1, bgcolor: 'rgba(255,255,255,0.1)', borderRadius: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Box
+        sx={{
+          width: '100%',
+          p: 1,
+          bgcolor: 'rgba(255,255,255,0.1)',
+          borderRadius: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
         {isUserRankLoading ? (
           <Skeleton variant="text" width="100%" height={20} />
         ) : userRank && userRank[0]?.rank ? (
-          <Typography variant="body1">🎉 Your rank: #{userRank[0].rank}</Typography>
+          <Typography variant="body1">
+            🎉 Your rank: #{userRank[0].rank} <ShareRankButton fid={fid} />
+          </Typography>
         ) : (
-          <Typography variant="body1">You don't have a rank yet. Start earning points! 🚀</Typography>
+          <Typography variant="body1">
+            You don't have a rank yet. Start earning points! 🚀
+          </Typography>
         )}
       </Box>
       <InfiniteScroll

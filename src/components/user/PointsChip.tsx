@@ -18,6 +18,8 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { GetPointTransactionsByFidQueryOptions } from '@/queryFn/getPointTransactionByFid';
 import { POINT_TRANSACTION_TYPE } from '@/utils/constants';
 import dynamic from 'next/dynamic';
+import { formatPoints } from '@/utils/formatters';
+
 const PointTransactionsDrawer = dynamic(
   () => import('@/components/mindshare/dialog/PointTransactionsDrawer'),
   { ssr: false }
@@ -29,21 +31,6 @@ interface PointsChipProps extends Omit<ChipProps, 'avatar' | 'label'> {
   fid: number | string;
   showInfoIcon?: boolean;
 }
-
-/**
- * Formats a number to a human-readable string with K, M, B suffixes
- */
-const formatPoints = (value: number): string => {
-  if (value >= 1_000_000_000) {
-    return `${(value / 1_000_000_000).toFixed(1)}B`;
-  } else if (value >= 1_000_000) {
-    return `${(value / 1_000_000).toFixed(1)}M`;
-  } else if (value >= 1_000) {
-    return `${(value / 1_000).toFixed(1)}K`;
-  } else {
-    return value.toString();
-  }
-};
 
 /**
  * A reusable component for displaying user points with an avatar

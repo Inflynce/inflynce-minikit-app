@@ -7,7 +7,7 @@ export async function generateMetadata(): Promise<Metadata> {
     version: 'next',
     imageUrl: `${BASE_URL}/rewards/opengraph-image`,
     button: {
-      title: 'Check out the leaderboard on Inflynce 😊',
+      title: 'Leaderboard on Inflynce',
       action: {
         type: 'launch_frame',
         name: 'Inflynce',

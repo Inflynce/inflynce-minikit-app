@@ -40,9 +40,6 @@ export default async function Image() {
     const data = await response.json();
     const topUsers = data?.data?.getTopMindshare || [];
 
-    // Calculate total mindshare for percentage
-    const totalMindshare = topUsers.reduce((acc, user) => acc + user.currentMindshare, 0);
-
     // Prepare data for display
     const gridUsers = topUsers.map((user) => {
       return {

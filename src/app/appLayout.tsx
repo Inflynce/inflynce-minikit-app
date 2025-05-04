@@ -90,11 +90,12 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
           height: '100vh',
           overflow: 'hidden',
           paddingBottom: '56px',
+          bgcolor: 'black',
         }}
       >
         {/* Main Content */}
         <Container
-          sx={{ flexGrow: 1, height: '100%', overflowY: 'auto', px: 0 }}
+          sx={{ flexGrow: 1, height: '100%', overflowY: 'auto', px: 0, bgcolor: 'black' }}
           id="scrollableDiv"
         >
           {children}

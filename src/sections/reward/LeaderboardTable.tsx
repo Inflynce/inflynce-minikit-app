@@ -2,22 +2,41 @@ import {
   DefinedUseInfiniteQueryResult,
   InfiniteData,
   useInfiniteQuery,
+  useQuery,
 } from '@tanstack/react-query';
 import Box from '@mui/material/Box';
-import { Avatar, Stack, Typography } from '@mui/material';
+import { Avatar, Skeleton, Stack, Typography } from '@mui/material';
 import { Table, TableHead, TableBody, TableCell, TableRow } from '@mui/material';
 import { User_Points } from '@/__generated__/graphql';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import TableSkeleton from '@/components/skeleton/TableSkeleton';
 import { GetLeaderBoardInfinitQueryOptions } from '@/queryFn/getPoints';
+import { GetUserRankByFidQueryOptions } from '@/queryFn/getUserRankByFid';
 import { UserDialog } from '@/components/mindshare/dialog/UserDialog';
 import { useState } from 'react';
-
+import { useMiniKit } from '@coinbase/onchainkit/minikit';
+import ShareRankButton from '@/components/common/ShareRankButton';
 interface LeaderboardTableProps {}
 
 export default function LeaderboardTable({}: LeaderboardTableProps) {
   const [open, setOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<any>(null);
+  const { context } = useMiniKit();
+  const fid = context?.user?.fid.toString() ?? '';
+
+  const { data: userRank, isLoading: isUserRankLoading } = useQuery(
+    GetUserRankByFidQueryOptions({
+      keys: [fid],
+      variables: {
+        fid,
+      },
+      options: {
+        enabled: !!fid,
+      },
+    })
+  );
+
+  console.log(userRank);
 
   const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery(
     GetLeaderBoardInfinitQueryOptions({
@@ -48,6 +67,29 @@ export default function LeaderboardTable({}: LeaderboardTableProps) {
         bgcolor: '#121212',
       }}
     >
+      <Box
+        sx={{
+          width: '100%',
+          p: 1,
+          bgcolor: 'rgba(255,255,255,0.1)',
+          borderRadius: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {isUserRankLoading ? (
+          <Skeleton variant="text" width="100%" height={20} />
+        ) : userRank && userRank[0]?.rank ? (
+          <Typography variant="body1">
+            🎉 Your rank: #{userRank[0].rank} <ShareRankButton fid={fid} />
+          </Typography>
+        ) : (
+          <Typography variant="body1">
+            You don't have a rank yet. Start earning points! 🚀
+          </Typography>
+        )}
+      </Box>
       <InfiniteScroll
         dataLength={items.length}
         next={fetchNextPage}

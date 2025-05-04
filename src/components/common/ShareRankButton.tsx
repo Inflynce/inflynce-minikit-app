@@ -4,7 +4,6 @@ import React from 'react';
 import { IconButton } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
 import sdk from '@farcaster/frame-sdk';
-import { useMiniKit } from '@coinbase/onchainkit/minikit';
 
 interface ShareIconButtonProps {
   text?: string;
@@ -19,22 +18,19 @@ interface ShareIconButtonProps {
 export default function ShareIconButton({
   size = 'small',
   color = 'white',
-  fid,
-  displayName,
-  userName,
-  mindshare,
+  fid
 }: ShareIconButtonProps) {
-  const { context } = useMiniKit();
   const handleClick = async () => {
     try {
-      // Compose a cast with the URL
-      const shareUrl = `${process.env.NEXT_PUBLIC_URL}/profile/${fid}`;
       let shareText;
+      let shareUrl;
 
-      if (context?.user?.fid?.toString() === fid?.toString()) {
-        shareText = `Check out my profile on @inflynce! What's your Mindshare Score and Inflynce Points?`;
+      if (fid) {
+        shareUrl = `${process.env.NEXT_PUBLIC_URL}/rank/${fid}`;
+        shareText = `Check out my rank on @inflynce! What's your Inflynce Points?`;
       } else {
-        shareText = `Check out @${userName}'s profile on @inflynce! What's your Mindshare Score and Inflynce Points?`;
+        shareUrl = `${process.env.NEXT_PUBLIC_URL}/rewards`;
+        shareText = `Check out the leaderboard on @inflynce! What's your Inflynce Points?`;
       }
 
       await sdk.actions.composeCast({
@@ -59,7 +55,7 @@ export default function ShareIconButton({
         ml: 1,
       }}
     >
-      <ShareIcon fontSize={size} />
+      <ShareIcon fontSize={size} sx={{ fontSize: 12 }} />
     </IconButton>
   );
 }

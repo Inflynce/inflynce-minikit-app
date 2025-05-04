@@ -1,10 +1,4 @@
-import {
-  Typography,
-  ListItem,
-  ListItemText,
-  Chip,
-  Stack,
-} from '@mui/material';
+import { Typography, ListItem, ListItemText, Chip, Stack } from '@mui/material';
 import React from 'react';
 import { User_Tasks } from '@/__generated__/graphql';
 import TodayIcon from '@mui/icons-material/Today';
@@ -47,11 +41,10 @@ const VisitInflynceTask: React.FC<VisitInflynceTaskProps> = ({
       }
     >
       <ListItemText>
-        
         <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
-        <Typography variant="body1" gutterBottom>
-          {taskData.title}
-        </Typography>
+          <Typography variant="body1" gutterBottom>
+            {taskData.title}
+          </Typography>
           <Chip
             label={`+${taskData.rewardIp} IP`}
             size="small"

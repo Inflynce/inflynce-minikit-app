@@ -24,7 +24,7 @@ export const GetPointTransactionByFidGql = gql`
   query GetPointTransactionByFid($fid: String!, $limit: Int, $offset: Int) {
     point_transactions(
       where: { fid: { _eq: $fid } }
-      order_by: { date: desc }
+      order_by: { createdAt: desc }
       limit: $limit
       offset: $offset
     ) {
@@ -37,6 +37,7 @@ export const GetPointTransactionByFidGql = gql`
 export const GetPointTransactionByFidAndTypeGql = gql`
   query GetPointTransactionByFidAndType($fid: String!, $type: String!, $limit: Int, $offset: Int) {
     point_transactions(
+      order_by: { createdAt: desc }
       where: { fid: { _eq: $fid }, type: { _eq: $type } }
       limit: $limit
       offset: $offset

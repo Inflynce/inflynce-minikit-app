@@ -52,7 +52,7 @@ export const UserPointChart: React.FC<UserPointChartProps> = ({ fid }) => {
         <Skeleton variant="rounded" height={180} sx={{ bgcolor: schletonColor }} />
       ) : (
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={items}>
+          <BarChart data={items.reverse()}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
             <XAxis
               dataKey="date"

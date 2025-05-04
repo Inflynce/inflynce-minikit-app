@@ -18,6 +18,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
+  bigint: { input: any; output: any };
   date: { input: any; output: any };
   numeric: { input: any; output: any };
   timestamp: { input: any; output: any };
@@ -400,6 +401,19 @@ export type Action_Types_Var_Samp_Fields = {
 export type Action_Types_Variance_Fields = {
   __typename?: 'action_types_variance_fields';
   id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to compare columns of type "bigint". All fields are combined with logical 'AND'. */
+export type Bigint_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['bigint']['input']>;
+  _gt?: InputMaybe<Scalars['bigint']['input']>;
+  _gte?: InputMaybe<Scalars['bigint']['input']>;
+  _in?: InputMaybe<Array<Scalars['bigint']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['bigint']['input']>;
+  _lte?: InputMaybe<Scalars['bigint']['input']>;
+  _neq?: InputMaybe<Scalars['bigint']['input']>;
+  _nin?: InputMaybe<Array<Scalars['bigint']['input']>>;
 };
 
 /** ordering argument of a cursor */
@@ -1996,6 +2010,10 @@ export type Query_Root = {
   user_points_aggregate: User_Points_Aggregate;
   /** fetch data from the table: "user_points" using primary key columns */
   user_points_by_pk?: Maybe<User_Points>;
+  /** fetch data from the table: "user_rank_view" */
+  user_rank_view: Array<User_Rank_View>;
+  /** fetch aggregated fields from the table: "user_rank_view" */
+  user_rank_view_aggregate: User_Rank_View_Aggregate;
   /** fetch data from the table: "user_tasks" */
   user_tasks: Array<User_Tasks>;
   /** fetch aggregated fields from the table: "user_tasks" */
@@ -2220,6 +2238,22 @@ export type Query_RootUser_Points_AggregateArgs = {
 
 export type Query_RootUser_Points_By_PkArgs = {
   fid: Scalars['String']['input'];
+};
+
+export type Query_RootUser_Rank_ViewArgs = {
+  distinct_on?: InputMaybe<Array<User_Rank_View_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Rank_View_Order_By>>;
+  where?: InputMaybe<User_Rank_View_Bool_Exp>;
+};
+
+export type Query_RootUser_Rank_View_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Rank_View_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Rank_View_Order_By>>;
+  where?: InputMaybe<User_Rank_View_Bool_Exp>;
 };
 
 export type Query_RootUser_TasksArgs = {
@@ -2448,6 +2482,12 @@ export type Subscription_Root = {
   user_points_by_pk?: Maybe<User_Points>;
   /** fetch data from the table in a streaming manner: "user_points" */
   user_points_stream: Array<User_Points>;
+  /** fetch data from the table: "user_rank_view" */
+  user_rank_view: Array<User_Rank_View>;
+  /** fetch aggregated fields from the table: "user_rank_view" */
+  user_rank_view_aggregate: User_Rank_View_Aggregate;
+  /** fetch data from the table in a streaming manner: "user_rank_view" */
+  user_rank_view_stream: Array<User_Rank_View>;
   /** fetch data from the table: "user_tasks" */
   user_tasks: Array<User_Tasks>;
   /** fetch aggregated fields from the table: "user_tasks" */
@@ -2720,6 +2760,28 @@ export type Subscription_RootUser_Points_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<User_Points_Stream_Cursor_Input>>;
   where?: InputMaybe<User_Points_Bool_Exp>;
+};
+
+export type Subscription_RootUser_Rank_ViewArgs = {
+  distinct_on?: InputMaybe<Array<User_Rank_View_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Rank_View_Order_By>>;
+  where?: InputMaybe<User_Rank_View_Bool_Exp>;
+};
+
+export type Subscription_RootUser_Rank_View_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Rank_View_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Rank_View_Order_By>>;
+  where?: InputMaybe<User_Rank_View_Bool_Exp>;
+};
+
+export type Subscription_RootUser_Rank_View_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<User_Rank_View_Stream_Cursor_Input>>;
+  where?: InputMaybe<User_Rank_View_Bool_Exp>;
 };
 
 export type Subscription_RootUser_TasksArgs = {
@@ -3922,6 +3984,158 @@ export type User_Points_Var_Samp_Fields = {
 /** aggregate variance on columns */
 export type User_Points_Variance_Fields = {
   __typename?: 'user_points_variance_fields';
+  totalPoints?: Maybe<Scalars['Float']['output']>;
+};
+
+/** columns and relationships of "user_rank_view" */
+export type User_Rank_View = {
+  __typename?: 'user_rank_view';
+  fid?: Maybe<Scalars['String']['output']>;
+  rank?: Maybe<Scalars['bigint']['output']>;
+  totalPoints?: Maybe<Scalars['numeric']['output']>;
+  user?: Maybe<User>;
+};
+
+/** aggregated selection of "user_rank_view" */
+export type User_Rank_View_Aggregate = {
+  __typename?: 'user_rank_view_aggregate';
+  aggregate?: Maybe<User_Rank_View_Aggregate_Fields>;
+  nodes: Array<User_Rank_View>;
+};
+
+/** aggregate fields of "user_rank_view" */
+export type User_Rank_View_Aggregate_Fields = {
+  __typename?: 'user_rank_view_aggregate_fields';
+  avg?: Maybe<User_Rank_View_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<User_Rank_View_Max_Fields>;
+  min?: Maybe<User_Rank_View_Min_Fields>;
+  stddev?: Maybe<User_Rank_View_Stddev_Fields>;
+  stddev_pop?: Maybe<User_Rank_View_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<User_Rank_View_Stddev_Samp_Fields>;
+  sum?: Maybe<User_Rank_View_Sum_Fields>;
+  var_pop?: Maybe<User_Rank_View_Var_Pop_Fields>;
+  var_samp?: Maybe<User_Rank_View_Var_Samp_Fields>;
+  variance?: Maybe<User_Rank_View_Variance_Fields>;
+};
+
+/** aggregate fields of "user_rank_view" */
+export type User_Rank_View_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<User_Rank_View_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type User_Rank_View_Avg_Fields = {
+  __typename?: 'user_rank_view_avg_fields';
+  rank?: Maybe<Scalars['Float']['output']>;
+  totalPoints?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "user_rank_view". All fields are combined with a logical 'AND'. */
+export type User_Rank_View_Bool_Exp = {
+  _and?: InputMaybe<Array<User_Rank_View_Bool_Exp>>;
+  _not?: InputMaybe<User_Rank_View_Bool_Exp>;
+  _or?: InputMaybe<Array<User_Rank_View_Bool_Exp>>;
+  fid?: InputMaybe<String_Comparison_Exp>;
+  rank?: InputMaybe<Bigint_Comparison_Exp>;
+  totalPoints?: InputMaybe<Numeric_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type User_Rank_View_Max_Fields = {
+  __typename?: 'user_rank_view_max_fields';
+  fid?: Maybe<Scalars['String']['output']>;
+  rank?: Maybe<Scalars['bigint']['output']>;
+  totalPoints?: Maybe<Scalars['numeric']['output']>;
+};
+
+/** aggregate min on columns */
+export type User_Rank_View_Min_Fields = {
+  __typename?: 'user_rank_view_min_fields';
+  fid?: Maybe<Scalars['String']['output']>;
+  rank?: Maybe<Scalars['bigint']['output']>;
+  totalPoints?: Maybe<Scalars['numeric']['output']>;
+};
+
+/** Ordering options when selecting data from "user_rank_view". */
+export type User_Rank_View_Order_By = {
+  fid?: InputMaybe<Order_By>;
+  rank?: InputMaybe<Order_By>;
+  totalPoints?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "user_rank_view" */
+export enum User_Rank_View_Select_Column {
+  /** column name */
+  Fid = 'fid',
+  /** column name */
+  Rank = 'rank',
+  /** column name */
+  TotalPoints = 'totalPoints',
+}
+
+/** aggregate stddev on columns */
+export type User_Rank_View_Stddev_Fields = {
+  __typename?: 'user_rank_view_stddev_fields';
+  rank?: Maybe<Scalars['Float']['output']>;
+  totalPoints?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type User_Rank_View_Stddev_Pop_Fields = {
+  __typename?: 'user_rank_view_stddev_pop_fields';
+  rank?: Maybe<Scalars['Float']['output']>;
+  totalPoints?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type User_Rank_View_Stddev_Samp_Fields = {
+  __typename?: 'user_rank_view_stddev_samp_fields';
+  rank?: Maybe<Scalars['Float']['output']>;
+  totalPoints?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "user_rank_view" */
+export type User_Rank_View_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: User_Rank_View_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type User_Rank_View_Stream_Cursor_Value_Input = {
+  fid?: InputMaybe<Scalars['String']['input']>;
+  rank?: InputMaybe<Scalars['bigint']['input']>;
+  totalPoints?: InputMaybe<Scalars['numeric']['input']>;
+};
+
+/** aggregate sum on columns */
+export type User_Rank_View_Sum_Fields = {
+  __typename?: 'user_rank_view_sum_fields';
+  rank?: Maybe<Scalars['bigint']['output']>;
+  totalPoints?: Maybe<Scalars['numeric']['output']>;
+};
+
+/** aggregate var_pop on columns */
+export type User_Rank_View_Var_Pop_Fields = {
+  __typename?: 'user_rank_view_var_pop_fields';
+  rank?: Maybe<Scalars['Float']['output']>;
+  totalPoints?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type User_Rank_View_Var_Samp_Fields = {
+  __typename?: 'user_rank_view_var_samp_fields';
+  rank?: Maybe<Scalars['Float']['output']>;
+  totalPoints?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type User_Rank_View_Variance_Fields = {
+  __typename?: 'user_rank_view_variance_fields';
+  rank?: Maybe<Scalars['Float']['output']>;
   totalPoints?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -6532,7 +6746,7 @@ export const GetPointTransactionByFidDocument = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'date' },
+                      name: { kind: 'Name', value: 'createdAt' },
                       value: { kind: 'EnumValue', value: 'desc' },
                     },
                   ],
@@ -6640,6 +6854,20 @@ export const GetPointTransactionByFidAndTypeDocument = {
             kind: 'Field',
             name: { kind: 'Name', value: 'point_transactions' },
             arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'createdAt' },
+                      value: { kind: 'EnumValue', value: 'desc' },
+                    },
+                  ],
+                },
+              },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'where' },

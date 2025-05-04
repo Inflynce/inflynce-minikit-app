@@ -20,8 +20,8 @@ type Documents = {
   '\n  query GetCryptoPrice($coinId: String!, $currency: String!) {\n    getCryptoPrice(input: { coinId: $coinId, currency: $currency }) {\n      phavercoin {\n        usd\n      }\n    }\n  }\n': typeof types.GetCryptoPriceDocument;
   '\n  query GetMindshareByFid($fid: String!) {\n    getMindshareByFid(input: { fid: $fid }) {\n      ...MindshareResult\n    }\n  }\n': typeof types.GetMindshareByFidDocument;
   '\n  fragment PointTransactionFields on point_transactions {\n    date\n    createdAt\n    direction\n    fid\n    id\n    mindshare\n    points\n    reason\n    type\n    usdcAmount\n    userTask {\n      task {\n        title\n      }\n    }\n  }\n': typeof types.PointTransactionFieldsFragmentDoc;
-  '\n  query GetPointTransactionByFid($fid: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid } }\n      order_by: { date: desc }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n': typeof types.GetPointTransactionByFidDocument;
-  '\n  query GetPointTransactionByFidAndType($fid: String!, $type: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid }, type: { _eq: $type } }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n': typeof types.GetPointTransactionByFidAndTypeDocument;
+  '\n  query GetPointTransactionByFid($fid: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid } }\n      order_by: { createdAt: desc }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n': typeof types.GetPointTransactionByFidDocument;
+  '\n  query GetPointTransactionByFidAndType($fid: String!, $type: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      order_by: { createdAt: desc }\n      where: { fid: { _eq: $fid }, type: { _eq: $type } }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n': typeof types.GetPointTransactionByFidAndTypeDocument;
   '\n  query GetPointsByFid($fid: String!) {\n    user_points_by_pk(fid: $fid) {\n      fid\n      totalPoints\n    }\n  }\n': typeof types.GetPointsByFidDocument;
   '\n  query GetLeaderboard($limit: Int!, $offset: Int!) {\n    user_points(order_by: { totalPoints: desc }, limit: $limit, offset: $offset) {\n      fid\n      totalPoints\n      user {\n        displayName\n        fid\n        pfpUrl\n        username\n        isSmartUser\n      }\n    }\n  }\n': typeof types.GetLeaderboardDocument;
   '\n  query GetUserTasks($userId: String!, $limit: Int!, $offset: Int, $date: date!) {\n    user_tasks(\n      where: { userId: { _eq: $userId }, date: { _eq: $date } }\n      limit: $limit\n      offset: $offset\n    ) {\n      completed\n      date\n      id\n      progress\n      taskId\n      userId\n      task {\n        title\n        target\n        rewardIp\n        isActive\n        description\n        taskType {\n          id\n          name\n        }\n        actionType {\n          id\n          name\n        }\n      }\n    }\n  }\n': typeof types.GetUserTasksDocument;
@@ -50,9 +50,9 @@ const documents: Documents = {
     types.GetMindshareByFidDocument,
   '\n  fragment PointTransactionFields on point_transactions {\n    date\n    createdAt\n    direction\n    fid\n    id\n    mindshare\n    points\n    reason\n    type\n    usdcAmount\n    userTask {\n      task {\n        title\n      }\n    }\n  }\n':
     types.PointTransactionFieldsFragmentDoc,
-  '\n  query GetPointTransactionByFid($fid: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid } }\n      order_by: { date: desc }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n':
+  '\n  query GetPointTransactionByFid($fid: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid } }\n      order_by: { createdAt: desc }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n':
     types.GetPointTransactionByFidDocument,
-  '\n  query GetPointTransactionByFidAndType($fid: String!, $type: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid }, type: { _eq: $type } }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n':
+  '\n  query GetPointTransactionByFidAndType($fid: String!, $type: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      order_by: { createdAt: desc }\n      where: { fid: { _eq: $fid }, type: { _eq: $type } }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n':
     types.GetPointTransactionByFidAndTypeDocument,
   '\n  query GetPointsByFid($fid: String!) {\n    user_points_by_pk(fid: $fid) {\n      fid\n      totalPoints\n    }\n  }\n':
     types.GetPointsByFidDocument,
@@ -138,14 +138,14 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query GetPointTransactionByFid($fid: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid } }\n      order_by: { date: desc }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n'
-): (typeof documents)['\n  query GetPointTransactionByFid($fid: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid } }\n      order_by: { date: desc }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n'];
+  source: '\n  query GetPointTransactionByFid($fid: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid } }\n      order_by: { createdAt: desc }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n'
+): (typeof documents)['\n  query GetPointTransactionByFid($fid: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid } }\n      order_by: { createdAt: desc }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n'];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query GetPointTransactionByFidAndType($fid: String!, $type: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid }, type: { _eq: $type } }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n'
-): (typeof documents)['\n  query GetPointTransactionByFidAndType($fid: String!, $type: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      where: { fid: { _eq: $fid }, type: { _eq: $type } }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n'];
+  source: '\n  query GetPointTransactionByFidAndType($fid: String!, $type: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      order_by: { createdAt: desc }\n      where: { fid: { _eq: $fid }, type: { _eq: $type } }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n'
+): (typeof documents)['\n  query GetPointTransactionByFidAndType($fid: String!, $type: String!, $limit: Int, $offset: Int) {\n    point_transactions(\n      order_by: { createdAt: desc }\n      where: { fid: { _eq: $fid }, type: { _eq: $type } }\n      limit: $limit\n      offset: $offset\n    ) {\n      ...PointTransactionFields\n    }\n  }\n  \n'];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

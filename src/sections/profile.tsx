@@ -30,7 +30,6 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { UserPointChart } from '@/components/mindshare/dialog/UserPointChart';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 
-const Vote = dynamic(() => import('@/components/vote/UserVote'), { ssr: false });
 const PointTransactionsDrawer = dynamic(
   () => import('@/components/mindshare/dialog/PointTransactionsDrawer'),
   { ssr: false }

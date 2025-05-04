@@ -50,7 +50,7 @@ async function fetchTopUsers() {
 export default async function Image() {
   // Fetch top 10 users
   const topUsers = await fetchTopUsers();
-
+  console.log(topUsers);
   // Split users into two columns
   const leftColumnUsers = topUsers.slice(0, 5);
   const rightColumnUsers = topUsers.slice(5, 10);

@@ -18,3 +18,8 @@ export const POINT_TRANSACTION_TYPE = {
   REDEEM: 'redeem',
   CONSUME: 'consume',
 };
+
+export const POINT_TRANSACTION_DIRECTION = {
+  EARN: 'earn',
+  SPEND: 'spend',
+};

@@ -33,7 +33,7 @@ async function fetchTopUsers() {
               }
             }
           }
-        `
+        `,
       }),
       cache: 'no-store',
     });

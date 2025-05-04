@@ -44,3 +44,8 @@ export const getCurrentWeekStart = (): string => {
   // Format as YYYY-MM-DD for the database
   return format(startOfCurrentWeek, 'yyyy-MM-dd');
 };
+
+export const getYesterday = (): string => {
+  const yesterday = subDays(new Date(), 1);
+  return format(yesterday, 'yyyy-MM-dd');
+};

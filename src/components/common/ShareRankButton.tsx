@@ -18,7 +18,7 @@ interface ShareIconButtonProps {
 export default function ShareIconButton({
   size = 'small',
   color = 'white',
-  fid
+  fid,
 }: ShareIconButtonProps) {
   const handleClick = async () => {
     try {

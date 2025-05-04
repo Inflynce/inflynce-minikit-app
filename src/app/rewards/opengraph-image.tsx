@@ -1,10 +1,9 @@
 import { ImageResponse } from 'next/og';
 
-export const runtime = 'edge';
 export const alt = 'Inflynce Leaderboard';
 export const size = {
-  width: 1200,
-  height: 630,
+  width: 600,
+  height: 400,
 };
 
 const BASE_URL = process.env.NEXT_PUBLIC_URL;
@@ -19,7 +18,7 @@ async function fetchTopUsers() {
       },
       body: JSON.stringify({
         query: `
-          query GetTopUsers {
+          query GetTopRankedUsers {
             user_rank_view(
               order_by: {rank: asc}
               limit: 10
@@ -34,7 +33,7 @@ async function fetchTopUsers() {
               }
             }
           }
-        `,
+        `
       }),
       cache: 'no-store',
     });
@@ -50,7 +49,7 @@ async function fetchTopUsers() {
 export default async function Image() {
   // Fetch top 10 users
   const topUsers = await fetchTopUsers();
-  console.info(topUsers);
+  console.info('topUsers', topUsers[0]);
   // Split users into two columns
   const leftColumnUsers = topUsers.slice(0, 5);
   const rightColumnUsers = topUsers.slice(5, 10);
@@ -82,7 +81,7 @@ export default async function Image() {
           background: '#fdf0dd',
           color: 'black',
           fontFamily: 'sans-serif',
-          padding: '10px 40px',
+          padding: '3px',
           position: 'relative',
         }}
       >
@@ -90,11 +89,11 @@ export default async function Image() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            fontSize: 42,
-            marginBottom: '30px',
+            fontSize: 22,
+            marginBottom: '20px',
           }}
         >
-          <img src={logoUrl} width={48} height={48} alt="Inflynce Logo" />
+          <img src={logoUrl} width={22} height={22} alt="Inflynce Logo" />
           Inflynce Leaderboard
         </h1>
         <div
@@ -102,8 +101,8 @@ export default async function Image() {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-around',
-            width: '90%',
-            gap: '20px',
+            width: '100%',
+            gap: '10px',
           }}
         >
           {/* Left Column */}
@@ -111,10 +110,10 @@ export default async function Image() {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              width: '42%',
+              width: '50%',
               background: 'rgba(0,0,0,0.05)',
-              borderRadius: '12px',
-              padding: '20px',
+              borderRadius: '8px',
+              padding: '6px',
             }}
           >
             {leftColumnUsers.map((user, index) => (
@@ -123,7 +122,7 @@ export default async function Image() {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  padding: '12px',
+                  padding: '8px',
                   borderBottom:
                     index < leftColumnUsers.length - 1 ? '1px solid rgba(0,0,0,0.1)' : 'none',
                 }}
@@ -131,10 +130,10 @@ export default async function Image() {
                 <div
                   style={{
                     display: 'flex',
-                    fontSize: 24,
+                    fontSize: 18,
                     fontWeight: 'bold',
-                    marginRight: '20px',
-                    width: '30px',
+                    marginRight: '10px',
+                    width: '24px',
                   }}
                 >
                   #{user.rank}
@@ -148,23 +147,23 @@ export default async function Image() {
                 >
                   <img
                     src={user.user.pfpUrl}
-                    width={40}
-                    height={40}
-                    style={{ borderRadius: '50%', marginRight: '12px' }}
+                    width={30}
+                    height={30}
+                    style={{ borderRadius: '50%', marginRight: '8px' }}
                   />
                   <div
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
                       justifyContent: 'center',
-                      maxWidth: '150px',
+                      maxWidth: '120px',
                       overflow: 'hidden',
                     }}
                   >
                     <div
                       style={{
                         display: 'flex',
-                        fontSize: 18,
+                        fontSize: 14,
                         fontWeight: 'bold',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
@@ -176,7 +175,7 @@ export default async function Image() {
                     <div
                       style={{
                         display: 'flex',
-                        fontSize: 14,
+                        fontSize: 11,
                         color: 'rgba(0,0,0,0.6)',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
@@ -190,7 +189,7 @@ export default async function Image() {
                 <div
                   style={{
                     display: 'flex',
-                    fontSize: 18,
+                    fontSize: 14,
                     fontWeight: 'bold',
                   }}
                 >
@@ -205,10 +204,10 @@ export default async function Image() {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              width: '42%',
+              width: '50%',
               background: 'rgba(0,0,0,0.05)',
-              borderRadius: '12px',
-              padding: '20px',
+              borderRadius: '8px',
+              padding: '6px',
             }}
           >
             {rightColumnUsers.map((user, index) => (
@@ -217,7 +216,7 @@ export default async function Image() {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  padding: '12px',
+                  padding: '8px',
                   borderBottom:
                     index < rightColumnUsers.length - 1 ? '1px solid rgba(0,0,0,0.1)' : 'none',
                 }}
@@ -225,10 +224,10 @@ export default async function Image() {
                 <div
                   style={{
                     display: 'flex',
-                    fontSize: 24,
+                    fontSize: 18,
                     fontWeight: 'bold',
-                    marginRight: '20px',
-                    width: '30px',
+                    marginRight: '10px',
+                    width: '24px',
                   }}
                 >
                   #{user.rank}
@@ -242,22 +241,22 @@ export default async function Image() {
                 >
                   <img
                     src={user.user.pfpUrl}
-                    width={40}
-                    height={40}
-                    style={{ borderRadius: '50%', marginRight: '12px' }}
+                    width={30}
+                    height={30}
+                    style={{ borderRadius: '50%', marginRight: '8px' }}
                   />
                   <div
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
                       justifyContent: 'center',
-                      maxWidth: '150px',
+                      maxWidth: '120px',
                       overflow: 'hidden',
                     }}
                   >
                     <div
                       style={{
-                        fontSize: 18,
+                        fontSize: 14,
                         fontWeight: 'bold',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
@@ -270,7 +269,7 @@ export default async function Image() {
                       <div
                         style={{
                           display: 'flex',
-                          fontSize: 14,
+                          fontSize: 11,
                           color: 'rgba(0,0,0,0.6)',
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
@@ -285,7 +284,7 @@ export default async function Image() {
                 <div
                   style={{
                     display: 'flex',
-                    fontSize: 18,
+                    fontSize: 14,
                     fontWeight: 'bold',
                   }}
                 >
@@ -300,9 +299,9 @@ export default async function Image() {
           style={{
             display: 'flex',
             marginTop: 'auto',
-            paddingTop: '20px',
+            paddingTop: '10px',
             textAlign: 'center',
-            fontSize: '16px',
+            fontSize: '12px',
             color: 'rgba(0,0,0,0.6)',
           }}
         >

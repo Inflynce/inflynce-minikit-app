@@ -47,7 +47,6 @@ export const formatMindshare = (mindshare: number): string => {
   return `${(mindshare * 100).toFixed(2)}%`;
 };
 
-
 export const formatPoints = (value: number): string => {
   if (value >= 1_000_000_000) {
     return `${(value / 1_000_000_000).toFixed(1)}B`;

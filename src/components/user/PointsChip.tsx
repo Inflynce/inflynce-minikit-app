@@ -15,11 +15,14 @@ import { useQuery } from '@tanstack/react-query';
 import InfoOutlineIcon from '@mui/icons-material/InfoOutlined';
 import { InflyncePointsInfo } from '@/components/dialogs/FAQContent';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import { GetPointTransactionsByFidQueryOptions } from '@/queryFn/getPointTransactionByFid';
-import { POINT_TRANSACTION_TYPE } from '@/utils/constants';
+import {
+  GetPointTransactionsByFidAndDirectionAndDateQueryOptions,
+  GetPointTransactionsByFidQueryOptions,
+} from '@/queryFn/getPointTransactionByFid';
+import { POINT_TRANSACTION_DIRECTION } from '@/utils/constants';
 import dynamic from 'next/dynamic';
 import { formatPoints } from '@/utils/formatters';
-
+import { getYesterday } from '@/utils/dateUtils';
 const PointTransactionsDrawer = dynamic(
   () => import('@/components/mindshare/dialog/PointTransactionsDrawer'),
   { ssr: false }
@@ -116,17 +119,25 @@ export const PointsEarnedTodayChip: React.FC<PointsChipProps> = ({
   showInfoIcon = true,
   ...chipProps
 }) => {
+  const yesterday = getYesterday();
+
   const { data: pointsData } = useQuery(
-    GetPointTransactionsByFidQueryOptions({
-      keys: [`${fid}`, POINT_TRANSACTION_TYPE.DAILY, '1'],
-      variables: { fid: fid.toString(), type: POINT_TRANSACTION_TYPE.DAILY, limit: 1 },
+    GetPointTransactionsByFidAndDirectionAndDateQueryOptions({
+      keys: [`${fid}`, POINT_TRANSACTION_DIRECTION.EARN, 'latest'],
+      variables: {
+        fid: fid.toString(),
+        direction: POINT_TRANSACTION_DIRECTION.EARN,
+        date: yesterday,
+      },
     })
   );
-  const pointEarnedToday = pointsData?.[0] ?? null;
+
+  console.log(pointsData);
+  const pointEarnedToday = pointsData?.reduce((acc, curr) => acc + curr.points, 0) ?? 0;
 
   const label = showUnit
-    ? `${formatPoints(pointEarnedToday?.points ?? 0)} IP`
-    : formatPoints(pointEarnedToday?.points ?? 0);
+    ? `${formatPoints(pointEarnedToday ?? 0)} IP`
+    : formatPoints(pointEarnedToday ?? 0);
   return (
     <>
       <Chip

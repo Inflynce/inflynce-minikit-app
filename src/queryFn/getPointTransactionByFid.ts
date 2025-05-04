@@ -2,10 +2,16 @@ import {
   GetPointTransactionByFidQuery,
   Point_Transactions,
   GetPointTransactionByFidQueryVariables,
+  GetPointTransactionByFidAndDirectionAndDateQuery,
+  GetPointTransactionByFidAndDirectionQuery,
+  GetPointTransactionByFidAndDirectionDateRangeQuery,
 } from '@/__generated__/graphql';
 import {
   GetPointTransactionByFidAndTypeGql,
   GetPointTransactionByFidGql,
+  GetPointTransactionByFidAndDirectionAndDateGql,
+  GetPointTransactionByFidAndDirectionGql,
+  GetPointTransactionByFidAndDirectionDateRangeGql,
 } from '@/gql/getPointTransaction';
 import { UseInfiniteQueryOptions, UseQueryOptions } from '@tanstack/react-query';
 import { queryFn, getNextPageParam, getPreviousPageParam } from './queryFn';
@@ -126,6 +132,110 @@ export const GetPointTransactionsInfiniteQueryOptions = ({
     initialPageParam: 0,
     getNextPageParam,
     getPreviousPageParam,
+    ...options,
+  };
+};
+
+interface GetPointTransactionsByFidAndDirectionAndDateProps {
+  variables: { fid: string; direction: string; date: string };
+}
+
+export const GetPointTransactionsByFidAndDirectionAndDate = async ({
+  variables,
+}: GetPointTransactionsByFidAndDirectionAndDateProps): Promise<Point_Transactions[]> => {
+  const data = (await queryFn({
+    document: GetPointTransactionByFidAndDirectionAndDateGql,
+    variables,
+  })) as GetPointTransactionByFidAndDirectionAndDateQuery;
+
+  return (data.point_transactions as Point_Transactions[]) ?? [];
+};
+
+interface GetPointTransactionsByFidAndDirectionAndDateQueryOptionsProps
+  extends GetPointTransactionsByFidAndDirectionAndDateProps {
+  keys?: string[];
+  options?: Omit<UseQueryOptions<Point_Transactions[]>, 'queryKey' | 'queryFn' | 'enabled'>;
+}
+
+export const GetPointTransactionsByFidAndDirectionAndDateQueryOptions = ({
+  keys = [],
+  variables,
+  options,
+}: GetPointTransactionsByFidAndDirectionAndDateQueryOptionsProps): UseQueryOptions<
+  Point_Transactions[]
+> => {
+  return {
+    queryKey: ['GetPointTransactionsByFidAndDirectionAndDateQuery', ...keys],
+    queryFn: async () => await GetPointTransactionsByFidAndDirectionAndDate({ variables }),
+    ...options,
+  };
+};
+
+interface GetPointTransactionsByFidAndDirectionProps {
+  variables: { fid: string; direction: string; limit: number; offset?: number };
+}
+
+export const GetPointTransactionsByFidAndDirection = async ({
+  variables,
+}: GetPointTransactionsByFidAndDirectionProps): Promise<Point_Transactions[]> => {
+  const data = (await queryFn({
+    document: GetPointTransactionByFidAndDirectionGql,
+    variables,
+  })) as GetPointTransactionByFidAndDirectionQuery;
+
+  return (data.point_transactions as Point_Transactions[]) ?? [];
+};
+
+interface GetPointTransactionsByFidAndDirectionQueryOptionsProps
+  extends GetPointTransactionsByFidAndDirectionProps {
+  keys?: string[];
+  options?: Omit<UseQueryOptions<Point_Transactions[]>, 'queryKey' | 'queryFn'>;
+}
+
+export const GetPointTransactionsByFidAndDirectionQueryOptions = ({
+  keys = [],
+  variables,
+  options,
+}: GetPointTransactionsByFidAndDirectionQueryOptionsProps): UseQueryOptions<
+  Point_Transactions[]
+> => {
+  return {
+    queryKey: ['GetPointTransactionsByFidAndDirectionQuery', ...keys],
+    queryFn: async () => await GetPointTransactionsByFidAndDirection({ variables }),
+    ...options,
+  };
+};
+
+interface GetPointTransactionByFidAndDirectionDateRangeProps {
+  variables: { fid: string; direction: string; startDate: string; endDate: string };
+}
+
+export const GetPointTransactionByFidAndDirectionDateRange = async ({
+  variables,
+}: GetPointTransactionByFidAndDirectionDateRangeProps): Promise<Point_Transactions[]> => {
+  const data = (await queryFn({
+    document: GetPointTransactionByFidAndDirectionDateRangeGql,
+    variables,
+  })) as GetPointTransactionByFidAndDirectionDateRangeQuery;
+  return (data.point_transactions as Point_Transactions[]) ?? [];
+};
+
+interface GetPointTransactionByFidAndDirectionDateRangeQueryOptionsProps
+  extends GetPointTransactionByFidAndDirectionDateRangeProps {
+  keys?: string[];
+  options?: Omit<UseQueryOptions<Point_Transactions[]>, 'queryKey' | 'queryFn'>;
+}
+
+export const GetPointTransactionByFidAndDirectionDateRangeQueryOptions = ({
+  keys = [],
+  variables,
+  options,
+}: GetPointTransactionByFidAndDirectionDateRangeQueryOptionsProps): UseQueryOptions<
+  Point_Transactions[]
+> => {
+  return {
+    queryKey: ['GetPointTransactionByFidAndDirectionDateRangeQuery', ...keys],
+    queryFn: async () => await GetPointTransactionByFidAndDirectionDateRange({ variables }),
     ...options,
   };
 };

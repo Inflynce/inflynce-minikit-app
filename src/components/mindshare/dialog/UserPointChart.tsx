@@ -14,13 +14,10 @@ import { Box, Skeleton } from '@mui/material';
 import { THEME } from '@/components/mindshare/treemap/Treemap';
 import { Point_Transactions } from '@/__generated__/graphql';
 import { schletonColor } from '@/utils/color';
-import {
-  DefinedUseInfiniteQueryResult,
-  InfiniteData,
-  useInfiniteQuery,
-} from '@tanstack/react-query';
-import { GetPointTransactionsByFidInfiniteQueryOptions } from '@/queryFn/getPointTransactionByFid';
-import { POINT_TRANSACTION_TYPE } from '@/utils/constants';
+import { useQuery } from '@tanstack/react-query';
+import { GetPointTransactionByFidAndDirectionDateRangeQueryOptions } from '@/queryFn/getPointTransactionByFid';
+import { POINT_TRANSACTION_DIRECTION } from '@/utils/constants';
+import { groupBy } from 'lodash';
 
 interface UserPointChartProps {
   fid: string;
@@ -29,15 +26,29 @@ interface UserPointChartProps {
 const strokeColor = 'rgba(255,255,255,0.5)';
 
 export const UserPointChart: React.FC<UserPointChartProps> = ({ fid }) => {
-  const { data, isLoading } = useInfiniteQuery(
-    GetPointTransactionsByFidInfiniteQueryOptions({
+  const thirtyDaysAgo = new Date(new Date().setDate(new Date().getDate() - 30));
+  const today = new Date();
+  const { data, isLoading } = useQuery(
+    GetPointTransactionByFidAndDirectionDateRangeQueryOptions({
       keys: [fid.toString()],
-      variables: { fid: fid.toString(), type: POINT_TRANSACTION_TYPE.DAILY, limit: 30 },
+      variables: {
+        fid: fid.toString(),
+        direction: POINT_TRANSACTION_DIRECTION.EARN,
+        startDate: thirtyDaysAgo.toISOString(),
+        endDate: today.toISOString(),
+      },
       options: { enabled: !!fid },
     })
-  ) as unknown as DefinedUseInfiniteQueryResult<InfiniteData<Point_Transactions[]>>;
+  );
 
-  const items = data?.pages.flatMap((page: Point_Transactions[]) => page) || [];
+  const groupByDate: Record<string, Point_Transactions[]> = groupBy(data, 'date');
+
+  const items = Object.entries(groupByDate).map(
+    ([date, transactions]: [string, Point_Transactions[]]) => ({
+      date,
+      points: transactions.reduce((acc, curr) => acc + curr.points, 0),
+    })
+  );
 
   return (
     <Box
@@ -88,7 +99,7 @@ export const UserPointChart: React.FC<UserPointChartProps> = ({ fid }) => {
               }}
             /> */}
             <Bar dataKey="points" fill="url(#barGradient)" radius={[4, 4, 0, 0]}>
-              {items.map((entry: Point_Transactions, index: number) => (
+              {items.map((entry, index: number) => (
                 <Cell key={`cell-${index}`} fill={THEME.success.base} opacity={0.8} />
               ))}
             </Bar>

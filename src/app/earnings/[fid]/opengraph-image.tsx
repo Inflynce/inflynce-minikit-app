@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { formatPoints } from '@/utils/formatters';
+import { getYesterday } from '@/utils/dateUtils';
 
 const BASE_URL = process.env.NEXT_PUBLIC_URL;
 export const alt = 'Inflynce Profile';
@@ -11,7 +12,8 @@ export const size = {
 export const contentType = 'image/png';
 
 // Direct fetch function for server-side data fetching
-async function fetchRankData(fid: string) {
+async function fetchYesterdayEarnings(fid: string) {
+  const yesterday = getYesterday();
   try {
     const response = await fetch(process.env.GRAPHQL_URL ?? '', {
       method: 'POST',
@@ -20,16 +22,20 @@ async function fetchRankData(fid: string) {
       },
       body: JSON.stringify({
         query: `
-          query GetRankByFid($fid: String!) {
-            user_rank_view(
-              where: {fid: {_eq: $fid}}
+          query GetPointTransactionByFidAndDirectionAndDate(
+            $fid: String!
+            $direction: String!
+            $date: date!
+          ) {
+            point_transactions(
+              where: { fid: { _eq: $fid }, direction: { _eq: $direction }, date: { _eq: $date } }
+              order_by: { createdAt: desc }
             ) {
-              fid
-              rank
-              totalPoints
+              date
+              points
               user {
-                username
                 displayName
+                username
                 pfpUrl
               }
             }
@@ -37,10 +43,11 @@ async function fetchRankData(fid: string) {
         `,
         variables: {
           fid: fid || '0',
+          direction: 'earn',
+          date: yesterday,
         },
       }),
-      cache: 'no-store',
-      next: { revalidate: 3600 }, // Cache for 1 hour
+      next: { revalidate: 3600 },
     });
 
     if (!response.ok) {
@@ -48,7 +55,7 @@ async function fetchRankData(fid: string) {
     }
 
     const data = await response.json();
-    return data?.data?.user_rank_view[0];
+    return data?.data?.point_transactions;
   } catch (error) {
     console.error('Error fetching mindshare data:', error);
     return null;
@@ -58,18 +65,17 @@ async function fetchRankData(fid: string) {
 export default async function Image({ params }: { params: { fid: string } }) {
   // Default fid value in case params.fid is undefined
   const fid = params?.fid || '0';
-  console.log(fid);
-
   // Try to fetch data, but use fallback values if it fails
-  const rankData = await fetchRankData(fid);
-  console.log('rankData', rankData);
+  const yesterdayEarnings = await fetchYesterdayEarnings(fid);
+  console.log('yesterdayEarnings', yesterdayEarnings);
+  // Calculate total points earned yesterday
+  const totalPoints =
+    yesterdayEarnings?.reduce((sum: number, tx: any) => sum + (tx.points || 0), 0) || 0;
+  const formattedPoints = formatPoints(totalPoints);
 
-  // Use fallback values if data fetching failed
-  const username = rankData?.user?.username || `user_${fid}`;
-  const displayName = rankData?.user?.displayName || 'Inflynce User';
-  const pfpUrl = rankData?.user?.pfpUrl || 'https://placekitten.com/200/200';
-  const points = rankData?.totalPoints ?? 0;
-  const formattedPoints = formatPoints(points);
+  const username = yesterdayEarnings[0]?.user?.username || `user_${fid}`;
+  const displayName = yesterdayEarnings[0]?.user?.displayName || 'Inflynce User';
+  const pfpUrl = yesterdayEarnings[0]?.user?.pfpUrl || 'https://placekitten.com/200/200';
 
   // Logo URL - replace with your actual logo URL
   const logoUrl = `${BASE_URL}/logo.png`;
@@ -86,18 +92,18 @@ export default async function Image({ params }: { params: { fid: string } }) {
       <div
         style={{
           display: 'flex',
-          background: '#fdf0dd',
+          background: '#1e1e1e',
           width: '100%',
           height: '100%',
           position: 'relative',
-          padding: '40px',
+          padding: '20px',
           justifyContent: 'center',
           alignItems: 'center',
           flexDirection: 'column',
           fontFamily: 'sans-serif',
+          overflow: 'hidden',
         }}
       >
-        {/* Logo and title in one centered row */}
         <div
           style={{
             display: 'flex',
@@ -114,12 +120,13 @@ export default async function Image({ params }: { params: { fid: string } }) {
               display: 'flex',
               fontSize: 24,
               fontWeight: 'bold',
-              color: '#333',
+              color: '#CCCCCC',
             }}
           >
-            Inflynce Rank
+            Inflynce
           </div>
         </div>
+        {/* Content */}
 
         <div
           style={{
@@ -150,7 +157,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
               style={{
                 display: 'flex',
                 fontSize: 28,
-                color: '#333',
+                color: '#fff',
                 marginBottom: '5px',
                 fontWeight: 'bold',
               }}
@@ -160,8 +167,8 @@ export default async function Image({ params }: { params: { fid: string } }) {
             <div
               style={{
                 display: 'flex',
-                fontSize: 22,
-                color: '#666',
+                fontSize: 14,
+                color: '#CCCCCC',
               }}
             >
               @{username}
@@ -169,64 +176,49 @@ export default async function Image({ params }: { params: { fid: string } }) {
           </div>
         </div>
 
-        <div
+        <h1
           style={{
-            display: 'flex',
-            gap: '20px',
-            marginBottom: '20px',
-            flexDirection: 'column',
-            alignItems: 'center',
+            fontSize: '24px',
+            fontWeight: '700',
+            margin: '0 0 10px 0',
+            color: '#FF6B00',
           }}
         >
-          <div
-            style={{
-              fontSize: 24,
-              color: '#666',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '10px 20px',
-              background: 'rgba(255,255,255,0.5)',
-              borderRadius: '12px',
-            }}
-          >
-            <span>Rank:</span>
-            <span style={{ display: 'flex', fontWeight: 'bold', color: '#ff6b00' }}>
-              #{rankData?.rank}
-            </span>
-          </div>
-
-          <div
-            style={{
-              fontSize: 24,
-              color: '#666',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '10px 20px',
-              background: 'rgba(255,255,255,0.5)',
-              borderRadius: '12px',
-            }}
-          >
-            <span>Inflynce Points:</span>
-            <span style={{ display: 'flex', fontWeight: 'bold', color: '#ff6b00' }}>
-              {formattedPoints} IP
-            </span>
-          </div>
-        </div>
-
-        {/* Date centered at the bottom */}
+          Yesterday's Earnings
+        </h1>
         <div
           style={{
-            position: 'absolute',
-            bottom: '15px',
-            left: '0',
-            right: '0',
+            margin: '8px 0',
             display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <span style={{ fontSize: '56px', color: '#FF6B00', fontWeight: '700' }}>
+            {formattedPoints}
+          </span>
+          <span
+            style={{
+              fontSize: '14px',
+              color: '#CCCCCC',
+              alignSelf: 'flex-end',
+              marginBottom: '12px',
+            }}
+          >
+            points
+          </span>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '14px',
-            fontWeight: 'bold',
-            color: '#666',
+            width: '100%',
+            color: '#CCCCCC',
+            fontSize: '12px',
+            marginTop: '12px',
           }}
         >
           {currentDate}

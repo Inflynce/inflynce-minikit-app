@@ -15,7 +15,7 @@ interface ShareIconButtonProps {
   mindshare?: number;
 }
 
-export default function ShareIconButton({
+export default function ShareRankButton({
   size = 'small',
   color = 'white',
   fid,

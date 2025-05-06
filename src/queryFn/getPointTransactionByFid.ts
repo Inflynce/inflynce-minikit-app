@@ -154,7 +154,7 @@ export const GetPointTransactionsByFidAndDirectionAndDate = async ({
 interface GetPointTransactionsByFidAndDirectionAndDateQueryOptionsProps
   extends GetPointTransactionsByFidAndDirectionAndDateProps {
   keys?: string[];
-  options?: Omit<UseQueryOptions<Point_Transactions[]>, 'queryKey' | 'queryFn' | 'enabled'>;
+  options?: Omit<UseQueryOptions<Point_Transactions[]>, 'queryKey' | 'queryFn'>;
 }
 
 export const GetPointTransactionsByFidAndDirectionAndDateQueryOptions = ({

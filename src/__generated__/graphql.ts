@@ -1642,6 +1642,7 @@ export type Point_Transactions = {
   taskId?: Maybe<Scalars['uuid']['output']>;
   type: Scalars['String']['output'];
   usdcAmount?: Maybe<Scalars['numeric']['output']>;
+  user?: Maybe<User>;
   /** An object relationship */
   userTask?: Maybe<User_Tasks>;
 };

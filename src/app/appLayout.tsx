@@ -20,6 +20,8 @@ import { useIdentityToken } from '@privy-io/react-auth';
 import { useMutation } from '@tanstack/react-query';
 import { PostNotificationTokenMutationOptions } from '@/queryFn/postNotificationToken';
 import { handleFarcasterLogin } from '@/utils/auth';
+import YesterdayEarn from '@/components/mindshare/dialog/YesterdayEarn';
+import { useYesterdayEarnDialog } from './hooks/useYesterdayEarnDialog';
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -33,6 +35,8 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
   const { initLoginToFrame, loginToFrame } = useLoginToFrame();
 
   const { identityToken } = useIdentityToken();
+
+  const { open, handleClose } = useYesterdayEarnDialog({ points: 100, enabled: true });
 
   const { mutate: postNotificationToken } = useMutation(
     PostNotificationTokenMutationOptions({
@@ -100,7 +104,7 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
         >
           {children}
         </Container>
-
+        <YesterdayEarn open={open} onClose={handleClose} />
         {/* Bottom Navigation */}
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
           <BottomNavigation

@@ -35,7 +35,7 @@ async function fetchTopUsers() {
           }
         `,
       }),
-      cache: 'no-store',
+      next: { revalidate: 3600 },
     });
 
     const result = await response.json();

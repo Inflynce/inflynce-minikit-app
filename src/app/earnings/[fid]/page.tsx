@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: { fid: string } }):
     version: 'next',
     imageUrl: `${BASE_URL}/earnings/${fid}/opengraph-image`,
     button: {
-      title: "Check out your yesterday's earnings on Inflynce",
+      title: 'Earnings on Inflynce',
       action: {
         type: 'launch_frame',
         name: 'Inflynce',

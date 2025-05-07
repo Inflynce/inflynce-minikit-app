@@ -132,7 +132,6 @@ export const PointsEarnedTodayChip: React.FC<PointsChipProps> = ({
     })
   );
 
-  console.log(pointsData);
   const pointEarnedToday = pointsData?.reduce((acc, curr) => acc + curr.points, 0) ?? 0;
 
   const label = showUnit

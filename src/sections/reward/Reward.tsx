@@ -9,9 +9,13 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import LeaderboardTable from './LeaderboardTable';
 import DailyTaskPanel from './DailyTaskPanel';
+import { TAB } from '@/utils/constants';
+import { useSearchParams } from 'next/navigation';
 
 export default function RewardSection() {
-  const [value, setValue] = useState('1');
+  const searchParams = useSearchParams();
+  const tab = searchParams.get('tab');
+  const [value, setValue] = useState(tab || TAB.REWARDS);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -45,17 +49,17 @@ export default function RewardSection() {
           >
             <Tab
               label="Top List"
-              value="1"
+              value={TAB.REWARDS}
               sx={{ px: 0.5, mr: 1, fontWeight: 600, minWidth: 0, fontSize: 14 }}
             />
             <Tab
               label="Daily Task"
-              value="2"
+              value={TAB.TASKS}
               sx={{ px: 0.5, mr: 1, fontWeight: 600, minWidth: 0, fontSize: 14 }}
             />
           </TabList>
         </Box>
-        <TabPanel value="1" sx={{ height: '100%', p: 1, backgroundColor: '#121212' }}>
+        <TabPanel value={TAB.REWARDS} sx={{ height: '100%', p: 1, backgroundColor: '#121212' }}>
           <Box
             sx={{
               height: '100%',
@@ -66,7 +70,7 @@ export default function RewardSection() {
             <LeaderboardTable />
           </Box>
         </TabPanel>
-        <TabPanel value="2" sx={{ height: 'auto', p: 1, backgroundColor: '#121212' }}>
+        <TabPanel value={TAB.TASKS} sx={{ height: 'auto', p: 1, backgroundColor: '#121212' }}>
           <Box
             sx={{
               height: '100%',

@@ -25,6 +25,35 @@ interface UserPointChartProps {
 
 const strokeColor = 'rgba(255,255,255,0.5)';
 
+function fillMissingPoint(data: any[], days = 30) {
+  const resultMap = new Map(
+    data.map((entry) => [entry.date, entry])
+  );
+
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0);
+  today.setUTCDate(today.getUTCDate() - 1); // Start from yesterday
+
+  const filled = [];
+
+  for (let i = 0; i < days; i++) {
+    const date = new Date(today);
+    date.setUTCDate(today.getUTCDate() - (days - 1 - i));
+    const isoDate = date.toISOString().split('T')[0];
+
+    if (resultMap.has(isoDate)) {
+      filled.push(resultMap.get(isoDate));
+    } else {
+      filled.push({
+        date: isoDate,
+        points: 0,
+      });
+    }
+  }
+
+  return filled;
+}
+
 export const UserPointChart: React.FC<UserPointChartProps> = ({ fid }) => {
   const thirtyDaysAgo = new Date(new Date().setDate(new Date().getDate() - 30));
   const today = new Date();
@@ -50,6 +79,8 @@ export const UserPointChart: React.FC<UserPointChartProps> = ({ fid }) => {
     })
   );
 
+  const filledData = fillMissingPoint(items);
+
   return (
     <Box
       height={200}
@@ -63,7 +94,7 @@ export const UserPointChart: React.FC<UserPointChartProps> = ({ fid }) => {
         <Skeleton variant="rounded" height={180} sx={{ bgcolor: schletonColor }} />
       ) : (
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={items.reverse()}>
+          <BarChart data={filledData}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
             <XAxis
               dataKey="date"
@@ -99,7 +130,7 @@ export const UserPointChart: React.FC<UserPointChartProps> = ({ fid }) => {
               }}
             /> */}
             <Bar dataKey="points" fill="url(#barGradient)" radius={[4, 4, 0, 0]}>
-              {items.map((entry, index: number) => (
+              {filledData.map((entry, index: number) => (
                 <Cell key={`cell-${index}`} fill={THEME.success.base} opacity={0.8} />
               ))}
             </Bar>

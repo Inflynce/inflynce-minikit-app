@@ -21,7 +21,7 @@ import { useMutation } from '@tanstack/react-query';
 import { PostNotificationTokenMutationOptions } from '@/queryFn/postNotificationToken';
 import { handleFarcasterLogin } from '@/utils/auth';
 import YesterdayEarn from '@/components/mindshare/dialog/YesterdayEarn';
-import { useYesterdayEarnDialog } from './hooks/useYesterdayEarnDialog';
+import { useYesterdayEarnDialog } from '@/hooks/useYesterdayEarnDialog';
 interface LayoutProps {
   children: React.ReactNode;
 }

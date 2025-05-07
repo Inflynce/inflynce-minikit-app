@@ -23,3 +23,8 @@ export const POINT_TRANSACTION_DIRECTION = {
   EARN: 'earn',
   SPEND: 'spend',
 };
+
+export const TAB = {
+  TASKS: 'tasks',
+  REWARDS: 'rewards',
+};

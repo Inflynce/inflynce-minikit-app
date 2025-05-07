@@ -6,14 +6,14 @@ import { motion } from 'framer-motion';
 import CloseIcon from '@mui/icons-material/Close';
 import Avatar from '@mui/material/Avatar';
 import { GetPointTransactionsByFidAndDirectionAndDateQueryOptions } from '@/queryFn/getPointTransactionByFid';
-import { POINT_TRANSACTION_DIRECTION } from '@/utils/constants';
+import { POINT_TRANSACTION_DIRECTION, TAB } from '@/utils/constants';
 import { useQuery } from '@tanstack/react-query';
 import { getYesterday } from '@/utils/dateUtils';
 import { useMiniKit } from '@coinbase/onchainkit/minikit';
 import { formatPoints } from '@/utils/formatters';
 import ShareIcon from '@mui/icons-material/Share';
 import sdk from '@farcaster/frame-sdk';
-
+import { useRouter } from 'next/navigation';
 interface YesterdayEarnProps {
   open: boolean;
   onClose: () => void;
@@ -25,7 +25,7 @@ const YesterdayEarn: React.FC<YesterdayEarnProps> = ({ open, onClose }) => {
   const { context } = useMiniKit();
   const userAvatar = context?.user?.pfpUrl || '';
   const userName = context?.user?.username || 'User';
-
+  const router = useRouter();
   const fid = context?.user?.fid ?? '';
 
   const yesterday = getYesterday();
@@ -63,6 +63,11 @@ const YesterdayEarn: React.FC<YesterdayEarnProps> = ({ open, onClose }) => {
     } catch (err) {
       console.error('Failed to share:', err);
     }
+  };
+
+  const handleCompleteDailyTasks = () => {
+    onClose();
+    router.push(`/rewards?tab=${TAB.TASKS}`);
   };
 
   return (
@@ -196,27 +201,27 @@ const YesterdayEarn: React.FC<YesterdayEarnProps> = ({ open, onClose }) => {
                 onClick={handleShare}
                 fullWidth
                 sx={{
-                background: (theme) =>
+                  background: (theme) =>
                     `linear-gradient(90deg, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
-                color: 'white',
-                py: 1.5,
-                borderRadius: 2,
-                fontWeight: 'bold',
-                textTransform: 'none',
-                mb: 1,
-                '&:hover': {
+                  color: 'white',
+                  py: 1.5,
+                  borderRadius: 2,
+                  fontWeight: 'bold',
+                  textTransform: 'none',
+                  mb: 1,
+                  '&:hover': {
                     background: (theme) =>
                       `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
                     boxShadow: (theme) => `0 4px 15px ${theme.palette.primary.main}40`,
                   },
-              }}
-            >
+                }}
+              >
                 Share Your Earnings <ShareIcon sx={{ fontSize: 14, ml: 1 }} />
               </Button>
             )}
             <Button
               variant="outlined"
-              onClick={onClose}
+              onClick={handleCompleteDailyTasks}
               fullWidth
               sx={{
                 color: 'white',
@@ -226,7 +231,7 @@ const YesterdayEarn: React.FC<YesterdayEarnProps> = ({ open, onClose }) => {
                 textTransform: 'none',
               }}
             >
-              Continue Your Journey
+              Complete Daily Tasks Today
             </Button>
           </motion.div>
         </Box>

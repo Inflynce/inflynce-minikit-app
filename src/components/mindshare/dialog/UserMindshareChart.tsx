@@ -22,10 +22,46 @@ interface UserMindshareChartProps {
 
 const strokeColor = 'rgba(255,255,255,0.5)';
 
+function fillMissingMindshare(data: any[], days = 30) {
+  const resultMap = new Map(
+    data.map((entry) => [entry._time.slice(0, 10), entry])
+  );
+
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0);
+  today.setUTCDate(today.getUTCDate() - 1); // Start from yesterday
+
+  const filled = [];
+
+  for (let i = 0; i < days; i++) {
+    const date = new Date(today);
+    date.setUTCDate(today.getUTCDate() - (days - 1 - i));
+    const isoDate = date.toISOString().split('T')[0];
+
+    if (resultMap.has(isoDate)) {
+      filled.push(resultMap.get(isoDate));
+    } else {
+      filled.push({
+        _time: isoDate + 'T00:00:00Z',
+        fid: null,
+        mindshare: 0,
+      });
+    }
+  }
+
+  return filled;
+}
+
 export const UserMindshareChart: React.FC<UserMindshareChartProps> = ({
   selectedUser,
   isLoading,
 }) => {
+
+  console.log(selectedUser?.daily);
+
+  const filledData = fillMissingMindshare(selectedUser?.daily || []);
+  console.log(filledData);
+
   return (
     <Box
       height={200}
@@ -39,7 +75,7 @@ export const UserMindshareChart: React.FC<UserMindshareChartProps> = ({
         <Skeleton variant="rounded" height={180} sx={{ bgcolor: schletonColor }} />
       ) : (
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={selectedUser?.daily || []}>
+          <BarChart data={filledData}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
             <XAxis
               dataKey="_time"
@@ -79,7 +115,7 @@ export const UserMindshareChart: React.FC<UserMindshareChartProps> = ({
               }}
             />
             <Bar dataKey="mindshare" fill="url(#barGradient)" radius={[4, 4, 0, 0]}>
-              {selectedUser?.daily?.map((entry: DailyMindshare, index: number) => (
+              {filledData?.map((entry: DailyMindshare, index: number) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={

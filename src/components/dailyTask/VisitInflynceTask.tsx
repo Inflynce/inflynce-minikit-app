@@ -1,7 +1,6 @@
 import { Typography, ListItem, ListItemText, Chip, Stack } from '@mui/material';
 import React from 'react';
 import { User_Tasks } from '@/__generated__/graphql';
-import TodayIcon from '@mui/icons-material/Today';
 import { LoadingButton } from '@mui/lab';
 
 import { format } from 'date-fns';
@@ -17,9 +16,6 @@ const VisitInflynceTask: React.FC<VisitInflynceTaskProps> = ({
   isPending = false,
 }) => {
   const { task: taskData } = task;
-
-  console.log(task);
-
   const handleClaimClick = () => {
     onClaim(task.id);
   };

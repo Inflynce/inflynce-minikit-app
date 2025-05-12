@@ -3,48 +3,14 @@ Inflynce Protocol is building the intelligence layer for the decentralized inter
 
 ## Platform Screenshots
 
-<div align="center">
-  <!-- First row with 4 images -->
-  <div style="display: flex; justify-content: center; flex-wrap: wrap;">
-    <div style="margin: 10px; width: 22%;">
-      <img src="doc/inflyncer_mindshare.PNG" alt="Inflyncer Mindshare" width="100%">
-      <p><em>Daily rewards system</em></p>
-    </div>
-        <div style="margin: 10px; width: 22%;">
-      <img src="doc/Inflyncer_trend.PNG" alt="Inflyncer Trend" width="100%">
-      <p><em>Trend analysis</em></p>
-    </div>
-    <div style="margin: 10px; width: 22%;">
-      <img src="doc/daily_rewarding.PNG" alt="Daily Rewarding" width="100%">
-      <p><em>Daily rewards system</em></p>
-    </div>
-    <div style="margin: 10px; width: 22%;">
-      <img src="doc/early_inflyncer_nft_mint.PNG" alt="Early Inflyncer NFT Mint" width="100%">
-      <p><em>NFT minting</em></p>
-    </div>
-    
-  </div>
-  
-  <!-- Second row with 4 images -->
-  <div style="display: flex; justify-content: center; flex-wrap: wrap;">
-    <div style="margin: 10px; width: 22%;">
-      <img src="doc/inflyncer_profile.PNG" alt="Inflyncer Profile" width="100%">
-      <p><em>User profile</em></p>
-    </div>
-    <div style="margin: 10px; width: 22%;">
-      <img src="doc/nft_share.PNG" alt="NFT Share" width="100%">
-      <p><em>NFT sharing</em></p>
-    </div>
-    <div style="margin: 10px; width: 22%;">
-      <img src="doc/early_inflyncer_nft.PNG" alt="Early Inflyncer NFT" width="100%">
-      <p><em>NFT showcase</em></p>
-    </div>
-    <div style="margin: 10px; width: 22%;">
-      <img src="doc/inflyncer_leaderboard.PNG" alt="Inflyncer Leaderboard" width="100%">
-      <p><em>Leaderboard</em></p>
-    </div>
-  </div>
-</div>
+### Key Features
+| Daily rewards system | Trend analysis | Daily rewards system | NFT minting |
+|:---:|:---:|:---:|:---:|
+| <img src="doc/inflyncer_mindshare.PNG" alt="Inflyncer Mindshare" width="200" /> | <img src="doc/Inflyncer_trend.PNG" alt="Inflyncer Trend" width="200" /> | <img src="doc/daily_rewarding.PNG" alt="Daily Rewarding" width="200" /> | <img src="doc/early_inflyncer_nft_mint.PNG" alt="Early Inflyncer NFT Mint" width="200" /> |
+
+| User profile | NFT sharing | NFT showcase | Leaderboard |
+|:---:|:---:|:---:|:---:|
+| <img src="doc/inflyncer_profile.PNG" alt="Inflyncer Profile" width="200" /> | <img src="doc/nft_share.PNG" alt="NFT Share" width="200" /> | <img src="doc/early_inflyncer_nft.PNG" alt="Early Inflyncer NFT" width="200" /> | <img src="doc/inflyncer_leaderboard.PNG" alt="Inflyncer Leaderboard" width="200" /> |
 
 ## Quick Reference
 - [About Inflynce Protocol](#about-inflynce-protocol)

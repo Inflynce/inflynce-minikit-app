@@ -21,7 +21,7 @@ import { BaseCard } from '@/components/common/BaseCard';
 import { UserMindshareTable } from '@/components/mindshare/dialog/UserMindshareTable';
 import { UserMindshareChart } from '@/components/mindshare/dialog/UserMindshareChart';
 import { MindshareResult } from '@/__generated__/graphql';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { textColor } from '@/utils/color';
 import dynamic from 'next/dynamic';
 import { VoteDrawer } from '@/sections/vote/VoteDrawer';
@@ -29,6 +29,7 @@ import { VoterVoteRecords } from '@/components/profile/VoterVoteRecords';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { UserPointChart } from '@/components/mindshare/dialog/UserPointChart';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
+import NFT from './NFT';
 
 const PointTransactionsDrawer = dynamic(
   () => import('@/components/mindshare/dialog/PointTransactionsDrawer'),
@@ -77,10 +78,11 @@ const StyledCard = styled(BaseCard)({
 
 export default function Profile() {
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
+  const searchParams = useSearchParams();
   const [context, setContext] = useState<Context.FrameContext>();
   const params = useParams();
   const theme = useTheme();
-  const [tabValue, setTabValue] = useState(0);
+  const [tabValue, setTabValue] = useState(searchParams.get('tab') === 'nft' ? 2 : 0);
   const [pointTransactionsDrawerOpen, setPointTransactionsDrawerOpen] = useState(false);
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -108,6 +110,16 @@ export default function Profile() {
       },
     })
   );
+
+  // const useNFTData = () => {
+  //   return {
+  //     title: 'My NFT',
+  //     imageUrl: 'https://miniappdev.inflynce.com/logo.png',
+  //     isMintable: true,
+  //     isEligibleToMint: true,
+  //     network: 'base',
+  //   }
+  // }
 
   return (
     <Box width="100%" height="100%" sx={{ bgcolor: '#121212', color: 'white' }}>
@@ -142,6 +154,7 @@ export default function Profile() {
             >
               <Tab label="My Stats" {...a11yProps(0)} />
               <Tab label="Predictions" {...a11yProps(1)} />
+              <Tab label="NFT" {...a11yProps(1)} />
               {/* <Tab label="Other Stats" {...a11yProps(2)} /> */}
             </Tabs>
           </AppBar>
@@ -204,14 +217,9 @@ export default function Profile() {
           </StyledCard> */}
         </TabPanel>
 
-        {/* <TabPanel value={tabValue} index={2} dir={theme.direction}>
-          <StyledCard>
-            <Typography sx={{ color: textColor }}>Other Statistics</Typography>
-            <Box sx={{ p: 2 }}>
-              <Typography>Additional user statistics will be displayed here.</Typography>
-            </Box>
-          </StyledCard>
-        </TabPanel> */}
+        <TabPanel value={tabValue} index={2} dir={theme.direction}>
+          <NFT />
+        </TabPanel>
       </Box>
     </Box>
   );

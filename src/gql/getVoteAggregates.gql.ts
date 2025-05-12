@@ -6,7 +6,6 @@ export const GetVoteAggregatesGql = gql(`
       where: {
         targetSnapshotId: {_eq: $snapshotId}, 
         voteType: {_eq: "up"}, 
-        tokenType: {_eq: "usdc"}
         }
     ) {
       aggregate {
@@ -21,7 +20,6 @@ export const GetVoteAggregatesGql = gql(`
       where: {
         targetSnapshotId: {_eq: $snapshotId}, 
         voteType: {_eq: "up"}, 
-        tokenType: {_eq: "social"}
       }
     ) {
       aggregate {
@@ -36,7 +34,6 @@ export const GetVoteAggregatesGql = gql(`
       where: {
         targetSnapshotId: {_eq: $snapshotId}, 
         voteType: {_eq: "down"}, 
-        tokenType: {_eq: "usdc"}
       }
     ) {
       aggregate {
@@ -51,7 +48,6 @@ export const GetVoteAggregatesGql = gql(`
       where: {
         targetSnapshotId: {_eq: $snapshotId}, 
         voteType: {_eq: "down"}, 
-        tokenType: {_eq: "social"}
       }
     ) {
       aggregate {

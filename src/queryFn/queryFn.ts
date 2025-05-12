@@ -44,9 +44,6 @@ export const authQueryFn = async ({
     if (typeof window !== 'undefined') {
       baseUrl = window.location.origin;
     }
-
-    console.log('token', token);
-
     // Prepare headers with authorization if token is provided
     const headers = {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),

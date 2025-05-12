@@ -1,30 +1,30 @@
 import { PostVoteRecordGql } from '@/gql/postVoteRecord.gql';
 import { queryFn } from './queryFn';
 import {
-  PostVoteRecordMutation,
-  PostVoteRecordMutationVariables,
-  PostVoteRecordOutput,
+  PostVoteMutation,
+  PostVoteMutationVariables,
+  PostVoteOutput,
 } from '@/__generated__/graphql';
 import { UseMutationOptions } from '@tanstack/react-query';
 
 export interface PostVoteRecordInput {
-  variables: PostVoteRecordMutationVariables;
+  variables: PostVoteMutationVariables;
 }
 
 export const PostVoteRecord = async ({
   variables,
-}: PostVoteRecordInput): Promise<PostVoteRecordOutput> => {
+}: PostVoteRecordInput): Promise<PostVoteOutput> => {
   const data = (await queryFn({
     document: PostVoteRecordGql,
     variables,
-  })) as PostVoteRecordMutation;
+  })) as PostVoteMutation;
 
-  return data.postVoteRecord ?? { status: 500 };
+  return data.postVote ?? { status: 500 };
 };
 
 interface PostVoteRecordMutationOptionsProps {
   options?: Omit<
-    UseMutationOptions<PostVoteRecordOutput, Error, PostVoteRecordMutationVariables>,
+    UseMutationOptions<PostVoteOutput, Error, PostVoteMutationVariables>,
     'mutationFn'
   >;
 }
@@ -32,9 +32,9 @@ interface PostVoteRecordMutationOptionsProps {
 export const PostVoteRecordMutationOptions = ({
   options,
 }: PostVoteRecordMutationOptionsProps): UseMutationOptions<
-  PostVoteRecordOutput,
+  PostVoteOutput,
   Error,
-  PostVoteRecordMutationVariables
+  PostVoteMutationVariables
 > => {
   return {
     mutationFn: async (variables) => await PostVoteRecord({ variables }),

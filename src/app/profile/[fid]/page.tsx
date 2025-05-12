@@ -1,4 +1,4 @@
-import Profile from '@/sections/profile';
+import Profile from '@/sections/profile/profile';
 import { dehydrate, HydrationBoundary, QueryClient, useQueryClient } from '@tanstack/react-query';
 import { Metadata } from 'next';
 const BASE_URL = process.env.NEXT_PUBLIC_URL;

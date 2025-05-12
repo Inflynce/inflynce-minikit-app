@@ -57,20 +57,20 @@ export default function NFT() {
 
   const handleSuccess = async (transactionReceipt?: TransactionReceipt) => {
     if (!transactionReceipt) return;
-    
+
     // Check if we've already processed this transaction
     const txHash = transactionReceipt.transactionHash;
     if (processedTxHashes.has(txHash)) {
       console.log('Transaction already processed, skipping:', txHash);
       return;
     }
-    
+
     // Mark this transaction as processed
-    setProcessedTxHashes(prev => new Set(prev).add(txHash));
-    
+    setProcessedTxHashes((prev) => new Set(prev).add(txHash));
+
     console.log('Processing transaction success:', txHash);
     const { logs, from } = transactionReceipt;
-    
+
     // Look for Transfer event logs (common in ERC721/ERC1155 contracts)
     const transferLog = logs.find(
       (log) =>
@@ -143,7 +143,9 @@ export default function NFT() {
           contractAddress={process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as `0x${string}`}
         >
           <NFTMedia />
-          <Typography color='primary' textAlign="right">#{earlyInflyncerNFTMindRecord?.[0]?.tokenId}</Typography>
+          <Typography color="primary" textAlign="right">
+            #{earlyInflyncerNFTMindRecord?.[0]?.tokenId}
+          </Typography>
         </NFTMintCard>
       ) : (
         <NFTMintCard

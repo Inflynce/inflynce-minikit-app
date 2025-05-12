@@ -10,7 +10,7 @@ export const size = {
 export const contentType = 'image/png';
 
 export default async function Image({ params }: { params: { fid: string } }) {
-  const imageUrl = `${BASE_URL}/Early_Inflyncer_NFT_og.png`;
+  const imageUrl = `${BASE_URL}/Early_Inflyncer_NFT.png`;
 
   return new ImageResponse(
     (

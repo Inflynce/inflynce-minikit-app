@@ -58,12 +58,8 @@ async function fetchRankData(fid: string) {
 export default async function Image({ params }: { params: { fid: string } }) {
   // Default fid value in case params.fid is undefined
   const fid = params?.fid || '0';
-  console.log(fid);
-
   // Try to fetch data, but use fallback values if it fails
   const rankData = await fetchRankData(fid);
-  console.log('rankData', rankData);
-
   // Use fallback values if data fetching failed
   const username = rankData?.user?.username || `user_${fid}`;
   const displayName = rankData?.user?.displayName || 'Inflynce User';

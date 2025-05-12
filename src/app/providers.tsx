@@ -1,7 +1,7 @@
 'use client';
 
 import { type ReactNode } from 'react';
-import { base } from 'wagmi/chains';
+import { base, sepolia } from 'wagmi/chains';
 import { MiniKitProvider } from '@coinbase/onchainkit/minikit';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '@/theme/theme';
@@ -24,8 +24,8 @@ export function Providers(props: { children: ReactNode }) {
         notificationProxyUrl="/api/notification"
         config={{
           appearance: {
-            mode: 'auto',
-            theme: 'mini-app-theme',
+            mode: 'dark',
+            theme: 'custom',
             name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
             logo: process.env.NEXT_PUBLIC_ICON_URL,
           },

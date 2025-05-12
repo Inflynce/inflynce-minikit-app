@@ -21,7 +21,7 @@ import { BaseCard } from '@/components/common/BaseCard';
 import { UserMindshareTable } from '@/components/mindshare/dialog/UserMindshareTable';
 import { UserMindshareChart } from '@/components/mindshare/dialog/UserMindshareChart';
 import { MindshareResult } from '@/__generated__/graphql';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { textColor } from '@/utils/color';
 import dynamic from 'next/dynamic';
 import { VoteDrawer } from '@/sections/vote/VoteDrawer';
@@ -78,10 +78,11 @@ const StyledCard = styled(BaseCard)({
 
 export default function Profile() {
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
+  const searchParams = useSearchParams();
   const [context, setContext] = useState<Context.FrameContext>();
   const params = useParams();
   const theme = useTheme();
-  const [tabValue, setTabValue] = useState(0);
+  const [tabValue, setTabValue] = useState(searchParams.get('tab') === 'nft' ? 2 : 0);
   const [pointTransactionsDrawerOpen, setPointTransactionsDrawerOpen] = useState(false);
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -110,14 +111,14 @@ export default function Profile() {
     })
   );
 
-  // const useNFTData = () => {  
-  //   return {  
-  //     title: 'My NFT',  
+  // const useNFTData = () => {
+  //   return {
+  //     title: 'My NFT',
   //     imageUrl: 'https://miniappdev.inflynce.com/logo.png',
   //     isMintable: true,
   //     isEligibleToMint: true,
   //     network: 'base',
-  //   }  
+  //   }
   // }
 
   return (
@@ -217,7 +218,7 @@ export default function Profile() {
         </TabPanel>
 
         <TabPanel value={tabValue} index={2} dir={theme.direction}>
-            <NFT />
+          <NFT />
         </TabPanel>
       </Box>
     </Box>

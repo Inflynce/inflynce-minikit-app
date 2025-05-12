@@ -114,18 +114,15 @@ export type PostTasksOutput = {
   status?: Maybe<Scalars['Int']['output']>;
 };
 
-export type PostVoteRecordInput = {
+export type PostVoteInput = {
   amount?: InputMaybe<Scalars['Float']['input']>;
   targetSnapshotId: Scalars['String']['input'];
-  tokenType?: InputMaybe<Scalars['String']['input']>;
-  txHash: Scalars['String']['input'];
   voteType: Scalars['String']['input'];
-  voterAddress?: InputMaybe<Scalars['String']['input']>;
   voterId: Scalars['Int']['input'];
 };
 
-export type PostVoteRecordOutput = {
-  __typename?: 'PostVoteRecordOutput';
+export type PostVoteOutput = {
+  __typename?: 'PostVoteOutput';
   status?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -437,6 +434,175 @@ export type Date_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['date']['input']>>;
 };
 
+/** columns and relationships of "early_inflyncer_nft_mind_records" */
+export type Early_Inflyncer_Nft_Mind_Records = {
+  __typename?: 'early_inflyncer_nft_mind_records';
+  address: Scalars['String']['output'];
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  fid: Scalars['String']['output'];
+  id: Scalars['uuid']['output'];
+  tokenId: Scalars['String']['output'];
+};
+
+/** aggregated selection of "early_inflyncer_nft_mind_records" */
+export type Early_Inflyncer_Nft_Mind_Records_Aggregate = {
+  __typename?: 'early_inflyncer_nft_mind_records_aggregate';
+  aggregate?: Maybe<Early_Inflyncer_Nft_Mind_Records_Aggregate_Fields>;
+  nodes: Array<Early_Inflyncer_Nft_Mind_Records>;
+};
+
+/** aggregate fields of "early_inflyncer_nft_mind_records" */
+export type Early_Inflyncer_Nft_Mind_Records_Aggregate_Fields = {
+  __typename?: 'early_inflyncer_nft_mind_records_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Early_Inflyncer_Nft_Mind_Records_Max_Fields>;
+  min?: Maybe<Early_Inflyncer_Nft_Mind_Records_Min_Fields>;
+};
+
+/** aggregate fields of "early_inflyncer_nft_mind_records" */
+export type Early_Inflyncer_Nft_Mind_Records_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Early_Inflyncer_Nft_Mind_Records_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "early_inflyncer_nft_mind_records". All fields are combined with a logical 'AND'. */
+export type Early_Inflyncer_Nft_Mind_Records_Bool_Exp = {
+  _and?: InputMaybe<Array<Early_Inflyncer_Nft_Mind_Records_Bool_Exp>>;
+  _not?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_Bool_Exp>;
+  _or?: InputMaybe<Array<Early_Inflyncer_Nft_Mind_Records_Bool_Exp>>;
+  address?: InputMaybe<String_Comparison_Exp>;
+  createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+  fid?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  tokenId?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "early_inflyncer_nft_mind_records" */
+export enum Early_Inflyncer_Nft_Mind_Records_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  EarlyInflyncerNftMindRecordsPkey = 'early_inflyncer_nft_mind_records_pkey',
+}
+
+/** input type for inserting data into table "early_inflyncer_nft_mind_records" */
+export type Early_Inflyncer_Nft_Mind_Records_Insert_Input = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  tokenId?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type Early_Inflyncer_Nft_Mind_Records_Max_Fields = {
+  __typename?: 'early_inflyncer_nft_mind_records_max_fields';
+  address?: Maybe<Scalars['String']['output']>;
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  fid?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  tokenId?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type Early_Inflyncer_Nft_Mind_Records_Min_Fields = {
+  __typename?: 'early_inflyncer_nft_mind_records_min_fields';
+  address?: Maybe<Scalars['String']['output']>;
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  fid?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  tokenId?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "early_inflyncer_nft_mind_records" */
+export type Early_Inflyncer_Nft_Mind_Records_Mutation_Response = {
+  __typename?: 'early_inflyncer_nft_mind_records_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Early_Inflyncer_Nft_Mind_Records>;
+};
+
+/** on_conflict condition type for table "early_inflyncer_nft_mind_records" */
+export type Early_Inflyncer_Nft_Mind_Records_On_Conflict = {
+  constraint: Early_Inflyncer_Nft_Mind_Records_Constraint;
+  update_columns?: Array<Early_Inflyncer_Nft_Mind_Records_Update_Column>;
+  where?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "early_inflyncer_nft_mind_records". */
+export type Early_Inflyncer_Nft_Mind_Records_Order_By = {
+  address?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  fid?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  tokenId?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: early_inflyncer_nft_mind_records */
+export type Early_Inflyncer_Nft_Mind_Records_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "early_inflyncer_nft_mind_records" */
+export enum Early_Inflyncer_Nft_Mind_Records_Select_Column {
+  /** column name */
+  Address = 'address',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  Fid = 'fid',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  TokenId = 'tokenId',
+}
+
+/** input type for updating data in table "early_inflyncer_nft_mind_records" */
+export type Early_Inflyncer_Nft_Mind_Records_Set_Input = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  tokenId?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "early_inflyncer_nft_mind_records" */
+export type Early_Inflyncer_Nft_Mind_Records_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Early_Inflyncer_Nft_Mind_Records_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Early_Inflyncer_Nft_Mind_Records_Stream_Cursor_Value_Input = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  tokenId?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "early_inflyncer_nft_mind_records" */
+export enum Early_Inflyncer_Nft_Mind_Records_Update_Column {
+  /** column name */
+  Address = 'address',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  Fid = 'fid',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  TokenId = 'tokenId',
+}
+
+export type Early_Inflyncer_Nft_Mind_Records_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Early_Inflyncer_Nft_Mind_Records_Bool_Exp;
+};
+
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
@@ -444,6 +610,10 @@ export type Mutation_Root = {
   delete_action_types?: Maybe<Action_Types_Mutation_Response>;
   /** delete single row from the table: "action_types" */
   delete_action_types_by_pk?: Maybe<Action_Types>;
+  /** delete data from the table: "early_inflyncer_nft_mind_records" */
+  delete_early_inflyncer_nft_mind_records?: Maybe<Early_Inflyncer_Nft_Mind_Records_Mutation_Response>;
+  /** delete single row from the table: "early_inflyncer_nft_mind_records" */
+  delete_early_inflyncer_nft_mind_records_by_pk?: Maybe<Early_Inflyncer_Nft_Mind_Records>;
   /** delete data from the table: "point_transaction_directions" */
   delete_point_transaction_directions?: Maybe<Point_Transaction_Directions_Mutation_Response>;
   /** delete single row from the table: "point_transaction_directions" */
@@ -508,6 +678,10 @@ export type Mutation_Root = {
   insert_action_types?: Maybe<Action_Types_Mutation_Response>;
   /** insert a single row into the table: "action_types" */
   insert_action_types_one?: Maybe<Action_Types>;
+  /** insert data into the table: "early_inflyncer_nft_mind_records" */
+  insert_early_inflyncer_nft_mind_records?: Maybe<Early_Inflyncer_Nft_Mind_Records_Mutation_Response>;
+  /** insert a single row into the table: "early_inflyncer_nft_mind_records" */
+  insert_early_inflyncer_nft_mind_records_one?: Maybe<Early_Inflyncer_Nft_Mind_Records>;
   /** insert data into the table: "point_transaction_directions" */
   insert_point_transaction_directions?: Maybe<Point_Transaction_Directions_Mutation_Response>;
   /** insert a single row into the table: "point_transaction_directions" */
@@ -570,8 +744,8 @@ export type Mutation_Root = {
   insert_vote_type_one?: Maybe<Vote_Type>;
   /** postTasks */
   postTasks?: Maybe<PostTasksOutput>;
-  /** postVoteRecord */
-  postVoteRecord?: Maybe<PostVoteRecordOutput>;
+  /** postVote */
+  postVote?: Maybe<PostVoteOutput>;
   /** updateTask */
   updateTask?: Maybe<UpdateTaskOutput>;
   /** update data of the table: "action_types" */
@@ -580,6 +754,14 @@ export type Mutation_Root = {
   update_action_types_by_pk?: Maybe<Action_Types>;
   /** update multiples rows of table: "action_types" */
   update_action_types_many?: Maybe<Array<Maybe<Action_Types_Mutation_Response>>>;
+  /** update data of the table: "early_inflyncer_nft_mind_records" */
+  update_early_inflyncer_nft_mind_records?: Maybe<Early_Inflyncer_Nft_Mind_Records_Mutation_Response>;
+  /** update single row of the table: "early_inflyncer_nft_mind_records" */
+  update_early_inflyncer_nft_mind_records_by_pk?: Maybe<Early_Inflyncer_Nft_Mind_Records>;
+  /** update multiples rows of table: "early_inflyncer_nft_mind_records" */
+  update_early_inflyncer_nft_mind_records_many?: Maybe<
+    Array<Maybe<Early_Inflyncer_Nft_Mind_Records_Mutation_Response>>
+  >;
   /** update data of the table: "point_transaction_directions" */
   update_point_transaction_directions?: Maybe<Point_Transaction_Directions_Mutation_Response>;
   /** update single row of the table: "point_transaction_directions" */
@@ -686,6 +868,16 @@ export type Mutation_RootDelete_Action_TypesArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Action_Types_By_PkArgs = {
   id: Scalars['Int']['input'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Early_Inflyncer_Nft_Mind_RecordsArgs = {
+  where: Early_Inflyncer_Nft_Mind_Records_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Early_Inflyncer_Nft_Mind_Records_By_PkArgs = {
+  id: Scalars['uuid']['input'];
 };
 
 /** mutation root */
@@ -848,6 +1040,18 @@ export type Mutation_RootInsert_Action_TypesArgs = {
 export type Mutation_RootInsert_Action_Types_OneArgs = {
   object: Action_Types_Insert_Input;
   on_conflict?: InputMaybe<Action_Types_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Early_Inflyncer_Nft_Mind_RecordsArgs = {
+  objects: Array<Early_Inflyncer_Nft_Mind_Records_Insert_Input>;
+  on_conflict?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Early_Inflyncer_Nft_Mind_Records_OneArgs = {
+  object: Early_Inflyncer_Nft_Mind_Records_Insert_Input;
+  on_conflict?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_On_Conflict>;
 };
 
 /** mutation root */
@@ -1036,8 +1240,8 @@ export type Mutation_RootPostTasksArgs = {
 };
 
 /** mutation root */
-export type Mutation_RootPostVoteRecordArgs = {
-  input: PostVoteRecordInput;
+export type Mutation_RootPostVoteArgs = {
+  input: PostVoteInput;
 };
 
 /** mutation root */
@@ -1062,6 +1266,23 @@ export type Mutation_RootUpdate_Action_Types_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Action_Types_ManyArgs = {
   updates: Array<Action_Types_Updates>;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Early_Inflyncer_Nft_Mind_RecordsArgs = {
+  _set?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_Set_Input>;
+  where: Early_Inflyncer_Nft_Mind_Records_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Early_Inflyncer_Nft_Mind_Records_By_PkArgs = {
+  _set?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_Set_Input>;
+  pk_columns: Early_Inflyncer_Nft_Mind_Records_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Early_Inflyncer_Nft_Mind_Records_ManyArgs = {
+  updates: Array<Early_Inflyncer_Nft_Mind_Records_Updates>;
 };
 
 /** mutation root */
@@ -1645,6 +1866,9 @@ export type Point_Transactions = {
   user?: Maybe<User>;
   /** An object relationship */
   userTask?: Maybe<User_Tasks>;
+  /** An object relationship */
+  voteRecord?: Maybe<Vote_Records>;
+  voteRecordId?: Maybe<Scalars['uuid']['output']>;
 };
 
 /** aggregated selection of "point_transactions" */
@@ -1652,6 +1876,17 @@ export type Point_Transactions_Aggregate = {
   __typename?: 'point_transactions_aggregate';
   aggregate?: Maybe<Point_Transactions_Aggregate_Fields>;
   nodes: Array<Point_Transactions>;
+};
+
+export type Point_Transactions_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Point_Transactions_Aggregate_Bool_Exp_Count>;
+};
+
+export type Point_Transactions_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Point_Transactions_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Point_Transactions_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
 };
 
 /** aggregate fields of "point_transactions" */
@@ -1676,12 +1911,41 @@ export type Point_Transactions_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+/** order by aggregate values of table "point_transactions" */
+export type Point_Transactions_Aggregate_Order_By = {
+  avg?: InputMaybe<Point_Transactions_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Point_Transactions_Max_Order_By>;
+  min?: InputMaybe<Point_Transactions_Min_Order_By>;
+  stddev?: InputMaybe<Point_Transactions_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Point_Transactions_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Point_Transactions_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Point_Transactions_Sum_Order_By>;
+  var_pop?: InputMaybe<Point_Transactions_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Point_Transactions_Var_Samp_Order_By>;
+  variance?: InputMaybe<Point_Transactions_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "point_transactions" */
+export type Point_Transactions_Arr_Rel_Insert_Input = {
+  data: Array<Point_Transactions_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Point_Transactions_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Point_Transactions_Avg_Fields = {
   __typename?: 'point_transactions_avg_fields';
   mindshare?: Maybe<Scalars['Float']['output']>;
   points?: Maybe<Scalars['Float']['output']>;
   usdcAmount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "point_transactions" */
+export type Point_Transactions_Avg_Order_By = {
+  mindshare?: InputMaybe<Order_By>;
+  points?: InputMaybe<Order_By>;
+  usdcAmount?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "point_transactions". All fields are combined with a logical 'AND'. */
@@ -1701,6 +1965,8 @@ export type Point_Transactions_Bool_Exp = {
   type?: InputMaybe<String_Comparison_Exp>;
   usdcAmount?: InputMaybe<Numeric_Comparison_Exp>;
   userTask?: InputMaybe<User_Tasks_Bool_Exp>;
+  voteRecord?: InputMaybe<Vote_Records_Bool_Exp>;
+  voteRecordId?: InputMaybe<Uuid_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "point_transactions" */
@@ -1730,6 +1996,8 @@ export type Point_Transactions_Insert_Input = {
   type?: InputMaybe<Scalars['String']['input']>;
   usdcAmount?: InputMaybe<Scalars['numeric']['input']>;
   userTask?: InputMaybe<User_Tasks_Obj_Rel_Insert_Input>;
+  voteRecord?: InputMaybe<Vote_Records_Obj_Rel_Insert_Input>;
+  voteRecordId?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** aggregate max on columns */
@@ -1746,6 +2014,23 @@ export type Point_Transactions_Max_Fields = {
   taskId?: Maybe<Scalars['uuid']['output']>;
   type?: Maybe<Scalars['String']['output']>;
   usdcAmount?: Maybe<Scalars['numeric']['output']>;
+  voteRecordId?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by max() on columns of table "point_transactions" */
+export type Point_Transactions_Max_Order_By = {
+  createdAt?: InputMaybe<Order_By>;
+  date?: InputMaybe<Order_By>;
+  direction?: InputMaybe<Order_By>;
+  fid?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  mindshare?: InputMaybe<Order_By>;
+  points?: InputMaybe<Order_By>;
+  reason?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  usdcAmount?: InputMaybe<Order_By>;
+  voteRecordId?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -1762,6 +2047,23 @@ export type Point_Transactions_Min_Fields = {
   taskId?: Maybe<Scalars['uuid']['output']>;
   type?: Maybe<Scalars['String']['output']>;
   usdcAmount?: Maybe<Scalars['numeric']['output']>;
+  voteRecordId?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by min() on columns of table "point_transactions" */
+export type Point_Transactions_Min_Order_By = {
+  createdAt?: InputMaybe<Order_By>;
+  date?: InputMaybe<Order_By>;
+  direction?: InputMaybe<Order_By>;
+  fid?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  mindshare?: InputMaybe<Order_By>;
+  points?: InputMaybe<Order_By>;
+  reason?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  usdcAmount?: InputMaybe<Order_By>;
+  voteRecordId?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "point_transactions" */
@@ -1794,6 +2096,8 @@ export type Point_Transactions_Order_By = {
   type?: InputMaybe<Order_By>;
   usdcAmount?: InputMaybe<Order_By>;
   userTask?: InputMaybe<User_Tasks_Order_By>;
+  voteRecord?: InputMaybe<Vote_Records_Order_By>;
+  voteRecordId?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: point_transactions */
@@ -1825,6 +2129,8 @@ export enum Point_Transactions_Select_Column {
   Type = 'type',
   /** column name */
   UsdcAmount = 'usdcAmount',
+  /** column name */
+  VoteRecordId = 'voteRecordId',
 }
 
 /** input type for updating data in table "point_transactions" */
@@ -1840,6 +2146,7 @@ export type Point_Transactions_Set_Input = {
   taskId?: InputMaybe<Scalars['uuid']['input']>;
   type?: InputMaybe<Scalars['String']['input']>;
   usdcAmount?: InputMaybe<Scalars['numeric']['input']>;
+  voteRecordId?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** aggregate stddev on columns */
@@ -1850,6 +2157,13 @@ export type Point_Transactions_Stddev_Fields = {
   usdcAmount?: Maybe<Scalars['Float']['output']>;
 };
 
+/** order by stddev() on columns of table "point_transactions" */
+export type Point_Transactions_Stddev_Order_By = {
+  mindshare?: InputMaybe<Order_By>;
+  points?: InputMaybe<Order_By>;
+  usdcAmount?: InputMaybe<Order_By>;
+};
+
 /** aggregate stddev_pop on columns */
 export type Point_Transactions_Stddev_Pop_Fields = {
   __typename?: 'point_transactions_stddev_pop_fields';
@@ -1858,12 +2172,26 @@ export type Point_Transactions_Stddev_Pop_Fields = {
   usdcAmount?: Maybe<Scalars['Float']['output']>;
 };
 
+/** order by stddev_pop() on columns of table "point_transactions" */
+export type Point_Transactions_Stddev_Pop_Order_By = {
+  mindshare?: InputMaybe<Order_By>;
+  points?: InputMaybe<Order_By>;
+  usdcAmount?: InputMaybe<Order_By>;
+};
+
 /** aggregate stddev_samp on columns */
 export type Point_Transactions_Stddev_Samp_Fields = {
   __typename?: 'point_transactions_stddev_samp_fields';
   mindshare?: Maybe<Scalars['Float']['output']>;
   points?: Maybe<Scalars['Float']['output']>;
   usdcAmount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "point_transactions" */
+export type Point_Transactions_Stddev_Samp_Order_By = {
+  mindshare?: InputMaybe<Order_By>;
+  points?: InputMaybe<Order_By>;
+  usdcAmount?: InputMaybe<Order_By>;
 };
 
 /** Streaming cursor of the table "point_transactions" */
@@ -1887,6 +2215,7 @@ export type Point_Transactions_Stream_Cursor_Value_Input = {
   taskId?: InputMaybe<Scalars['uuid']['input']>;
   type?: InputMaybe<Scalars['String']['input']>;
   usdcAmount?: InputMaybe<Scalars['numeric']['input']>;
+  voteRecordId?: InputMaybe<Scalars['uuid']['input']>;
 };
 
 /** aggregate sum on columns */
@@ -1895,6 +2224,13 @@ export type Point_Transactions_Sum_Fields = {
   mindshare?: Maybe<Scalars['numeric']['output']>;
   points?: Maybe<Scalars['numeric']['output']>;
   usdcAmount?: Maybe<Scalars['numeric']['output']>;
+};
+
+/** order by sum() on columns of table "point_transactions" */
+export type Point_Transactions_Sum_Order_By = {
+  mindshare?: InputMaybe<Order_By>;
+  points?: InputMaybe<Order_By>;
+  usdcAmount?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "point_transactions" */
@@ -1921,6 +2257,8 @@ export enum Point_Transactions_Update_Column {
   Type = 'type',
   /** column name */
   UsdcAmount = 'usdcAmount',
+  /** column name */
+  VoteRecordId = 'voteRecordId',
 }
 
 export type Point_Transactions_Updates = {
@@ -1940,12 +2278,26 @@ export type Point_Transactions_Var_Pop_Fields = {
   usdcAmount?: Maybe<Scalars['Float']['output']>;
 };
 
+/** order by var_pop() on columns of table "point_transactions" */
+export type Point_Transactions_Var_Pop_Order_By = {
+  mindshare?: InputMaybe<Order_By>;
+  points?: InputMaybe<Order_By>;
+  usdcAmount?: InputMaybe<Order_By>;
+};
+
 /** aggregate var_samp on columns */
 export type Point_Transactions_Var_Samp_Fields = {
   __typename?: 'point_transactions_var_samp_fields';
   mindshare?: Maybe<Scalars['Float']['output']>;
   points?: Maybe<Scalars['Float']['output']>;
   usdcAmount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "point_transactions" */
+export type Point_Transactions_Var_Samp_Order_By = {
+  mindshare?: InputMaybe<Order_By>;
+  points?: InputMaybe<Order_By>;
+  usdcAmount?: InputMaybe<Order_By>;
 };
 
 /** aggregate variance on columns */
@@ -1956,6 +2308,13 @@ export type Point_Transactions_Variance_Fields = {
   usdcAmount?: Maybe<Scalars['Float']['output']>;
 };
 
+/** order by variance() on columns of table "point_transactions" */
+export type Point_Transactions_Variance_Order_By = {
+  mindshare?: InputMaybe<Order_By>;
+  points?: InputMaybe<Order_By>;
+  usdcAmount?: InputMaybe<Order_By>;
+};
+
 export type Query_Root = {
   __typename?: 'query_root';
   /** fetch data from the table: "action_types" */
@@ -1964,6 +2323,12 @@ export type Query_Root = {
   action_types_aggregate: Action_Types_Aggregate;
   /** fetch data from the table: "action_types" using primary key columns */
   action_types_by_pk?: Maybe<Action_Types>;
+  /** fetch data from the table: "early_inflyncer_nft_mind_records" */
+  early_inflyncer_nft_mind_records: Array<Early_Inflyncer_Nft_Mind_Records>;
+  /** fetch aggregated fields from the table: "early_inflyncer_nft_mind_records" */
+  early_inflyncer_nft_mind_records_aggregate: Early_Inflyncer_Nft_Mind_Records_Aggregate;
+  /** fetch data from the table: "early_inflyncer_nft_mind_records" using primary key columns */
+  early_inflyncer_nft_mind_records_by_pk?: Maybe<Early_Inflyncer_Nft_Mind_Records>;
   /** getCryptoPrice */
   getCryptoPrice?: Maybe<CryptoPriceOutput>;
   getMindshareByFid?: Maybe<MindshareResult>;
@@ -2083,6 +2448,26 @@ export type Query_RootAction_Types_AggregateArgs = {
 
 export type Query_RootAction_Types_By_PkArgs = {
   id: Scalars['Int']['input'];
+};
+
+export type Query_RootEarly_Inflyncer_Nft_Mind_RecordsArgs = {
+  distinct_on?: InputMaybe<Array<Early_Inflyncer_Nft_Mind_Records_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Early_Inflyncer_Nft_Mind_Records_Order_By>>;
+  where?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_Bool_Exp>;
+};
+
+export type Query_RootEarly_Inflyncer_Nft_Mind_Records_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Early_Inflyncer_Nft_Mind_Records_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Early_Inflyncer_Nft_Mind_Records_Order_By>>;
+  where?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_Bool_Exp>;
+};
+
+export type Query_RootEarly_Inflyncer_Nft_Mind_Records_By_PkArgs = {
+  id: Scalars['uuid']['input'];
 };
 
 export type Query_RootGetCryptoPriceArgs = {
@@ -2427,6 +2812,14 @@ export type Subscription_Root = {
   action_types_by_pk?: Maybe<Action_Types>;
   /** fetch data from the table in a streaming manner: "action_types" */
   action_types_stream: Array<Action_Types>;
+  /** fetch data from the table: "early_inflyncer_nft_mind_records" */
+  early_inflyncer_nft_mind_records: Array<Early_Inflyncer_Nft_Mind_Records>;
+  /** fetch aggregated fields from the table: "early_inflyncer_nft_mind_records" */
+  early_inflyncer_nft_mind_records_aggregate: Early_Inflyncer_Nft_Mind_Records_Aggregate;
+  /** fetch data from the table: "early_inflyncer_nft_mind_records" using primary key columns */
+  early_inflyncer_nft_mind_records_by_pk?: Maybe<Early_Inflyncer_Nft_Mind_Records>;
+  /** fetch data from the table in a streaming manner: "early_inflyncer_nft_mind_records" */
+  early_inflyncer_nft_mind_records_stream: Array<Early_Inflyncer_Nft_Mind_Records>;
   /** fetch data from the table: "point_transaction_directions" */
   point_transaction_directions: Array<Point_Transaction_Directions>;
   /** fetch aggregated fields from the table: "point_transaction_directions" */
@@ -2579,6 +2972,32 @@ export type Subscription_RootAction_Types_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Action_Types_Stream_Cursor_Input>>;
   where?: InputMaybe<Action_Types_Bool_Exp>;
+};
+
+export type Subscription_RootEarly_Inflyncer_Nft_Mind_RecordsArgs = {
+  distinct_on?: InputMaybe<Array<Early_Inflyncer_Nft_Mind_Records_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Early_Inflyncer_Nft_Mind_Records_Order_By>>;
+  where?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_Bool_Exp>;
+};
+
+export type Subscription_RootEarly_Inflyncer_Nft_Mind_Records_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Early_Inflyncer_Nft_Mind_Records_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Early_Inflyncer_Nft_Mind_Records_Order_By>>;
+  where?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_Bool_Exp>;
+};
+
+export type Subscription_RootEarly_Inflyncer_Nft_Mind_Records_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Subscription_RootEarly_Inflyncer_Nft_Mind_Records_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Early_Inflyncer_Nft_Mind_Records_Stream_Cursor_Input>>;
+  where?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_Bool_Exp>;
 };
 
 export type Subscription_RootPoint_Transaction_DirectionsArgs = {
@@ -4600,6 +5019,13 @@ export type Vote_Outcome_Mutation_Response = {
   returning: Array<Vote_Outcome>;
 };
 
+/** input type for inserting object relation for remote table "vote_outcome" */
+export type Vote_Outcome_Obj_Rel_Insert_Input = {
+  data: Vote_Outcome_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Vote_Outcome_On_Conflict>;
+};
+
 /** on_conflict condition type for table "vote_outcome" */
 export type Vote_Outcome_On_Conflict = {
   constraint: Vote_Outcome_Constraint;
@@ -4733,6 +5159,13 @@ export type Vote_Record_Status_Mutation_Response = {
   returning: Array<Vote_Record_Status>;
 };
 
+/** input type for inserting object relation for remote table "vote_record_status" */
+export type Vote_Record_Status_Obj_Rel_Insert_Input = {
+  data: Vote_Record_Status_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Vote_Record_Status_On_Conflict>;
+};
+
 /** on_conflict condition type for table "vote_record_status" */
 export type Vote_Record_Status_On_Conflict = {
   constraint: Vote_Record_Status_Constraint;
@@ -4802,21 +5235,42 @@ export type Vote_Records = {
   id: Scalars['uuid']['output'];
   outcome?: Maybe<Scalars['String']['output']>;
   payAmount?: Maybe<Scalars['numeric']['output']>;
-  payTokenType?: Maybe<Scalars['String']['output']>;
-  payTxHash?: Maybe<Scalars['String']['output']>;
-  pay_social_amount?: Maybe<Scalars['numeric']['output']>;
-  pay_social_tx_hash?: Maybe<Scalars['String']['output']>;
+  /** An array relationship */
+  pointTransactions: Array<Point_Transactions>;
+  /** An aggregate relationship */
+  pointTransactions_aggregate: Point_Transactions_Aggregate;
   status: Scalars['String']['output'];
   targetSnapshotId: Scalars['uuid']['output'];
-  tokenType: Scalars['String']['output'];
-  txHash: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['timestamp']['output']>;
+  /** An object relationship */
+  voteOutcome?: Maybe<Vote_Outcome>;
+  /** An object relationship */
+  voteRecordStatus: Vote_Record_Status;
+  /** An object relationship */
+  voteSnapshot: Vote_Snapshot;
   voteType: Scalars['String']['output'];
   /** An object relationship */
-  vote_snapshot: Vote_Snapshot;
+  voteTypeEnum: Vote_Type;
   voter?: Maybe<User>;
-  voterAddress?: Maybe<Scalars['String']['output']>;
   voterId: Scalars['String']['output'];
+};
+
+/** columns and relationships of "vote_records" */
+export type Vote_RecordsPointTransactionsArgs = {
+  distinct_on?: InputMaybe<Array<Point_Transactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Point_Transactions_Order_By>>;
+  where?: InputMaybe<Point_Transactions_Bool_Exp>;
+};
+
+/** columns and relationships of "vote_records" */
+export type Vote_RecordsPointTransactions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Point_Transactions_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Point_Transactions_Order_By>>;
+  where?: InputMaybe<Point_Transactions_Bool_Exp>;
 };
 
 /** aggregated selection of "vote_records" */
@@ -4853,7 +5307,6 @@ export type Vote_Records_Avg_Fields = {
   __typename?: 'vote_records_avg_fields';
   amount?: Maybe<Scalars['Float']['output']>;
   payAmount?: Maybe<Scalars['Float']['output']>;
-  pay_social_amount?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Boolean expression to filter rows from the table "vote_records". All fields are combined with a logical 'AND'. */
@@ -4866,18 +5319,16 @@ export type Vote_Records_Bool_Exp = {
   id?: InputMaybe<Uuid_Comparison_Exp>;
   outcome?: InputMaybe<String_Comparison_Exp>;
   payAmount?: InputMaybe<Numeric_Comparison_Exp>;
-  payTokenType?: InputMaybe<String_Comparison_Exp>;
-  payTxHash?: InputMaybe<String_Comparison_Exp>;
-  pay_social_amount?: InputMaybe<Numeric_Comparison_Exp>;
-  pay_social_tx_hash?: InputMaybe<String_Comparison_Exp>;
+  pointTransactions?: InputMaybe<Point_Transactions_Bool_Exp>;
+  pointTransactions_aggregate?: InputMaybe<Point_Transactions_Aggregate_Bool_Exp>;
   status?: InputMaybe<String_Comparison_Exp>;
   targetSnapshotId?: InputMaybe<Uuid_Comparison_Exp>;
-  tokenType?: InputMaybe<String_Comparison_Exp>;
-  txHash?: InputMaybe<String_Comparison_Exp>;
   updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  voteOutcome?: InputMaybe<Vote_Outcome_Bool_Exp>;
+  voteRecordStatus?: InputMaybe<Vote_Record_Status_Bool_Exp>;
+  voteSnapshot?: InputMaybe<Vote_Snapshot_Bool_Exp>;
   voteType?: InputMaybe<String_Comparison_Exp>;
-  vote_snapshot?: InputMaybe<Vote_Snapshot_Bool_Exp>;
-  voterAddress?: InputMaybe<String_Comparison_Exp>;
+  voteTypeEnum?: InputMaybe<Vote_Type_Bool_Exp>;
   voterId?: InputMaybe<String_Comparison_Exp>;
 };
 
@@ -4885,15 +5336,12 @@ export type Vote_Records_Bool_Exp = {
 export enum Vote_Records_Constraint {
   /** unique or primary key constraint on columns "id" */
   VoteRecordsPkey = 'vote_records_pkey',
-  /** unique or primary key constraint on columns "tx_hash" */
-  VoteRecordsTxHashKey = 'vote_records_tx_hash_key',
 }
 
 /** input type for incrementing numeric columns in table "vote_records" */
 export type Vote_Records_Inc_Input = {
   amount?: InputMaybe<Scalars['numeric']['input']>;
   payAmount?: InputMaybe<Scalars['numeric']['input']>;
-  pay_social_amount?: InputMaybe<Scalars['numeric']['input']>;
 };
 
 /** input type for inserting data into table "vote_records" */
@@ -4903,18 +5351,15 @@ export type Vote_Records_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   outcome?: InputMaybe<Scalars['String']['input']>;
   payAmount?: InputMaybe<Scalars['numeric']['input']>;
-  payTokenType?: InputMaybe<Scalars['String']['input']>;
-  payTxHash?: InputMaybe<Scalars['String']['input']>;
-  pay_social_amount?: InputMaybe<Scalars['numeric']['input']>;
-  pay_social_tx_hash?: InputMaybe<Scalars['String']['input']>;
+  pointTransactions?: InputMaybe<Point_Transactions_Arr_Rel_Insert_Input>;
   status?: InputMaybe<Scalars['String']['input']>;
   targetSnapshotId?: InputMaybe<Scalars['uuid']['input']>;
-  tokenType?: InputMaybe<Scalars['String']['input']>;
-  txHash?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['timestamp']['input']>;
+  voteOutcome?: InputMaybe<Vote_Outcome_Obj_Rel_Insert_Input>;
+  voteRecordStatus?: InputMaybe<Vote_Record_Status_Obj_Rel_Insert_Input>;
+  voteSnapshot?: InputMaybe<Vote_Snapshot_Obj_Rel_Insert_Input>;
   voteType?: InputMaybe<Scalars['String']['input']>;
-  vote_snapshot?: InputMaybe<Vote_Snapshot_Obj_Rel_Insert_Input>;
-  voterAddress?: InputMaybe<Scalars['String']['input']>;
+  voteTypeEnum?: InputMaybe<Vote_Type_Obj_Rel_Insert_Input>;
   voterId?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -4926,17 +5371,10 @@ export type Vote_Records_Max_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   outcome?: Maybe<Scalars['String']['output']>;
   payAmount?: Maybe<Scalars['numeric']['output']>;
-  payTokenType?: Maybe<Scalars['String']['output']>;
-  payTxHash?: Maybe<Scalars['String']['output']>;
-  pay_social_amount?: Maybe<Scalars['numeric']['output']>;
-  pay_social_tx_hash?: Maybe<Scalars['String']['output']>;
   status?: Maybe<Scalars['String']['output']>;
   targetSnapshotId?: Maybe<Scalars['uuid']['output']>;
-  tokenType?: Maybe<Scalars['String']['output']>;
-  txHash?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['timestamp']['output']>;
   voteType?: Maybe<Scalars['String']['output']>;
-  voterAddress?: Maybe<Scalars['String']['output']>;
   voterId?: Maybe<Scalars['String']['output']>;
 };
 
@@ -4948,17 +5386,10 @@ export type Vote_Records_Min_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   outcome?: Maybe<Scalars['String']['output']>;
   payAmount?: Maybe<Scalars['numeric']['output']>;
-  payTokenType?: Maybe<Scalars['String']['output']>;
-  payTxHash?: Maybe<Scalars['String']['output']>;
-  pay_social_amount?: Maybe<Scalars['numeric']['output']>;
-  pay_social_tx_hash?: Maybe<Scalars['String']['output']>;
   status?: Maybe<Scalars['String']['output']>;
   targetSnapshotId?: Maybe<Scalars['uuid']['output']>;
-  tokenType?: Maybe<Scalars['String']['output']>;
-  txHash?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['timestamp']['output']>;
   voteType?: Maybe<Scalars['String']['output']>;
-  voterAddress?: Maybe<Scalars['String']['output']>;
   voterId?: Maybe<Scalars['String']['output']>;
 };
 
@@ -4969,6 +5400,13 @@ export type Vote_Records_Mutation_Response = {
   affected_rows: Scalars['Int']['output'];
   /** data from the rows affected by the mutation */
   returning: Array<Vote_Records>;
+};
+
+/** input type for inserting object relation for remote table "vote_records" */
+export type Vote_Records_Obj_Rel_Insert_Input = {
+  data: Vote_Records_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Vote_Records_On_Conflict>;
 };
 
 /** on_conflict condition type for table "vote_records" */
@@ -4985,18 +5423,15 @@ export type Vote_Records_Order_By = {
   id?: InputMaybe<Order_By>;
   outcome?: InputMaybe<Order_By>;
   payAmount?: InputMaybe<Order_By>;
-  payTokenType?: InputMaybe<Order_By>;
-  payTxHash?: InputMaybe<Order_By>;
-  pay_social_amount?: InputMaybe<Order_By>;
-  pay_social_tx_hash?: InputMaybe<Order_By>;
+  pointTransactions_aggregate?: InputMaybe<Point_Transactions_Aggregate_Order_By>;
   status?: InputMaybe<Order_By>;
   targetSnapshotId?: InputMaybe<Order_By>;
-  tokenType?: InputMaybe<Order_By>;
-  txHash?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
+  voteOutcome?: InputMaybe<Vote_Outcome_Order_By>;
+  voteRecordStatus?: InputMaybe<Vote_Record_Status_Order_By>;
+  voteSnapshot?: InputMaybe<Vote_Snapshot_Order_By>;
   voteType?: InputMaybe<Order_By>;
-  vote_snapshot?: InputMaybe<Vote_Snapshot_Order_By>;
-  voterAddress?: InputMaybe<Order_By>;
+  voteTypeEnum?: InputMaybe<Vote_Type_Order_By>;
   voterId?: InputMaybe<Order_By>;
 };
 
@@ -5018,27 +5453,13 @@ export enum Vote_Records_Select_Column {
   /** column name */
   PayAmount = 'payAmount',
   /** column name */
-  PayTokenType = 'payTokenType',
-  /** column name */
-  PayTxHash = 'payTxHash',
-  /** column name */
-  PaySocialAmount = 'pay_social_amount',
-  /** column name */
-  PaySocialTxHash = 'pay_social_tx_hash',
-  /** column name */
   Status = 'status',
   /** column name */
   TargetSnapshotId = 'targetSnapshotId',
   /** column name */
-  TokenType = 'tokenType',
-  /** column name */
-  TxHash = 'txHash',
-  /** column name */
   UpdatedAt = 'updatedAt',
   /** column name */
   VoteType = 'voteType',
-  /** column name */
-  VoterAddress = 'voterAddress',
   /** column name */
   VoterId = 'voterId',
 }
@@ -5050,17 +5471,10 @@ export type Vote_Records_Set_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   outcome?: InputMaybe<Scalars['String']['input']>;
   payAmount?: InputMaybe<Scalars['numeric']['input']>;
-  payTokenType?: InputMaybe<Scalars['String']['input']>;
-  payTxHash?: InputMaybe<Scalars['String']['input']>;
-  pay_social_amount?: InputMaybe<Scalars['numeric']['input']>;
-  pay_social_tx_hash?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
   targetSnapshotId?: InputMaybe<Scalars['uuid']['input']>;
-  tokenType?: InputMaybe<Scalars['String']['input']>;
-  txHash?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['timestamp']['input']>;
   voteType?: InputMaybe<Scalars['String']['input']>;
-  voterAddress?: InputMaybe<Scalars['String']['input']>;
   voterId?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -5069,7 +5483,6 @@ export type Vote_Records_Stddev_Fields = {
   __typename?: 'vote_records_stddev_fields';
   amount?: Maybe<Scalars['Float']['output']>;
   payAmount?: Maybe<Scalars['Float']['output']>;
-  pay_social_amount?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_pop on columns */
@@ -5077,7 +5490,6 @@ export type Vote_Records_Stddev_Pop_Fields = {
   __typename?: 'vote_records_stddev_pop_fields';
   amount?: Maybe<Scalars['Float']['output']>;
   payAmount?: Maybe<Scalars['Float']['output']>;
-  pay_social_amount?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_samp on columns */
@@ -5085,7 +5497,6 @@ export type Vote_Records_Stddev_Samp_Fields = {
   __typename?: 'vote_records_stddev_samp_fields';
   amount?: Maybe<Scalars['Float']['output']>;
   payAmount?: Maybe<Scalars['Float']['output']>;
-  pay_social_amount?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Streaming cursor of the table "vote_records" */
@@ -5103,17 +5514,10 @@ export type Vote_Records_Stream_Cursor_Value_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   outcome?: InputMaybe<Scalars['String']['input']>;
   payAmount?: InputMaybe<Scalars['numeric']['input']>;
-  payTokenType?: InputMaybe<Scalars['String']['input']>;
-  payTxHash?: InputMaybe<Scalars['String']['input']>;
-  pay_social_amount?: InputMaybe<Scalars['numeric']['input']>;
-  pay_social_tx_hash?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
   targetSnapshotId?: InputMaybe<Scalars['uuid']['input']>;
-  tokenType?: InputMaybe<Scalars['String']['input']>;
-  txHash?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['timestamp']['input']>;
   voteType?: InputMaybe<Scalars['String']['input']>;
-  voterAddress?: InputMaybe<Scalars['String']['input']>;
   voterId?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -5122,7 +5526,6 @@ export type Vote_Records_Sum_Fields = {
   __typename?: 'vote_records_sum_fields';
   amount?: Maybe<Scalars['numeric']['output']>;
   payAmount?: Maybe<Scalars['numeric']['output']>;
-  pay_social_amount?: Maybe<Scalars['numeric']['output']>;
 };
 
 /** update columns of table "vote_records" */
@@ -5138,27 +5541,13 @@ export enum Vote_Records_Update_Column {
   /** column name */
   PayAmount = 'payAmount',
   /** column name */
-  PayTokenType = 'payTokenType',
-  /** column name */
-  PayTxHash = 'payTxHash',
-  /** column name */
-  PaySocialAmount = 'pay_social_amount',
-  /** column name */
-  PaySocialTxHash = 'pay_social_tx_hash',
-  /** column name */
   Status = 'status',
   /** column name */
   TargetSnapshotId = 'targetSnapshotId',
   /** column name */
-  TokenType = 'tokenType',
-  /** column name */
-  TxHash = 'txHash',
-  /** column name */
   UpdatedAt = 'updatedAt',
   /** column name */
   VoteType = 'voteType',
-  /** column name */
-  VoterAddress = 'voterAddress',
   /** column name */
   VoterId = 'voterId',
 }
@@ -5177,7 +5566,6 @@ export type Vote_Records_Var_Pop_Fields = {
   __typename?: 'vote_records_var_pop_fields';
   amount?: Maybe<Scalars['Float']['output']>;
   payAmount?: Maybe<Scalars['Float']['output']>;
-  pay_social_amount?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate var_samp on columns */
@@ -5185,7 +5573,6 @@ export type Vote_Records_Var_Samp_Fields = {
   __typename?: 'vote_records_var_samp_fields';
   amount?: Maybe<Scalars['Float']['output']>;
   payAmount?: Maybe<Scalars['Float']['output']>;
-  pay_social_amount?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate variance on columns */
@@ -5193,7 +5580,6 @@ export type Vote_Records_Variance_Fields = {
   __typename?: 'vote_records_variance_fields';
   amount?: Maybe<Scalars['Float']['output']>;
   payAmount?: Maybe<Scalars['Float']['output']>;
-  pay_social_amount?: Maybe<Scalars['Float']['output']>;
 };
 
 /** columns and relationships of "vote_snapshot" */
@@ -5833,6 +6219,13 @@ export type Vote_Type_Mutation_Response = {
   returning: Array<Vote_Type>;
 };
 
+/** input type for inserting object relation for remote table "vote_type" */
+export type Vote_Type_Obj_Rel_Insert_Input = {
+  data: Vote_Type_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Vote_Type_On_Conflict>;
+};
+
 /** on_conflict condition type for table "vote_type" */
 export type Vote_Type_On_Conflict = {
   constraint: Vote_Type_Constraint;
@@ -5892,6 +6285,40 @@ export type Vote_Type_Updates = {
   _set?: InputMaybe<Vote_Type_Set_Input>;
   /** filter the rows which have to be updated */
   where: Vote_Type_Bool_Exp;
+};
+
+export type InsertEarlyInflyncerNftMindRecordMutationVariables = Exact<{
+  fid: Scalars['String']['input'];
+  address: Scalars['String']['input'];
+  tokenId: Scalars['String']['input'];
+}>;
+
+export type InsertEarlyInflyncerNftMindRecordMutation = {
+  __typename?: 'mutation_root';
+  insert_early_inflyncer_nft_mind_records_one?: {
+    __typename?: 'early_inflyncer_nft_mind_records';
+    id: any;
+    fid: string;
+    address: string;
+    tokenId: string;
+    createdAt?: any | null;
+  } | null;
+};
+
+export type GetEarlyInflyncerNftMindRecordByFidQueryVariables = Exact<{
+  fid: Scalars['String']['input'];
+}>;
+
+export type GetEarlyInflyncerNftMindRecordByFidQuery = {
+  __typename?: 'query_root';
+  early_inflyncer_nft_mind_records: Array<{
+    __typename?: 'early_inflyncer_nft_mind_records';
+    id: any;
+    fid: string;
+    address: string;
+    tokenId: string;
+    createdAt?: any | null;
+  }>;
 };
 
 export type UserInfoFragment = {
@@ -6213,11 +6640,10 @@ export type GetVoteByVoterQuery = {
     id: any;
     voterId: string;
     voteType: string;
-    tokenType: string;
     status: string;
     amount: any;
     createdAt?: any | null;
-    vote_snapshot: {
+    voteSnapshot: {
       __typename?: 'vote_snapshot';
       id: any;
       fid: string;
@@ -6250,8 +6676,6 @@ export type GetVoteHistoryQuery = {
     id: any;
     createdAt?: any | null;
     amount: any;
-    tokenType: string;
-    txHash: string;
     targetSnapshotId: any;
     voteType: string;
     voter?: {
@@ -6377,13 +6801,13 @@ export type PostTasksMutation = {
   postTasks?: { __typename?: 'PostTasksOutput'; status?: number | null } | null;
 };
 
-export type PostVoteRecordMutationVariables = Exact<{
-  input: PostVoteRecordInput;
+export type PostVoteMutationVariables = Exact<{
+  input: PostVoteInput;
 }>;
 
-export type PostVoteRecordMutation = {
+export type PostVoteMutation = {
   __typename?: 'mutation_root';
-  postVoteRecord?: { __typename?: 'PostVoteRecordOutput'; status?: number | null } | null;
+  postVote?: { __typename?: 'PostVoteOutput'; status?: number | null } | null;
 };
 
 export type UpdateTaskMutationVariables = Exact<{
@@ -6557,6 +6981,157 @@ export const PointTransactionFieldsFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<PointTransactionFieldsFragment, unknown>;
+export const InsertEarlyInflyncerNftMindRecordDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'InsertEarlyInflyncerNFTMindRecord' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'address' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'tokenId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'insert_early_inflyncer_nft_mind_records_one' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'object' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'fid' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'address' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'address' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'tokenId' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'tokenId' } },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  InsertEarlyInflyncerNftMindRecordMutation,
+  InsertEarlyInflyncerNftMindRecordMutationVariables
+>;
+export const GetEarlyInflyncerNftMindRecordByFidDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetEarlyInflyncerNFTMindRecordByFid' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'early_inflyncer_nft_mind_records' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'fid' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetEarlyInflyncerNftMindRecordByFidQuery,
+  GetEarlyInflyncerNftMindRecordByFidQueryVariables
+>;
 export const GetCryptoPriceDocument = {
   kind: 'Document',
   definitions: [
@@ -8088,20 +8663,6 @@ export const GetVoteAggregatesDocument = {
                         ],
                       },
                     },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'tokenType' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'StringValue', value: 'usdc', block: false },
-                          },
-                        ],
-                      },
-                    },
                   ],
                 },
               },
@@ -8178,20 +8739,6 @@ export const GetVoteAggregatesDocument = {
                             kind: 'ObjectField',
                             name: { kind: 'Name', value: '_eq' },
                             value: { kind: 'StringValue', value: 'up', block: false },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'tokenType' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'StringValue', value: 'social', block: false },
                           },
                         ],
                       },
@@ -8276,20 +8823,6 @@ export const GetVoteAggregatesDocument = {
                         ],
                       },
                     },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'tokenType' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'StringValue', value: 'usdc', block: false },
-                          },
-                        ],
-                      },
-                    },
                   ],
                 },
               },
@@ -8366,20 +8899,6 @@ export const GetVoteAggregatesDocument = {
                             kind: 'ObjectField',
                             name: { kind: 'Name', value: '_eq' },
                             value: { kind: 'StringValue', value: 'down', block: false },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'tokenType' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: { kind: 'StringValue', value: 'social', block: false },
                           },
                         ],
                       },
@@ -8515,13 +9034,12 @@ export const GetVoteByVoterDocument = {
                 { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'voterId' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'voteType' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'tokenType' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'status' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'amount' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
                 {
                   kind: 'Field',
-                  name: { kind: 'Name', value: 'vote_snapshot' },
+                  name: { kind: 'Name', value: 'voteSnapshot' },
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
@@ -8647,8 +9165,6 @@ export const GetVoteHistoryDocument = {
                 { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'amount' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'tokenType' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'txHash' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'targetSnapshotId' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'voteType' } },
                 {
@@ -9191,20 +9707,20 @@ export const PostTasksDocument = {
     },
   ],
 } as unknown as DocumentNode<PostTasksMutation, PostTasksMutationVariables>;
-export const PostVoteRecordDocument = {
+export const PostVoteDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'mutation',
-      name: { kind: 'Name', value: 'PostVoteRecord' },
+      name: { kind: 'Name', value: 'PostVote' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'PostVoteRecordInput' } },
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'PostVoteInput' } },
           },
         },
       ],
@@ -9213,7 +9729,7 @@ export const PostVoteRecordDocument = {
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'postVoteRecord' },
+            name: { kind: 'Name', value: 'postVote' },
             arguments: [
               {
                 kind: 'Argument',
@@ -9230,7 +9746,7 @@ export const PostVoteRecordDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<PostVoteRecordMutation, PostVoteRecordMutationVariables>;
+} as unknown as DocumentNode<PostVoteMutation, PostVoteMutationVariables>;
 export const UpdateTaskDocument = {
   kind: 'Document',
   definitions: [

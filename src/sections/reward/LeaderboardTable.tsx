@@ -36,8 +36,6 @@ export default function LeaderboardTable({}: LeaderboardTableProps) {
     })
   );
 
-  console.log(userRank);
-
   const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery(
     GetLeaderBoardInfinitQueryOptions({
       keys: [],

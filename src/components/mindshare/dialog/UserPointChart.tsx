@@ -26,9 +26,7 @@ interface UserPointChartProps {
 const strokeColor = 'rgba(255,255,255,0.5)';
 
 function fillMissingPoint(data: any[], days = 30) {
-  const resultMap = new Map(
-    data.map((entry) => [entry.date, entry])
-  );
+  const resultMap = new Map(data.map((entry) => [entry.date, entry]));
 
   const today = new Date();
   today.setUTCHours(0, 0, 0, 0);

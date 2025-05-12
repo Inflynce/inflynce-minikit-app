@@ -11,8 +11,6 @@ export const GetVoteHistoryGql = gql(`
       id
       createdAt
       amount
-      tokenType
-      txHash
       targetSnapshotId
       voteType
       voter {

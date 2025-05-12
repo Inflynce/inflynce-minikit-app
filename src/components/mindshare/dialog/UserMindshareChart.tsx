@@ -23,9 +23,7 @@ interface UserMindshareChartProps {
 const strokeColor = 'rgba(255,255,255,0.5)';
 
 function fillMissingMindshare(data: any[], days = 30) {
-  const resultMap = new Map(
-    data.map((entry) => [entry._time.slice(0, 10), entry])
-  );
+  const resultMap = new Map(data.map((entry) => [entry._time.slice(0, 10), entry]));
 
   const today = new Date();
   today.setUTCHours(0, 0, 0, 0);
@@ -56,11 +54,7 @@ export const UserMindshareChart: React.FC<UserMindshareChartProps> = ({
   selectedUser,
   isLoading,
 }) => {
-
-  console.log(selectedUser?.daily);
-
   const filledData = fillMissingMindshare(selectedUser?.daily || []);
-  console.log(filledData);
 
   return (
     <Box

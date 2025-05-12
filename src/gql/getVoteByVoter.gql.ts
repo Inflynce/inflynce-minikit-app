@@ -11,11 +11,10 @@ export const GetVoteByVoterGql = gql(`
       id
       voterId
       voteType
-      tokenType
       status
       amount
       createdAt
-      vote_snapshot {
+      voteSnapshot {
         id
         fid
         weekStart

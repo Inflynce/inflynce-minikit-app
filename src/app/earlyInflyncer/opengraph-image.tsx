@@ -17,7 +17,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
       <div
         style={{
           display: 'flex',
-          background: '#fdf0dd',
+          background: '#ffa602',
           width: '100%',
           height: '100%',
           position: 'relative',
@@ -27,7 +27,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
           fontFamily: 'sans-serif',
         }}
       >
-        <img src={imageUrl} alt="Early Inflyncer NFT" style={{ width: '100%', height: '100%' }} />
+        <img src={imageUrl} alt="Early Inflyncer NFT" style={{ width: '400px', height: '400px' }} />
       </div>
     ),
     {

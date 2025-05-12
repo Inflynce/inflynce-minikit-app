@@ -10,7 +10,7 @@ export const size = {
 export const contentType = 'image/png';
 
 export default async function Image({ params }: { params: { fid: string } }) {
-  const imageUrl = `${BASE_URL}/Early_Inflyncer_NFT.png`;
+  const imageUrl = `${BASE_URL}/Early_Inflyncer_NFT_og.png`;
 
   return new ImageResponse(
     (
@@ -27,7 +27,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
           fontFamily: 'sans-serif',
         }}
       >
-        <img src={imageUrl} alt="Early Inflyncer NFT" style={{ width: '400px', height: '400px' }} />
+        <img src={imageUrl} alt="Early Inflyncer NFT" style={{ width: '100%', height: '100%' }} />
       </div>
     ),
     {

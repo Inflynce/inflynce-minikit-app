@@ -18,7 +18,7 @@ const TopGainer = dynamic(() => import('@/components/mindshare/topGainer'), {
 
 export default function Home() {
   const [value, setValue] = useState('1');
-  const [duration, setDuration] = useState(MINDSHARE_DURATION.THREE);
+  const [duration, setDuration] = useState(MINDSHARE_DURATION.ONE);
   const [field, setField] = useState(MINDSHARE_FIELDS.ABSOLUTE);
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -82,6 +82,9 @@ export default function Home() {
                 variant="outlined"
                 size="small"
               >
+                <MenuItem value={MINDSHARE_DURATION.ONE} sx={{ color: 'black' }}>
+                  24H
+                </MenuItem>
                 <MenuItem value={MINDSHARE_DURATION.THREE} sx={{ color: 'black' }}>
                   3D
                 </MenuItem>

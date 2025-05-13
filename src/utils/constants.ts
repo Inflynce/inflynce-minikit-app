@@ -5,6 +5,7 @@ export const MINDSHARE_FIELDS = {
 };
 
 export const MINDSHARE_DURATION = {
+  ONE: '1',
   THREE: '3',
   SEVEN: '7',
   THIRTY: '30',

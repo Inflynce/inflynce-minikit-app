@@ -4,13 +4,13 @@ Inflynce Protocol is building the intelligence layer for the decentralized inter
 ## Platform Screenshots
 
 ### Key Features
-| Daily rewards system | Trend analysis | Daily rewards system | NFT minting |
+| Mindshare heatmap | Trend analysis | Leaderboard | User Profile |
 |:---:|:---:|:---:|:---:|
-| <img src="doc/inflyncer_mindshare.PNG" alt="Inflyncer Mindshare" width="200" /> | <img src="doc/Inflyncer_trend.PNG" alt="Inflyncer Trend" width="200" /> | <img src="doc/daily_rewarding.PNG" alt="Daily Rewarding" width="200" /> | <img src="doc/early_inflyncer_nft_mint.PNG" alt="Early Inflyncer NFT Mint" width="200" /> |
+| <img src="doc/inflyncer_mindshare.PNG" alt="Inflyncer Mindshare" width="200" /> | <img src="doc/Inflyncer_trend.PNG" alt="Inflyncer Trend" width="200" /> | <img src="doc/inflyncer_leaderboard.PNG" alt="Inflyncer Leaderboard" width="200" /> | <img src="doc/inflyncer_profile.PNG" alt="Inflyncer Profile" width="200" /> |
 
-| User profile | NFT sharing | NFT showcase | Leaderboard |
+| Daily reward system | NFT sharing | NFT showcase | NFT Mint |
 |:---:|:---:|:---:|:---:|
-| <img src="doc/inflyncer_profile.PNG" alt="Inflyncer Profile" width="200" /> | <img src="doc/nft_share.PNG" alt="NFT Share" width="200" /> | <img src="doc/early_inflyncer_nft.PNG" alt="Early Inflyncer NFT" width="200" /> | <img src="doc/inflyncer_leaderboard.PNG" alt="Inflyncer Leaderboard" width="200" /> |
+| <img src="doc/daily_rewarding.PNG" alt="Daily Rewarding" width="200" />  | <img src="doc/nft_share.PNG" alt="NFT Share" width="200" /> | <img src="doc/early_inflyncer_nft.PNG" alt="Early Inflyncer NFT" width="200" /> | <img src="doc/early_inflyncer_nft_mint.PNG" alt="Early Inflyncer NFT Mint" width="200" /> |
 
 ## Quick Reference
 - [About Inflynce Protocol](#about-inflynce-protocol)

@@ -67,9 +67,13 @@ export const getRankSize = (rank: number) => {
   }
 };
 
-export const getBackgroundColor = (size: number, currentMindshare: number) => {
-  // Calculate percentage change
-  const percentChange = currentMindshare > 0 ? (size - currentMindshare) / currentMindshare : 0;
+export const getBackgroundColor = (size: number, currentMindshare: number, duration: string, data: any) => {
+  let percentChange = 0;
+  if (duration === MINDSHARE_DURATION.ONE) {
+    percentChange = currentMindshare > 0 ? (data.last3dMindshare - size) / currentMindshare : 0;
+  } else {
+    percentChange = currentMindshare > 0 ? (size - currentMindshare) / currentMindshare : 0;
+  }
 
   // Dark theme with burgundy/maroon and teal/green colors
   if (percentChange > 0) {
@@ -86,7 +90,7 @@ export const getBackgroundColor = (size: number, currentMindshare: number) => {
 };
 
 const CustomizedContent = (props: any) => {
-  const { x, y, width, height, name, data, size, depth, onItemClick } = props;
+  const { x, y, width, height, name, data, size, depth, onItemClick, duration } = props;
   const { pfpUrl, username, fid } = data?.userInfo || {};
   const mindshare = (size * 100).toFixed(2);
   const currentMindshare = data?.currentMindshare || 0;
@@ -198,7 +202,7 @@ const CustomizedContent = (props: any) => {
           height={height - 1}
           x={1}
           y={1}
-          fill={getBackgroundColor(size, currentMindshare)}
+          fill={getBackgroundColor(size, currentMindshare, duration, data)}
           stroke={borderStyle.stroke}
           strokeWidth={borderStyle.strokeWidth}
           rx={6}
@@ -289,7 +293,7 @@ export const MindshareTreemap = ({
   width = '100%',
   height = '100%',
   minHeight = 300,
-  duration = MINDSHARE_DURATION.THREE,
+  duration = MINDSHARE_DURATION.ONE,
 }: MindshareTreemapProps) => {
   // const [duration, setDuration] = useState(MINDSHARE_DURATION.THREE);
   const [open, setOpen] = useState(false);
@@ -329,10 +333,11 @@ export const MindshareTreemap = ({
       );
     }
 
+    const size = duration === MINDSHARE_DURATION.ONE ? 'currentMindshare' : `last${duration}dMindshare`;
     const formattedData =
       data?.map((user: any) => ({
         name: user?.userInfo?.displayName || 'Unknown',
-        size: user[`last${duration}dMindshare`] || 0,
+        size: user[size] || 0,
         data: user,
       })) || [];
 
@@ -345,7 +350,7 @@ export const MindshareTreemap = ({
           nameKey="name"
           stroke="#fff"
           isAnimationActive={false}
-          content={<CustomizedContent onItemClick={handleItemClick} />}
+          content={<CustomizedContent onItemClick={handleItemClick} duration={duration} />}
         />
       </ResponsiveContainer>
     );

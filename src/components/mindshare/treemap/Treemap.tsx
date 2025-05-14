@@ -67,7 +67,12 @@ export const getRankSize = (rank: number) => {
   }
 };
 
-export const getBackgroundColor = (size: number, currentMindshare: number, duration: string, data: any) => {
+export const getBackgroundColor = (
+  size: number,
+  currentMindshare: number,
+  duration: string,
+  data: any
+) => {
   let percentChange = 0;
   if (duration === MINDSHARE_DURATION.ONE) {
     percentChange = currentMindshare > 0 ? (data.last3dMindshare - size) / currentMindshare : 0;
@@ -333,7 +338,8 @@ export const MindshareTreemap = ({
       );
     }
 
-    const size = duration === MINDSHARE_DURATION.ONE ? 'currentMindshare' : `last${duration}dMindshare`;
+    const size =
+      duration === MINDSHARE_DURATION.ONE ? 'currentMindshare' : `last${duration}dMindshare`;
     const formattedData =
       data?.map((user: any) => ({
         name: user?.userInfo?.displayName || 'Unknown',

@@ -421,6 +421,141 @@ export enum Cursor_Ordering {
   Desc = 'DESC',
 }
 
+/** columns and relationships of "daily_completed_tasks" */
+export type Daily_Completed_Tasks = {
+  __typename?: 'daily_completed_tasks';
+  completed_task_count?: Maybe<Scalars['bigint']['output']>;
+  date?: Maybe<Scalars['date']['output']>;
+};
+
+/** aggregated selection of "daily_completed_tasks" */
+export type Daily_Completed_Tasks_Aggregate = {
+  __typename?: 'daily_completed_tasks_aggregate';
+  aggregate?: Maybe<Daily_Completed_Tasks_Aggregate_Fields>;
+  nodes: Array<Daily_Completed_Tasks>;
+};
+
+/** aggregate fields of "daily_completed_tasks" */
+export type Daily_Completed_Tasks_Aggregate_Fields = {
+  __typename?: 'daily_completed_tasks_aggregate_fields';
+  avg?: Maybe<Daily_Completed_Tasks_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Daily_Completed_Tasks_Max_Fields>;
+  min?: Maybe<Daily_Completed_Tasks_Min_Fields>;
+  stddev?: Maybe<Daily_Completed_Tasks_Stddev_Fields>;
+  stddev_pop?: Maybe<Daily_Completed_Tasks_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Daily_Completed_Tasks_Stddev_Samp_Fields>;
+  sum?: Maybe<Daily_Completed_Tasks_Sum_Fields>;
+  var_pop?: Maybe<Daily_Completed_Tasks_Var_Pop_Fields>;
+  var_samp?: Maybe<Daily_Completed_Tasks_Var_Samp_Fields>;
+  variance?: Maybe<Daily_Completed_Tasks_Variance_Fields>;
+};
+
+/** aggregate fields of "daily_completed_tasks" */
+export type Daily_Completed_Tasks_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Daily_Completed_Tasks_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Daily_Completed_Tasks_Avg_Fields = {
+  __typename?: 'daily_completed_tasks_avg_fields';
+  completed_task_count?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "daily_completed_tasks". All fields are combined with a logical 'AND'. */
+export type Daily_Completed_Tasks_Bool_Exp = {
+  _and?: InputMaybe<Array<Daily_Completed_Tasks_Bool_Exp>>;
+  _not?: InputMaybe<Daily_Completed_Tasks_Bool_Exp>;
+  _or?: InputMaybe<Array<Daily_Completed_Tasks_Bool_Exp>>;
+  completed_task_count?: InputMaybe<Bigint_Comparison_Exp>;
+  date?: InputMaybe<Date_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Daily_Completed_Tasks_Max_Fields = {
+  __typename?: 'daily_completed_tasks_max_fields';
+  completed_task_count?: Maybe<Scalars['bigint']['output']>;
+  date?: Maybe<Scalars['date']['output']>;
+};
+
+/** aggregate min on columns */
+export type Daily_Completed_Tasks_Min_Fields = {
+  __typename?: 'daily_completed_tasks_min_fields';
+  completed_task_count?: Maybe<Scalars['bigint']['output']>;
+  date?: Maybe<Scalars['date']['output']>;
+};
+
+/** Ordering options when selecting data from "daily_completed_tasks". */
+export type Daily_Completed_Tasks_Order_By = {
+  completed_task_count?: InputMaybe<Order_By>;
+  date?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "daily_completed_tasks" */
+export enum Daily_Completed_Tasks_Select_Column {
+  /** column name */
+  CompletedTaskCount = 'completed_task_count',
+  /** column name */
+  Date = 'date',
+}
+
+/** aggregate stddev on columns */
+export type Daily_Completed_Tasks_Stddev_Fields = {
+  __typename?: 'daily_completed_tasks_stddev_fields';
+  completed_task_count?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Daily_Completed_Tasks_Stddev_Pop_Fields = {
+  __typename?: 'daily_completed_tasks_stddev_pop_fields';
+  completed_task_count?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Daily_Completed_Tasks_Stddev_Samp_Fields = {
+  __typename?: 'daily_completed_tasks_stddev_samp_fields';
+  completed_task_count?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "daily_completed_tasks" */
+export type Daily_Completed_Tasks_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Daily_Completed_Tasks_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Daily_Completed_Tasks_Stream_Cursor_Value_Input = {
+  completed_task_count?: InputMaybe<Scalars['bigint']['input']>;
+  date?: InputMaybe<Scalars['date']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Daily_Completed_Tasks_Sum_Fields = {
+  __typename?: 'daily_completed_tasks_sum_fields';
+  completed_task_count?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** aggregate var_pop on columns */
+export type Daily_Completed_Tasks_Var_Pop_Fields = {
+  __typename?: 'daily_completed_tasks_var_pop_fields';
+  completed_task_count?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Daily_Completed_Tasks_Var_Samp_Fields = {
+  __typename?: 'daily_completed_tasks_var_samp_fields';
+  completed_task_count?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Daily_Completed_Tasks_Variance_Fields = {
+  __typename?: 'daily_completed_tasks_variance_fields';
+  completed_task_count?: Maybe<Scalars['Float']['output']>;
+};
+
 /** Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'. */
 export type Date_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['date']['input']>;
@@ -2323,6 +2458,10 @@ export type Query_Root = {
   action_types_aggregate: Action_Types_Aggregate;
   /** fetch data from the table: "action_types" using primary key columns */
   action_types_by_pk?: Maybe<Action_Types>;
+  /** fetch data from the table: "daily_completed_tasks" */
+  daily_completed_tasks: Array<Daily_Completed_Tasks>;
+  /** fetch aggregated fields from the table: "daily_completed_tasks" */
+  daily_completed_tasks_aggregate: Daily_Completed_Tasks_Aggregate;
   /** fetch data from the table: "early_inflyncer_nft_mind_records" */
   early_inflyncer_nft_mind_records: Array<Early_Inflyncer_Nft_Mind_Records>;
   /** fetch aggregated fields from the table: "early_inflyncer_nft_mind_records" */
@@ -2448,6 +2587,22 @@ export type Query_RootAction_Types_AggregateArgs = {
 
 export type Query_RootAction_Types_By_PkArgs = {
   id: Scalars['Int']['input'];
+};
+
+export type Query_RootDaily_Completed_TasksArgs = {
+  distinct_on?: InputMaybe<Array<Daily_Completed_Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Daily_Completed_Tasks_Order_By>>;
+  where?: InputMaybe<Daily_Completed_Tasks_Bool_Exp>;
+};
+
+export type Query_RootDaily_Completed_Tasks_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Daily_Completed_Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Daily_Completed_Tasks_Order_By>>;
+  where?: InputMaybe<Daily_Completed_Tasks_Bool_Exp>;
 };
 
 export type Query_RootEarly_Inflyncer_Nft_Mind_RecordsArgs = {
@@ -2812,6 +2967,12 @@ export type Subscription_Root = {
   action_types_by_pk?: Maybe<Action_Types>;
   /** fetch data from the table in a streaming manner: "action_types" */
   action_types_stream: Array<Action_Types>;
+  /** fetch data from the table: "daily_completed_tasks" */
+  daily_completed_tasks: Array<Daily_Completed_Tasks>;
+  /** fetch aggregated fields from the table: "daily_completed_tasks" */
+  daily_completed_tasks_aggregate: Daily_Completed_Tasks_Aggregate;
+  /** fetch data from the table in a streaming manner: "daily_completed_tasks" */
+  daily_completed_tasks_stream: Array<Daily_Completed_Tasks>;
   /** fetch data from the table: "early_inflyncer_nft_mind_records" */
   early_inflyncer_nft_mind_records: Array<Early_Inflyncer_Nft_Mind_Records>;
   /** fetch aggregated fields from the table: "early_inflyncer_nft_mind_records" */
@@ -2972,6 +3133,28 @@ export type Subscription_RootAction_Types_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Action_Types_Stream_Cursor_Input>>;
   where?: InputMaybe<Action_Types_Bool_Exp>;
+};
+
+export type Subscription_RootDaily_Completed_TasksArgs = {
+  distinct_on?: InputMaybe<Array<Daily_Completed_Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Daily_Completed_Tasks_Order_By>>;
+  where?: InputMaybe<Daily_Completed_Tasks_Bool_Exp>;
+};
+
+export type Subscription_RootDaily_Completed_Tasks_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Daily_Completed_Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Daily_Completed_Tasks_Order_By>>;
+  where?: InputMaybe<Daily_Completed_Tasks_Bool_Exp>;
+};
+
+export type Subscription_RootDaily_Completed_Tasks_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Daily_Completed_Tasks_Stream_Cursor_Input>>;
+  where?: InputMaybe<Daily_Completed_Tasks_Bool_Exp>;
 };
 
 export type Subscription_RootEarly_Inflyncer_Nft_Mind_RecordsArgs = {

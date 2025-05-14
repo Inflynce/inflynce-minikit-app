@@ -12,7 +12,7 @@ import {
 } from '@/queryFn/earlyInflyncerNFT';
 import { useIdentityToken } from '@privy-io/react-auth';
 import { useMiniKit } from '@coinbase/onchainkit/minikit';
-import { Button, Typography } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { reportCustomError } from '@/utils/sentry';
 import { useState } from 'react';
 import { Box } from '@mui/material';
@@ -20,6 +20,8 @@ import EarlyInflyncerNFTDialog from '@/components/NFT/EarlyInflyncerNFTDialog';
 import { handleFarcasterLogin } from '@/utils/auth';
 import { useLoginToFrame } from '@privy-io/react-auth/farcaster';
 import React from 'react';
+import ShareIcon from '@mui/icons-material/Share';
+import sdk from '@farcaster/frame-sdk';
 
 export default function NFT() {
   const { address } = useAccount();
@@ -38,8 +40,6 @@ export default function NFT() {
   );
 
   const isMinted = earlyInflyncerNFTMindRecord && earlyInflyncerNFTMindRecord.length > 0;
-
-  console.log('earlyInflyncerNFTMindRecord', earlyInflyncerNFTMindRecord);
 
   const { mutate: insertEarlyInflyncerNFTMindRecord } = useMutation(
     InsertEarlyInflyncerNFTMindRecordMutationOptions({
@@ -120,8 +120,6 @@ export default function NFT() {
   // Use useCallback to prevent recreation of the function on re-renders
   const statusHandler = React.useCallback((status: LifecycleStatus) => {
     const { statusName, statusData } = status;
-    console.log('statusName', statusName);
-    console.log('statusData', statusData);
     switch (statusName) {
       case 'success':
       // handle success
@@ -136,6 +134,19 @@ export default function NFT() {
     handleFarcasterLogin(initLoginToFrame, loginToFrame);
   };
 
+  const handleShare = async () => {
+    try {
+      const shareUrl = `${process.env.NEXT_PUBLIC_URL}/earlyInflyncer`;
+      const shareText = `Just minted my Early Inflyncer Genesis NFT on @inflynce 🚀 Social capital is the new currency and now it’s onchain.`;
+      await sdk.actions.composeCast({
+        text: shareText,
+        embeds: [shareUrl],
+      });
+    } catch (err) {
+      console.error('Failed to share:', err);
+    }
+  };
+
   return (
     <Box>
       {isMinted ? (
@@ -146,6 +157,29 @@ export default function NFT() {
           <Typography color="primary" textAlign="right">
             #{earlyInflyncerNFTMindRecord?.[0]?.tokenId}
           </Typography>
+          <Button
+            variant="contained"
+            onClick={handleShare}
+            fullWidth
+            sx={{
+              background: (theme) =>
+                `linear-gradient(90deg, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
+              color: 'white',
+              py: 1.5,
+              borderRadius: 2,
+              fontWeight: 'bold',
+              textTransform: 'none',
+              mb: 1,
+              '&:hover': {
+                background: (theme) =>
+                  `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
+                boxShadow: (theme) => `0 4px 15px ${theme.palette.primary.main}40`,
+              },
+            }}
+          >
+            Share Your Early Inflyncer NFT
+            <ShareIcon sx={{ fontSize: 14, ml: 1 }} />
+          </Button>
         </NFTMintCard>
       ) : (
         <NFTMintCard

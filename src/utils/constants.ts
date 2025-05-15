@@ -29,3 +29,8 @@ export const TAB = {
   TASKS: 'tasks',
   REWARDS: 'rewards',
 };
+
+export const ACTION_TYPE = {
+  VISIT: 'visit',
+  EARLY_INFLYNCER: 'early_inflyncer_task',
+};

@@ -2,27 +2,53 @@ import { Typography, ListItem, ListItemText, Chip, Stack } from '@mui/material';
 import React from 'react';
 import { User_Tasks } from '@/__generated__/graphql';
 import { LoadingButton } from '@mui/lab';
+import { useQuery } from '@tanstack/react-query';
+import { GetEarlyInflyncerNFTMindRecordByFidQueryOptions } from '@/queryFn/earlyInflyncerNFT';
+import { useIdentityToken } from '@privy-io/react-auth';
+import { useMiniKit } from '@coinbase/onchainkit/minikit';
+import { useRouter } from 'next/navigation';
 
-interface VisitInflynceTaskProps {
+interface EarlyInflyncerTaskProps {
   task: User_Tasks;
   onClaim: (taskId: string) => void;
   isPending?: boolean;
 }
 
-const VisitInflynceTask: React.FC<VisitInflynceTaskProps> = ({
+const EarlyInflyncerTask: React.FC<EarlyInflyncerTaskProps> = ({
   task,
   onClaim,
   isPending = false,
-}) => {
+  }) => {
+  const router = useRouter();
   const { task: taskData } = task;
+  const { identityToken } = useIdentityToken();
+  const { context } = useMiniKit();
+
+  const { data: earlyInflyncerNFTMindRecord } = useQuery(
+    GetEarlyInflyncerNFTMindRecordByFidQueryOptions({
+      variables: { fid: context?.user.fid.toString() ?? '' },
+      keys: ['earlyInflyncerNFTMindRecord'],
+      token: identityToken ?? '',
+    })
+  );
+
+  const isMinted = earlyInflyncerNFTMindRecord && earlyInflyncerNFTMindRecord.length > 0;
+
+  console.log('isMinted', isMinted);
   const handleClaimClick = () => {
     onClaim(task.id);
   };
+
+  const handleMintClick = () => {
+    router.push(`/profile/${context?.user.fid}?tab=nft`);
+  };
+
 
   return (
     <ListItem
       sx={{ bgcolor: 'rgba(255, 255, 255, 0.05)', borderRadius: 1, pr: 12, mb: 1 }}
       secondaryAction={
+        isMinted ? (
         <LoadingButton
           loading={isPending}
           variant="outlined"
@@ -32,7 +58,17 @@ const VisitInflynceTask: React.FC<VisitInflynceTaskProps> = ({
           disabled={task.completed}
         >
           {task.completed ? 'Claimed' : 'Claim'}
-        </LoadingButton>
+          </LoadingButton>
+        ) : (
+          <LoadingButton
+            variant="outlined"
+            color="primary"
+            size="small"
+            onClick={handleMintClick}
+          >
+            Mint
+          </LoadingButton>
+        )
       }
     >
       <ListItemText>
@@ -54,4 +90,4 @@ const VisitInflynceTask: React.FC<VisitInflynceTaskProps> = ({
   );
 };
 
-export default VisitInflynceTask;
+export default EarlyInflyncerTask;

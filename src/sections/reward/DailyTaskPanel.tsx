@@ -122,7 +122,6 @@ export default function DailyTaskPanel() {
   const renderTaskByActionType = (task: User_Tasks) => {
     const actionTypeId = task.task.actionType.name;
     const isTaskPending = pendingTaskId === task.id;
-    console.log('User_Tasks', task);
     switch (actionTypeId) {
       case ACTION_TYPE.VISIT: // "visit" action type
         return (

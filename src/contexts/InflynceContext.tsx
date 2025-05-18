@@ -26,15 +26,18 @@ export const InflynceAuthProvider = ({ children }: { children: React.ReactNode }
 
   useEffect(() => {
     const initToken = async () => {
-      const storedToken = localStorage.getItem(LOCAL_STORAGE_KEY);
-      if (storedToken && !isTokenExpired(storedToken)) {
-        setAccessToken(storedToken);
-        const decoded = decodeToken(storedToken);
-        if (decoded) setUserPayload(decoded);
+      const freshToken = await refreshToken();
+      if (freshToken) {
+        setAccessToken(freshToken);
       } else {
-        localStorage.removeItem(LOCAL_STORAGE_KEY);
-        const freshToken = await refreshToken();
-        if (freshToken) setAccessToken(freshToken);
+        const storedToken = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (storedToken && !isTokenExpired(storedToken)) {
+          setAccessToken(storedToken);
+          const decoded = decodeToken(storedToken);
+          if (decoded) setUserPayload(decoded);
+        } else {
+          localStorage.removeItem(LOCAL_STORAGE_KEY);
+        }
       }
     };
     initToken();

@@ -29,9 +29,6 @@ const EarlyInflyncerTask: React.FC<EarlyInflyncerTaskProps> = ({
       variables: { fid: context?.user.fid.toString() ?? '' },
       keys: ['earlyInflyncerNFTMindRecord'],
       token: token ?? '',
-      options: {
-        enabled: !!token,
-      },
     })
   );
 

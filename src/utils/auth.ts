@@ -28,3 +28,7 @@ export const handleFarcasterLogin = async (
     throw error;
   }
 };
+
+export const generateNonce = () => {
+  return [...Array(8)].map(() => Math.floor(Math.random() * 36).toString(36)).join('');
+};

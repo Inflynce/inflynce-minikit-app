@@ -3,39 +3,35 @@
 import { NFTMintCard, LifecycleStatus } from '@coinbase/onchainkit/nft';
 import { NFTMedia } from '@coinbase/onchainkit/nft/view';
 import { NFTAssetCost, NFTMintButton } from '@coinbase/onchainkit/nft/mint';
-import { useAccount } from 'wagmi';
 import type { TransactionReceipt } from 'viem';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   GetEarlyInflyncerNFTMindRecordByFidQueryOptions,
   InsertEarlyInflyncerNFTMindRecordMutationOptions,
 } from '@/queryFn/earlyInflyncerNFT';
-import { useIdentityToken } from '@privy-io/react-auth';
 import { useMiniKit } from '@coinbase/onchainkit/minikit';
-import { Button, Stack, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { reportCustomError } from '@/utils/sentry';
 import { useState } from 'react';
 import { Box } from '@mui/material';
 import EarlyInflyncerNFTDialog from '@/components/NFT/EarlyInflyncerNFTDialog';
-import { handleFarcasterLogin } from '@/utils/auth';
 import { useLoginToFrame } from '@privy-io/react-auth/farcaster';
 import React from 'react';
 import ShareIcon from '@mui/icons-material/Share';
 import sdk from '@farcaster/frame-sdk';
+import { useInflynceAuth } from '@/contexts/InflynceContext';
 
 export default function NFT() {
-  const { address } = useAccount();
-  const { identityToken } = useIdentityToken();
+  const { token, getToken } = useInflynceAuth();
   const { context } = useMiniKit();
   const [tokenId, setTokenId] = useState<string>('9');
   const [open, setOpen] = useState(false);
-  const { initLoginToFrame, loginToFrame } = useLoginToFrame();
 
   const { data: earlyInflyncerNFTMindRecord } = useQuery(
     GetEarlyInflyncerNFTMindRecordByFidQueryOptions({
       variables: { fid: context?.user.fid.toString() ?? '' },
       keys: ['earlyInflyncerNFTMindRecord'],
-      token: identityToken ?? '',
+      token: token ?? '',
     })
   );
 
@@ -43,7 +39,7 @@ export default function NFT() {
 
   const { mutate: insertEarlyInflyncerNFTMindRecord } = useMutation(
     InsertEarlyInflyncerNFTMindRecordMutationOptions({
-      token: identityToken ?? '',
+      token: token ?? '',
       options: {
         onSuccess: (data) => {
           console.log('data', data);
@@ -130,8 +126,8 @@ export default function NFT() {
     }
   }, []);
 
-  const handleSignIn = () => {
-    handleFarcasterLogin(initLoginToFrame, loginToFrame);
+  const handleSignIn = async () => {
+    await getToken();
   };
 
   const handleShare = async () => {
@@ -191,7 +187,7 @@ export default function NFT() {
         >
           <NFTMedia />
           <NFTAssetCost />
-          {!!identityToken ? (
+          {!!token ? (
             <NFTMintButton disabled={isMinted} />
           ) : (
             <Button variant="outlined" onClick={handleSignIn}>

@@ -23,6 +23,9 @@ import { POINT_TRANSACTION_DIRECTION } from '@/utils/constants';
 import dynamic from 'next/dynamic';
 import { formatPoints } from '@/utils/formatters';
 import { getYesterday } from '@/utils/dateUtils';
+import { shareYesterdayEarn } from '@/utils/share';
+import ShareIcon from '@mui/icons-material/Share';
+
 const PointTransactionsDrawer = dynamic(
   () => import('@/components/mindshare/dialog/PointTransactionsDrawer'),
   { ssr: false }
@@ -116,7 +119,6 @@ export const PointsEarnedTodayChip: React.FC<PointsChipProps> = ({
   showUnit = true,
   size = 'small',
   sx,
-  showInfoIcon = true,
   ...chipProps
 }) => {
   const yesterday = getYesterday();
@@ -137,11 +139,17 @@ export const PointsEarnedTodayChip: React.FC<PointsChipProps> = ({
   const label = showUnit
     ? `${formatPoints(pointEarnedToday ?? 0)} IP`
     : formatPoints(pointEarnedToday ?? 0);
+
+  const handleShare = () => {
+    shareYesterdayEarn(fid.toString());
+  };
+
   return (
     <>
       <Chip
         label={label}
         size={size}
+        onClick={handleShare}
         avatar={<TrendingUpIcon sx={{ color: `green !important` }} />}
         sx={{
           backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -151,6 +159,8 @@ export const PointsEarnedTodayChip: React.FC<PointsChipProps> = ({
           ...sx,
         }}
         {...chipProps}
+        onDelete={handleShare}
+        deleteIcon={<ShareIcon fontSize="small" />}
       />
     </>
   );

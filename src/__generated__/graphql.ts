@@ -20,6 +20,7 @@ export type Scalars = {
   Float: { input: number; output: number };
   bigint: { input: any; output: any };
   date: { input: any; output: any };
+  jsonb: { input: any; output: any };
   numeric: { input: any; output: any };
   timestamp: { input: any; output: any };
   timestamptz: { input: any; output: any };
@@ -802,6 +803,34 @@ export type Early_Inflyncer_Nft_Mind_Records_Updates = {
   where: Early_Inflyncer_Nft_Mind_Records_Bool_Exp;
 };
 
+export type Jsonb_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'. */
+export type Jsonb_Comparison_Exp = {
+  _cast?: InputMaybe<Jsonb_Cast_Exp>;
+  /** is the column contained in the given json value */
+  _contained_in?: InputMaybe<Scalars['jsonb']['input']>;
+  /** does the column contain the given json value at the top level */
+  _contains?: InputMaybe<Scalars['jsonb']['input']>;
+  _eq?: InputMaybe<Scalars['jsonb']['input']>;
+  _gt?: InputMaybe<Scalars['jsonb']['input']>;
+  _gte?: InputMaybe<Scalars['jsonb']['input']>;
+  /** does the string exist as a top-level key in the column */
+  _has_key?: InputMaybe<Scalars['String']['input']>;
+  /** do all of these strings exist as top-level keys in the column */
+  _has_keys_all?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** do any of these strings exist as top-level keys in the column */
+  _has_keys_any?: InputMaybe<Array<Scalars['String']['input']>>;
+  _in?: InputMaybe<Array<Scalars['jsonb']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['jsonb']['input']>;
+  _lte?: InputMaybe<Scalars['jsonb']['input']>;
+  _neq?: InputMaybe<Scalars['jsonb']['input']>;
+  _nin?: InputMaybe<Array<Scalars['jsonb']['input']>>;
+};
+
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
@@ -825,6 +854,10 @@ export type Mutation_Root = {
   delete_point_transactions?: Maybe<Point_Transactions_Mutation_Response>;
   /** delete single row from the table: "point_transactions" */
   delete_point_transactions_by_pk?: Maybe<Point_Transactions>;
+  /** delete data from the table: "raw_events" */
+  delete_raw_events?: Maybe<Raw_Events_Mutation_Response>;
+  /** delete single row from the table: "raw_events" */
+  delete_raw_events_by_pk?: Maybe<Raw_Events>;
   /** delete data from the table: "task_types" */
   delete_task_types?: Maybe<Task_Types_Mutation_Response>;
   /** delete single row from the table: "task_types" */
@@ -893,6 +926,10 @@ export type Mutation_Root = {
   insert_point_transactions?: Maybe<Point_Transactions_Mutation_Response>;
   /** insert a single row into the table: "point_transactions" */
   insert_point_transactions_one?: Maybe<Point_Transactions>;
+  /** insert data into the table: "raw_events" */
+  insert_raw_events?: Maybe<Raw_Events_Mutation_Response>;
+  /** insert a single row into the table: "raw_events" */
+  insert_raw_events_one?: Maybe<Raw_Events>;
   /** insert data into the table: "task_types" */
   insert_task_types?: Maybe<Task_Types_Mutation_Response>;
   /** insert a single row into the table: "task_types" */
@@ -983,6 +1020,12 @@ export type Mutation_Root = {
   update_point_transactions_by_pk?: Maybe<Point_Transactions>;
   /** update multiples rows of table: "point_transactions" */
   update_point_transactions_many?: Maybe<Array<Maybe<Point_Transactions_Mutation_Response>>>;
+  /** update data of the table: "raw_events" */
+  update_raw_events?: Maybe<Raw_Events_Mutation_Response>;
+  /** update single row of the table: "raw_events" */
+  update_raw_events_by_pk?: Maybe<Raw_Events>;
+  /** update multiples rows of table: "raw_events" */
+  update_raw_events_many?: Maybe<Array<Maybe<Raw_Events_Mutation_Response>>>;
   /** update data of the table: "task_types" */
   update_task_types?: Maybe<Task_Types_Mutation_Response>;
   /** update single row of the table: "task_types" */
@@ -1106,6 +1149,16 @@ export type Mutation_RootDelete_Point_TransactionsArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Point_Transactions_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Raw_EventsArgs = {
+  where: Raw_Events_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Raw_Events_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -1287,6 +1340,18 @@ export type Mutation_RootInsert_Point_TransactionsArgs = {
 export type Mutation_RootInsert_Point_Transactions_OneArgs = {
   object: Point_Transactions_Insert_Input;
   on_conflict?: InputMaybe<Point_Transactions_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Raw_EventsArgs = {
+  objects: Array<Raw_Events_Insert_Input>;
+  on_conflict?: InputMaybe<Raw_Events_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Raw_Events_OneArgs = {
+  object: Raw_Events_Insert_Input;
+  on_conflict?: InputMaybe<Raw_Events_On_Conflict>;
 };
 
 /** mutation root */
@@ -1535,6 +1600,35 @@ export type Mutation_RootUpdate_Point_Transactions_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Point_Transactions_ManyArgs = {
   updates: Array<Point_Transactions_Updates>;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Raw_EventsArgs = {
+  _append?: InputMaybe<Raw_Events_Append_Input>;
+  _delete_at_path?: InputMaybe<Raw_Events_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Raw_Events_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Raw_Events_Delete_Key_Input>;
+  _inc?: InputMaybe<Raw_Events_Inc_Input>;
+  _prepend?: InputMaybe<Raw_Events_Prepend_Input>;
+  _set?: InputMaybe<Raw_Events_Set_Input>;
+  where: Raw_Events_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Raw_Events_By_PkArgs = {
+  _append?: InputMaybe<Raw_Events_Append_Input>;
+  _delete_at_path?: InputMaybe<Raw_Events_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Raw_Events_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Raw_Events_Delete_Key_Input>;
+  _inc?: InputMaybe<Raw_Events_Inc_Input>;
+  _prepend?: InputMaybe<Raw_Events_Prepend_Input>;
+  _set?: InputMaybe<Raw_Events_Set_Input>;
+  pk_columns: Raw_Events_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Raw_Events_ManyArgs = {
+  updates: Array<Raw_Events_Updates>;
 };
 
 /** mutation root */
@@ -2554,6 +2648,12 @@ export type Query_Root = {
   point_transactions_aggregate: Point_Transactions_Aggregate;
   /** fetch data from the table: "point_transactions" using primary key columns */
   point_transactions_by_pk?: Maybe<Point_Transactions>;
+  /** fetch data from the table: "raw_events" */
+  raw_events: Array<Raw_Events>;
+  /** fetch aggregated fields from the table: "raw_events" */
+  raw_events_aggregate: Raw_Events_Aggregate;
+  /** fetch data from the table: "raw_events" using primary key columns */
+  raw_events_by_pk?: Maybe<Raw_Events>;
   /** fetch data from the table: "task_types" */
   task_types: Array<Task_Types>;
   /** fetch aggregated fields from the table: "task_types" */
@@ -2758,6 +2858,26 @@ export type Query_RootPoint_Transactions_AggregateArgs = {
 };
 
 export type Query_RootPoint_Transactions_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Query_RootRaw_EventsArgs = {
+  distinct_on?: InputMaybe<Array<Raw_Events_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Raw_Events_Order_By>>;
+  where?: InputMaybe<Raw_Events_Bool_Exp>;
+};
+
+export type Query_RootRaw_Events_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Raw_Events_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Raw_Events_Order_By>>;
+  where?: InputMaybe<Raw_Events_Bool_Exp>;
+};
+
+export type Query_RootRaw_Events_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -3021,6 +3141,337 @@ export type Query_RootVote_Type_By_PkArgs = {
   key: Scalars['String']['input'];
 };
 
+/** columns and relationships of "raw_events" */
+export type Raw_Events = {
+  __typename?: 'raw_events';
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  event_type?: Maybe<Scalars['Int']['output']>;
+  fid?: Maybe<Scalars['String']['output']>;
+  id: Scalars['uuid']['output'];
+  payload?: Maybe<Scalars['jsonb']['output']>;
+  source_user?: Maybe<Scalars['jsonb']['output']>;
+  target_user?: Maybe<Scalars['jsonb']['output']>;
+  timestamp?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** columns and relationships of "raw_events" */
+export type Raw_EventsPayloadArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** columns and relationships of "raw_events" */
+export type Raw_EventsSource_UserArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** columns and relationships of "raw_events" */
+export type Raw_EventsTarget_UserArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregated selection of "raw_events" */
+export type Raw_Events_Aggregate = {
+  __typename?: 'raw_events_aggregate';
+  aggregate?: Maybe<Raw_Events_Aggregate_Fields>;
+  nodes: Array<Raw_Events>;
+};
+
+/** aggregate fields of "raw_events" */
+export type Raw_Events_Aggregate_Fields = {
+  __typename?: 'raw_events_aggregate_fields';
+  avg?: Maybe<Raw_Events_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Raw_Events_Max_Fields>;
+  min?: Maybe<Raw_Events_Min_Fields>;
+  stddev?: Maybe<Raw_Events_Stddev_Fields>;
+  stddev_pop?: Maybe<Raw_Events_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Raw_Events_Stddev_Samp_Fields>;
+  sum?: Maybe<Raw_Events_Sum_Fields>;
+  var_pop?: Maybe<Raw_Events_Var_Pop_Fields>;
+  var_samp?: Maybe<Raw_Events_Var_Samp_Fields>;
+  variance?: Maybe<Raw_Events_Variance_Fields>;
+};
+
+/** aggregate fields of "raw_events" */
+export type Raw_Events_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Raw_Events_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Raw_Events_Append_Input = {
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+  source_user?: InputMaybe<Scalars['jsonb']['input']>;
+  target_user?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Raw_Events_Avg_Fields = {
+  __typename?: 'raw_events_avg_fields';
+  event_type?: Maybe<Scalars['Float']['output']>;
+  timestamp?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "raw_events". All fields are combined with a logical 'AND'. */
+export type Raw_Events_Bool_Exp = {
+  _and?: InputMaybe<Array<Raw_Events_Bool_Exp>>;
+  _not?: InputMaybe<Raw_Events_Bool_Exp>;
+  _or?: InputMaybe<Array<Raw_Events_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  event_type?: InputMaybe<Int_Comparison_Exp>;
+  fid?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  payload?: InputMaybe<Jsonb_Comparison_Exp>;
+  source_user?: InputMaybe<Jsonb_Comparison_Exp>;
+  target_user?: InputMaybe<Jsonb_Comparison_Exp>;
+  timestamp?: InputMaybe<Bigint_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "raw_events" */
+export enum Raw_Events_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  RawEventsPkey = 'raw_events_pkey',
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Raw_Events_Delete_At_Path_Input = {
+  payload?: InputMaybe<Array<Scalars['String']['input']>>;
+  source_user?: InputMaybe<Array<Scalars['String']['input']>>;
+  target_user?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Raw_Events_Delete_Elem_Input = {
+  payload?: InputMaybe<Scalars['Int']['input']>;
+  source_user?: InputMaybe<Scalars['Int']['input']>;
+  target_user?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Raw_Events_Delete_Key_Input = {
+  payload?: InputMaybe<Scalars['String']['input']>;
+  source_user?: InputMaybe<Scalars['String']['input']>;
+  target_user?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** input type for incrementing numeric columns in table "raw_events" */
+export type Raw_Events_Inc_Input = {
+  event_type?: InputMaybe<Scalars['Int']['input']>;
+  timestamp?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** input type for inserting data into table "raw_events" */
+export type Raw_Events_Insert_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  event_type?: InputMaybe<Scalars['Int']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+  source_user?: InputMaybe<Scalars['jsonb']['input']>;
+  target_user?: InputMaybe<Scalars['jsonb']['input']>;
+  timestamp?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** aggregate max on columns */
+export type Raw_Events_Max_Fields = {
+  __typename?: 'raw_events_max_fields';
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  event_type?: Maybe<Scalars['Int']['output']>;
+  fid?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  timestamp?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** aggregate min on columns */
+export type Raw_Events_Min_Fields = {
+  __typename?: 'raw_events_min_fields';
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  event_type?: Maybe<Scalars['Int']['output']>;
+  fid?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  timestamp?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** response of any mutation on the table "raw_events" */
+export type Raw_Events_Mutation_Response = {
+  __typename?: 'raw_events_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Raw_Events>;
+};
+
+/** on_conflict condition type for table "raw_events" */
+export type Raw_Events_On_Conflict = {
+  constraint: Raw_Events_Constraint;
+  update_columns?: Array<Raw_Events_Update_Column>;
+  where?: InputMaybe<Raw_Events_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "raw_events". */
+export type Raw_Events_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  event_type?: InputMaybe<Order_By>;
+  fid?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  payload?: InputMaybe<Order_By>;
+  source_user?: InputMaybe<Order_By>;
+  target_user?: InputMaybe<Order_By>;
+  timestamp?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: raw_events */
+export type Raw_Events_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Raw_Events_Prepend_Input = {
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+  source_user?: InputMaybe<Scalars['jsonb']['input']>;
+  target_user?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** select columns of table "raw_events" */
+export enum Raw_Events_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  EventType = 'event_type',
+  /** column name */
+  Fid = 'fid',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Payload = 'payload',
+  /** column name */
+  SourceUser = 'source_user',
+  /** column name */
+  TargetUser = 'target_user',
+  /** column name */
+  Timestamp = 'timestamp',
+}
+
+/** input type for updating data in table "raw_events" */
+export type Raw_Events_Set_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  event_type?: InputMaybe<Scalars['Int']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+  source_user?: InputMaybe<Scalars['jsonb']['input']>;
+  target_user?: InputMaybe<Scalars['jsonb']['input']>;
+  timestamp?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Raw_Events_Stddev_Fields = {
+  __typename?: 'raw_events_stddev_fields';
+  event_type?: Maybe<Scalars['Float']['output']>;
+  timestamp?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Raw_Events_Stddev_Pop_Fields = {
+  __typename?: 'raw_events_stddev_pop_fields';
+  event_type?: Maybe<Scalars['Float']['output']>;
+  timestamp?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Raw_Events_Stddev_Samp_Fields = {
+  __typename?: 'raw_events_stddev_samp_fields';
+  event_type?: Maybe<Scalars['Float']['output']>;
+  timestamp?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "raw_events" */
+export type Raw_Events_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Raw_Events_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Raw_Events_Stream_Cursor_Value_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  event_type?: InputMaybe<Scalars['Int']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+  source_user?: InputMaybe<Scalars['jsonb']['input']>;
+  target_user?: InputMaybe<Scalars['jsonb']['input']>;
+  timestamp?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Raw_Events_Sum_Fields = {
+  __typename?: 'raw_events_sum_fields';
+  event_type?: Maybe<Scalars['Int']['output']>;
+  timestamp?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** update columns of table "raw_events" */
+export enum Raw_Events_Update_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  EventType = 'event_type',
+  /** column name */
+  Fid = 'fid',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Payload = 'payload',
+  /** column name */
+  SourceUser = 'source_user',
+  /** column name */
+  TargetUser = 'target_user',
+  /** column name */
+  Timestamp = 'timestamp',
+}
+
+export type Raw_Events_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<Raw_Events_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<Raw_Events_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<Raw_Events_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<Raw_Events_Delete_Key_Input>;
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Raw_Events_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<Raw_Events_Prepend_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Raw_Events_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Raw_Events_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Raw_Events_Var_Pop_Fields = {
+  __typename?: 'raw_events_var_pop_fields';
+  event_type?: Maybe<Scalars['Float']['output']>;
+  timestamp?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Raw_Events_Var_Samp_Fields = {
+  __typename?: 'raw_events_var_samp_fields';
+  event_type?: Maybe<Scalars['Float']['output']>;
+  timestamp?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Raw_Events_Variance_Fields = {
+  __typename?: 'raw_events_variance_fields';
+  event_type?: Maybe<Scalars['Float']['output']>;
+  timestamp?: Maybe<Scalars['Float']['output']>;
+};
+
 export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** fetch data from the table: "action_types" */
@@ -3069,6 +3520,14 @@ export type Subscription_Root = {
   point_transactions_by_pk?: Maybe<Point_Transactions>;
   /** fetch data from the table in a streaming manner: "point_transactions" */
   point_transactions_stream: Array<Point_Transactions>;
+  /** fetch data from the table: "raw_events" */
+  raw_events: Array<Raw_Events>;
+  /** fetch aggregated fields from the table: "raw_events" */
+  raw_events_aggregate: Raw_Events_Aggregate;
+  /** fetch data from the table: "raw_events" using primary key columns */
+  raw_events_by_pk?: Maybe<Raw_Events>;
+  /** fetch data from the table in a streaming manner: "raw_events" */
+  raw_events_stream: Array<Raw_Events>;
   /** fetch data from the table: "task_types" */
   task_types: Array<Task_Types>;
   /** fetch aggregated fields from the table: "task_types" */
@@ -3323,6 +3782,32 @@ export type Subscription_RootPoint_Transactions_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Point_Transactions_Stream_Cursor_Input>>;
   where?: InputMaybe<Point_Transactions_Bool_Exp>;
+};
+
+export type Subscription_RootRaw_EventsArgs = {
+  distinct_on?: InputMaybe<Array<Raw_Events_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Raw_Events_Order_By>>;
+  where?: InputMaybe<Raw_Events_Bool_Exp>;
+};
+
+export type Subscription_RootRaw_Events_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Raw_Events_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Raw_Events_Order_By>>;
+  where?: InputMaybe<Raw_Events_Bool_Exp>;
+};
+
+export type Subscription_RootRaw_Events_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Subscription_RootRaw_Events_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Raw_Events_Stream_Cursor_Input>>;
+  where?: InputMaybe<Raw_Events_Bool_Exp>;
 };
 
 export type Subscription_RootTask_TypesArgs = {

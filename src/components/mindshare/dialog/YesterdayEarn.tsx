@@ -12,8 +12,8 @@ import { getYesterday } from '@/utils/dateUtils';
 import { useMiniKit } from '@coinbase/onchainkit/minikit';
 import { formatPoints } from '@/utils/formatters';
 import ShareIcon from '@mui/icons-material/Share';
-import sdk from '@farcaster/frame-sdk';
 import { useRouter } from 'next/navigation';
+import { shareYesterdayEarn } from '@/utils/share';
 interface YesterdayEarnProps {
   open: boolean;
   onClose: () => void;
@@ -54,12 +54,7 @@ const YesterdayEarn: React.FC<YesterdayEarnProps> = ({ open, onClose }) => {
 
   const handleShare = async () => {
     try {
-      const shareUrl = `${process.env.NEXT_PUBLIC_URL}/earnings/${fid}`;
-      const shareText = `Check out my yesterday's earnings on @inflynce!`;
-      await sdk.actions.composeCast({
-        text: shareText,
-        embeds: [shareUrl],
-      });
+      await shareYesterdayEarn(fid.toString());
     } catch (err) {
       console.error('Failed to share:', err);
     }

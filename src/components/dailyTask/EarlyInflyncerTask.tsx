@@ -39,10 +39,6 @@ const EarlyInflyncerTask: React.FC<EarlyInflyncerTaskProps> = ({
     onClaim(task.id);
   };
 
-  const handleMintClick = () => {
-    router.push(`/profile/${context?.user.fid}?tab=nft`);
-  };
-
   return (
     <ListItem
       sx={{ bgcolor: 'rgba(255, 255, 255, 0.05)', borderRadius: 1, pr: 12, mb: 1 }}
@@ -59,8 +55,8 @@ const EarlyInflyncerTask: React.FC<EarlyInflyncerTaskProps> = ({
             {task.completed ? 'Claimed' : 'Claim'}
           </LoadingButton>
         ) : (
-          <LoadingButton variant="outlined" color="primary" size="small" onClick={handleMintClick}>
-            Mint
+          <LoadingButton variant="outlined" color="primary" size="small" disabled>
+            Not Eligible
           </LoadingButton>
         )
       }

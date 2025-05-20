@@ -178,24 +178,34 @@ export default function NFT() {
           </Button>
         </NFTMintCard>
       ) : (
-        // <NFTMintCard
-        //   contractAddress={process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as `0x${string}`}
-        //   onStatus={statusHandler}
-        //   onError={(error) => console.log('error', error)}
-        //   onSuccess={handleSuccess}
-        //   key="nft-mint-card" // Add a stable key to prevent recreation
-        // >
-        //   <NFTMedia />
-        //   <NFTAssetCost />
-        //   {!!token ? (
-        //     <NFTMintButton disabled={isMinted} />
-        //   ) : (
-        //     <Button variant="outlined" onClick={handleSignIn}>
-        //       Sign In
-        //     </Button>
-        //   )}
-        // </NFTMintCard>
-        <></>
+        <Box sx={{ 
+          p: 3, 
+          border: '1px solid', 
+          borderColor: 'divider', 
+          borderRadius: 2,
+          textAlign: 'left',
+          color: 'text.secondary'
+        }}>
+          <Typography variant="body1" gutterBottom>
+            You just missed step 0 but you're right on time for what comes next.
+          </Typography>
+          
+          <Typography variant="body1" gutterBottom>
+            Early Inflyncer Genesis NFT is now sold out. It was proof of early trust and hundreds claimed it.
+          </Typography>
+          
+          <Typography variant="body1" gutterBottom>
+            But this was just the beginning. Your onchain journey starts here. New roles, new rewards and new missions are coming.
+          </Typography>
+          
+          <Typography variant="body1" gutterBottom>
+            ... and it's still early.
+          </Typography>
+          
+          <Typography variant="body1" gutterBottom>
+            Stay tuned, your influence is just getting started, onchain.
+          </Typography>
+        </Box>
       )}
       {/* <EarlyInflyncerNFTDialog open={open} onClose={() => {}} tokenId={tokenId} /> */}
     </Box>

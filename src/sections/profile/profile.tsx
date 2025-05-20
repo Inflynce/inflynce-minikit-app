@@ -1,18 +1,7 @@
 'use client';
 
-import sdk, { type Context } from '@farcaster/frame-sdk';
-import { useState, useEffect, Suspense } from 'react';
-import {
-  Box,
-  Typography,
-  AppBar,
-  Tabs,
-  Tab,
-  Skeleton,
-  Stack,
-  Button,
-  IconButton,
-} from '@mui/material';
+import { useState } from 'react';
+import { Box, Typography, AppBar, Tabs, Tab, Stack, IconButton } from '@mui/material';
 import { UserInfoCard } from '@/components/user/UserInfoCard';
 import { useQuery } from '@tanstack/react-query';
 import { GetMindshareByFidQueryOptions } from '@/queryFn/getMindshareByFid';
@@ -22,14 +11,12 @@ import { UserMindshareTable } from '@/components/mindshare/dialog/UserMindshareT
 import { UserMindshareChart } from '@/components/mindshare/dialog/UserMindshareChart';
 import { MindshareResult } from '@/__generated__/graphql';
 import { useParams, useSearchParams } from 'next/navigation';
-import { textColor } from '@/utils/color';
 import dynamic from 'next/dynamic';
-import { VoteDrawer } from '@/sections/vote/VoteDrawer';
-import { VoterVoteRecords } from '@/components/profile/VoterVoteRecords';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { UserPointChart } from '@/components/mindshare/dialog/UserPointChart';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import NFT from './NFT';
+import { useMiniKit } from '@coinbase/onchainkit/minikit';
 
 const PointTransactionsDrawer = dynamic(
   () => import('@/components/mindshare/dialog/PointTransactionsDrawer'),
@@ -77,27 +64,16 @@ const StyledCard = styled(BaseCard)({
 });
 
 export default function Profile() {
-  const [isSDKLoaded, setIsSDKLoaded] = useState(false);
   const searchParams = useSearchParams();
-  const [context, setContext] = useState<Context.FrameContext>();
+  const { context } = useMiniKit();
   const params = useParams();
   const theme = useTheme();
   const [tabValue, setTabValue] = useState(searchParams.get('tab') === 'nft' ? 2 : 0);
   const [pointTransactionsDrawerOpen, setPointTransactionsDrawerOpen] = useState(false);
+
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
-
-  useEffect(() => {
-    const load = async () => {
-      setContext(await sdk.context);
-      sdk.actions.ready();
-    };
-    if (sdk && !isSDKLoaded) {
-      setIsSDKLoaded(true);
-      load();
-    }
-  }, [isSDKLoaded]);
 
   const { data, isLoading } = useQuery(
     GetMindshareByFidQueryOptions({

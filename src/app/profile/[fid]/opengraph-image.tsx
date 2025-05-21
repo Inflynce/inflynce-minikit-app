@@ -97,15 +97,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
   // This works if your app is deployed and the public URL is accessible
   const logoUrl = `${BASE_URL}/cast_logo.png`;
 
-  // As a fallback, we can still use the file system approach
-  // but with improved quality settings
-  const imagePath = path.join(process.cwd(), 'public/cast_logo.png');
-  const logoImageData = fs.readFileSync(imagePath);
-  const logoDataUrl = `data:image/png;base64,${logoImageData.toString('base64')}`;
-
-  const earlyInflyncerImage = path.join(process.cwd(), 'public/Early_Inflyncer_NFT.png');
-  const earlyInflyncerImageData = fs.readFileSync(earlyInflyncerImage);
-  const earlyInflyncerImageDataUrl = `data:image/png;base64,${earlyInflyncerImageData.toString('base64')}`;
+  const earlyInflyncerImage = `${BASE_URL}/Early_Inflyncer_NFT.png`;
 
   // Try to fetch data, but use fallback values if it fails
   let mindshareData = null;
@@ -184,7 +176,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
           }}
         >
           <img
-            src={logoDataUrl}
+            src={logoUrl}
             width={24}
             height={24}
             alt="Inflynce Logo"
@@ -272,7 +264,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
             >
               <span style={{ fontSize: 24, color: '#666' }}>Early Inflyncer</span>
               <img
-                src={earlyInflyncerImageDataUrl}
+                src={earlyInflyncerImage}
                 width={36}
                 height={36}
                 alt="Early Inflyncer NFT"

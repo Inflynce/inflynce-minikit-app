@@ -6,9 +6,6 @@ if (!process.env.REDIS_URL || !process.env.REDIS_TOKEN) {
   );
 }
 
-console.log('REDIS_URL', process.env.REDIS_URL);
-console.log('REDIS_TOKEN', process.env.REDIS_TOKEN);
-
 export const redis =
   process.env.REDIS_URL && process.env.REDIS_TOKEN
     ? new Redis({

@@ -106,6 +106,18 @@ export type MindshareResult = {
   userInfo: UserInfo;
 };
 
+export type PostGeneralNotificationInput = {
+  body: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+};
+
+export type PostGeneralNotificationOutput = {
+  __typename?: 'PostGeneralNotificationOutput';
+  message?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Scalars['Int']['output']>;
+  success?: Maybe<Scalars['Boolean']['output']>;
+};
+
 export type PostTasksInput = {
   userId: Scalars['String']['input'];
 };
@@ -978,6 +990,7 @@ export type Mutation_Root = {
   insert_vote_type?: Maybe<Vote_Type_Mutation_Response>;
   /** insert a single row into the table: "vote_type" */
   insert_vote_type_one?: Maybe<Vote_Type>;
+  postGeneralNotification?: Maybe<PostGeneralNotificationOutput>;
   /** postTasks */
   postTasks?: Maybe<PostTasksOutput>;
   /** postVote */
@@ -1496,6 +1509,11 @@ export type Mutation_RootInsert_Vote_TypeArgs = {
 export type Mutation_RootInsert_Vote_Type_OneArgs = {
   object: Vote_Type_Insert_Input;
   on_conflict?: InputMaybe<Vote_Type_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootPostGeneralNotificationArgs = {
+  input: PostGeneralNotificationInput;
 };
 
 /** mutation root */

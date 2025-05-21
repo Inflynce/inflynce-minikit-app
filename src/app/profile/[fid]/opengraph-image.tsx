@@ -167,7 +167,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
           width: '100%',
           height: '100%',
           position: 'relative',
-          padding: '10px',
+          padding: '20px',
           justifyContent: 'flex-start',
           alignItems: 'flex-start',
           flexDirection: 'column',
@@ -180,7 +180,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-start',
-            marginBottom: '20px',
+            marginBottom: '30px',
             gap: '10px',
             width: '100%',
           }}
@@ -212,9 +212,8 @@ export default async function Image({ params }: { params: { fid: string } }) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginBottom: '20px',
+            marginBottom: '30px',
             gap: '20px',
-            padding: '10px',
             width: '100%',
           }}
         >
@@ -290,9 +289,9 @@ export default async function Image({ params }: { params: { fid: string } }) {
             marginBottom: '20px',
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center',
-            gap: '10px',
-            padding: '10px',
+            justifyContent: 'space-around',
+            width: '100%',
+            overflow: 'hidden',
           }}
         >
           <div
@@ -304,8 +303,9 @@ export default async function Image({ params }: { params: { fid: string } }) {
               justifyContent: 'center',
               alignItems: 'center',
               gap: '8px',
-              padding: '5px',
+              padding: '8px',
               borderRadius: '12px',
+              flex: 1,
             }}
           >
             <span>Mindshare</span>
@@ -343,18 +343,21 @@ export default async function Image({ params }: { params: { fid: string } }) {
               justifyContent: 'center',
               alignItems: 'center',
               gap: '8px',
-              padding: '10px 20px',
+              padding: '8px',
               borderRadius: '12px',
+              flex: 1,
+              textAlign: 'center',
+              minWidth: 0, // Allow content to shrink if needed
             }}
           >
-            <span>Inflynce Points</span>
+            <span>Inflynce IP</span>
             <div
               style={{
                 margin: '8px 0',
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'flex-end',
-                justifyContent: 'flex-end',
+                justifyContent: 'center',
               }}
             >
               <span style={{ fontSize: '56px', color: '#FF6B00' }}>{formattedTotalPoints}</span>
@@ -380,8 +383,9 @@ export default async function Image({ params }: { params: { fid: string } }) {
               justifyContent: 'center',
               alignItems: 'center',
               gap: '8px',
-              padding: '10px 20px',
+              padding: '8px',
               borderRadius: '12px',
+              flex: 1,
             }}
           >
             <span>Rank</span>
@@ -417,8 +421,9 @@ export default async function Image({ params }: { params: { fid: string } }) {
               justifyContent: 'center',
               alignItems: 'center',
               gap: '8px',
-              padding: '10px 20px',
+              padding: '8px',
               borderRadius: '12px',
+              flex: 1,
             }}
           >
             <span>Last Earned</span>

@@ -133,7 +133,7 @@ export default function NFT() {
   const handleShare = async () => {
     try {
       const shareUrl = `${process.env.NEXT_PUBLIC_URL}/earlyInflyncer`;
-      const shareText = `Just minted my Early Inflyncer Genesis NFT on @inflynce 🚀 Social capital is the new currency and now it’s onchain.`;
+      const shareText = `I’m officially an Early Inflyncer! 🚀 Social capital is onchain now.`;
       await sdk.actions.composeCast({
         text: shareText,
         embeds: [shareUrl],
@@ -173,7 +173,7 @@ export default function NFT() {
               },
             }}
           >
-            Share Your Early Inflyncer NFT
+            Your Social Influence, Onchain
             <ShareIcon sx={{ fontSize: 14, ml: 1 }} />
           </Button>
         </NFTMintCard>

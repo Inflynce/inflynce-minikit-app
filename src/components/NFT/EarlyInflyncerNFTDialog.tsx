@@ -58,7 +58,7 @@ const EarlyInflyncerNFTDialog: React.FC<EarlyInflyncerNFTDialogProps> = ({
   const handleShare = async () => {
     try {
       const shareUrl = `${process.env.NEXT_PUBLIC_URL}/earlyInflyncer`;
-      const shareText = `Just minted my Early Inflyncer Genesis NFT on @inflynce 🚀 Social capital is the new currency and now it’s onchain.`;
+      const shareText = `I’m officially an Early Inflyncer! 🚀 Social capital is onchain now.`;
       await sdk.actions.composeCast({
         text: shareText,
         embeds: [shareUrl],

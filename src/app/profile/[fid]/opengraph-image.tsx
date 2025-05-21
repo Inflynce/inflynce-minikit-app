@@ -90,8 +90,20 @@ function formatPoints(value: number): string {
 export default async function Image({ params }: { params: { fid: string } }) {
   // Default fid value in case params.fid is undefined
   const fid = params?.fid || '0';
-  const fontPath = path.join(process.cwd(), 'public/fonts/Jersey_20/Jersey20-Regular.ttf');
-  const fontData = fs.readFileSync(fontPath);
+  
+  // Fetch the font from a public URL
+  let fontData;
+  try {
+    // Make sure your font is hosted somewhere publicly accessible
+    const fontUrl = `${BASE_URL}/fonts/Jersey_20/Jersey20-Regular.ttf`;
+    const fontResponse = await fetch(fontUrl);
+    if (!fontResponse.ok) throw new Error('Failed to fetch font');
+    const fontArrayBuffer = await fontResponse.arrayBuffer();
+    fontData = Buffer.from(fontArrayBuffer);
+  } catch (error) {
+    console.error('Error loading font:', error);
+    // Continue without the custom font
+  }
 
   // For better image quality, use an absolute URL if possible
   // This works if your app is deployed and the public URL is accessible
@@ -138,8 +150,6 @@ export default async function Image({ params }: { params: { fid: string } }) {
   );
   const formattedLastEarnedPoints = formatPoints(lastEarnedPoints);
 
-  console.log(earlyInflyncerNFTMindRecord);
-  console.log(totalPoints);
 
   // Get current date in a nice format
   const currentDate = new Date().toLocaleDateString('en-US', {
@@ -458,13 +468,15 @@ export default async function Image({ params }: { params: { fid: string } }) {
     ),
     {
       ...size,
-      fonts: [
-        {
-          name: 'Jersey',
-          data: fontData,
-          style: 'normal',
-        },
-      ],
+      ...(fontData ? {
+        fonts: [
+          {
+            name: 'Jersey',
+            data: fontData,
+            style: 'normal',
+          },
+        ]
+      } : {}),
     }
   );
 }

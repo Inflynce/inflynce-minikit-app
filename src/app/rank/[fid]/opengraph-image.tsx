@@ -58,6 +58,20 @@ async function fetchRankData(fid: string) {
 export default async function Image({ params }: { params: { fid: string } }) {
   // Default fid value in case params.fid is undefined
   const fid = params?.fid || '0';
+
+  // Fetch the font from a public URL
+  let fontData;
+  try {
+    // Make sure your font is hosted somewhere publicly accessible
+    const fontUrl = `${BASE_URL}/fonts/Jersey_20/Jersey20-Regular.ttf`;
+    const fontResponse = await fetch(fontUrl);
+    if (!fontResponse.ok) throw new Error('Failed to fetch font');
+    const fontArrayBuffer = await fontResponse.arrayBuffer();
+    fontData = Buffer.from(fontArrayBuffer);
+  } catch (error) {
+    console.error('Error loading font:', error);
+    // Continue without the custom font
+  }
   // Try to fetch data, but use fallback values if it fails
   const rankData = await fetchRankData(fid);
   // Use fallback values if data fetching failed
@@ -82,15 +96,14 @@ export default async function Image({ params }: { params: { fid: string } }) {
       <div
         style={{
           display: 'flex',
-          background: '#fdf0dd',
+          background: '#1e1e1e',
           width: '100%',
           height: '100%',
           position: 'relative',
-          padding: '40px',
-          justifyContent: 'center',
+          padding: '20px',
+          justifyContent: 'space-around',
           alignItems: 'center',
           flexDirection: 'column',
-          fontFamily: 'sans-serif',
         }}
       >
         {/* Logo and title in one centered row */}
@@ -100,17 +113,26 @@ export default async function Image({ params }: { params: { fid: string } }) {
             alignItems: 'center',
             justifyContent: 'flex-start',
             marginBottom: '30px',
-            gap: '15px',
+            gap: '10px',
             width: '100%',
           }}
         >
-          <img src={logoUrl} width={28} height={28} alt="Inflynce Logo" />
+          <img
+            src={logoUrl}
+            width={24}
+            height={24}
+            alt="Inflynce Logo"
+            style={{ objectFit: 'fill' }}
+          />
           <div
             style={{
               display: 'flex',
               fontSize: 24,
-              fontWeight: 'bold',
-              color: '#333',
+              background: 'linear-gradient(90deg, #ff6b00, #ff9d00)',
+              backgroundClip: 'text',
+              color: 'transparent',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
             }}
           >
             Inflynce Rank
@@ -146,7 +168,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
               style={{
                 display: 'flex',
                 fontSize: 28,
-                color: '#333',
+                color: '#eee',
                 marginBottom: '5px',
                 fontWeight: 'bold',
               }}
@@ -168,10 +190,12 @@ export default async function Image({ params }: { params: { fid: string } }) {
         <div
           style={{
             display: 'flex',
-            gap: '20px',
             marginBottom: '20px',
-            flexDirection: 'column',
+            flexDirection: 'row',
             alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            overflow: 'hidden',
           }}
         >
           <div
@@ -179,17 +203,39 @@ export default async function Image({ params }: { params: { fid: string } }) {
               fontSize: 24,
               color: '#666',
               display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
               alignItems: 'center',
               gap: '8px',
-              padding: '10px 20px',
-              background: 'rgba(255,255,255,0.5)',
+              padding: '8px',
               borderRadius: '12px',
+              flex: 1,
+              textAlign: 'center',
+              minWidth: 0, // Allow content to shrink if needed
             }}
           >
-            <span>Rank:</span>
-            <span style={{ display: 'flex', fontWeight: 'bold', color: '#ff6b00' }}>
-              #{rankData?.rank}
-            </span>
+            <span>Inflynce IP</span>
+            <div
+              style={{
+                margin: '8px 0',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'flex-end',
+                justifyContent: 'center',
+              }}
+            >
+              <span style={{ fontSize: '56px', color: '#FF6B00' }}>{formattedPoints}</span>
+              <span
+                style={{
+                  fontSize: '14px',
+                  color: '#666',
+                  alignSelf: 'flex-end',
+                  marginBottom: '12px',
+                }}
+              >
+                IP
+              </span>
+            </div>
           </div>
 
           <div
@@ -197,17 +243,37 @@ export default async function Image({ params }: { params: { fid: string } }) {
               fontSize: 24,
               color: '#666',
               display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
               alignItems: 'center',
               gap: '8px',
-              padding: '10px 20px',
-              background: 'rgba(255,255,255,0.5)',
+              padding: '8px',
               borderRadius: '12px',
+              flex: 1,
             }}
           >
-            <span>Inflynce Points:</span>
-            <span style={{ display: 'flex', fontWeight: 'bold', color: '#ff6b00' }}>
-              {formattedPoints} IP
-            </span>
+            <span>Rank</span>
+            <div
+              style={{
+                margin: '8px 0',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'flex-end',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <span
+                style={{
+                  fontSize: '14px',
+                  color: '#666',
+                  alignSelf: 'flex-end',
+                  marginBottom: '12px',
+                }}
+              >
+                #
+              </span>
+              <span style={{ fontSize: '56px', color: '#FF6B00' }}>{rankData?.rank}</span>
+            </div>
           </div>
         </div>
 
@@ -231,6 +297,13 @@ export default async function Image({ params }: { params: { fid: string } }) {
     ),
     {
       ...size,
+      fonts: [
+        {
+          name: 'Jersey',
+          data: fontData,
+          style: 'normal',
+        },
+      ],
     }
   );
 }

@@ -88,7 +88,7 @@ function formatPoints(value: number): string {
 export default async function Image({ params }: { params: { fid: string } }) {
   // Default fid value in case params.fid is undefined
   const fid = params?.fid || '0';
-  
+
   // Fetch the font from a public URL
   let fontData;
   try {
@@ -147,7 +147,6 @@ export default async function Image({ params }: { params: { fid: string } }) {
   );
   const formattedLastEarnedPoints = formatPoints(lastEarnedPoints);
 
-
   // Get current date in a nice format
   const currentDate = new Date().toLocaleDateString('en-US', {
     year: 'numeric',
@@ -168,7 +167,6 @@ export default async function Image({ params }: { params: { fid: string } }) {
           justifyContent: 'space-around',
           alignItems: 'flex-start',
           flexDirection: 'column',
-          fontFamily: 'sans-serif',
         }}
       >
         {/* Logo and title in one centered row */}
@@ -470,15 +468,17 @@ export default async function Image({ params }: { params: { fid: string } }) {
     ),
     {
       ...size,
-      ...(fontData ? {
-        fonts: [
-          {
-            name: 'Jersey',
-            data: fontData,
-            style: 'normal',
-          },
-        ]
-      } : {}),
+      ...(fontData
+        ? {
+            fonts: [
+              {
+                name: 'Jersey',
+                data: fontData,
+                style: 'normal',
+              },
+            ],
+          }
+        : {}),
     }
   );
 }

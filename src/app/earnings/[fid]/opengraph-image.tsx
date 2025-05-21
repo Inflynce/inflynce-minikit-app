@@ -80,7 +80,6 @@ export default async function Image({ params }: { params: { fid: string } }) {
     // Continue without the custom font
   }
 
-    
   // Try to fetch data, but use fallback values if it fails
   const yesterdayEarnings = await fetchYesterdayEarnings(fid);
   console.log('yesterdayEarnings', yesterdayEarnings);
@@ -120,7 +119,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
           overflow: 'hidden',
         }}
       >
-         <div
+        <div
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -182,7 +181,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
               style={{
                 display: 'flex',
                 fontSize: 28,
-                color: '#fff',
+                color: '#eee',
                 marginBottom: '5px',
                 fontWeight: 'bold',
               }}
@@ -193,7 +192,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
               style={{
                 display: 'flex',
                 fontSize: 14,
-                color: '#CCCCCC',
+                color: '#666',
               }}
             >
               @{username}
@@ -263,4 +262,3 @@ export default async function Image({ params }: { params: { fid: string } }) {
     }
   );
 }
-

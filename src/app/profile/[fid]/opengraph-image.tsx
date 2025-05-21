@@ -222,7 +222,6 @@ export default async function Image({ params }: { params: { fid: string } }) {
               style={{
                 borderRadius: '50%',
                 objectFit: 'cover',
-                border: '3px solid #fff',
                 boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
               }}
               alt={displayName}

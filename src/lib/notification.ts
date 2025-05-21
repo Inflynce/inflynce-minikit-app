@@ -11,6 +11,7 @@ export async function getUserNotificationDetails(
   fid: number
 ): Promise<FrameNotificationDetails | null> {
   if (!redis) {
+    console.log('redis is not available');
     return null;
   }
 

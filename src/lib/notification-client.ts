@@ -29,6 +29,7 @@ export async function sendFrameNotification({
 }): Promise<SendFrameNotificationResult> {
   if (!notificationDetails) {
     notificationDetails = await getUserNotificationDetails(fid);
+    console.log('notificationDetails', notificationDetails);
   }
   if (!notificationDetails) {
     return { state: 'no_token' };

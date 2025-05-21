@@ -1,5 +1,4 @@
-import { sdk } from "@farcaster/frame-sdk";
-
+import { sdk } from '@farcaster/frame-sdk';
 
 const shareYesterdayEarn = async (fid: string) => {
   const shareUrl = `${process.env.NEXT_PUBLIC_URL}/earnings/${fid}`;

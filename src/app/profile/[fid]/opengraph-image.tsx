@@ -145,7 +145,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
     (total: number, transaction: any) => total + (transaction?.points ?? 0),
     0
   );
-  const formattedLastEarnedPoints = formatPoints(lastEarnedPoints);
+  const formattedLastEarnedPoints = formatPoints(lastEarnedPoints.toFixed(2));
 
   // Get current date in a nice format
   const currentDate = new Date().toLocaleDateString('en-US', {

@@ -1,6 +1,4 @@
 import { ImageResponse } from 'next/og';
-import fs from 'fs';
-import path from 'path';
 import { getYesterday } from '@/utils/dateUtils';
 
 const BASE_URL = process.env.NEXT_PUBLIC_URL;
@@ -139,7 +137,6 @@ export default async function Image({ params }: { params: { fid: string } }) {
   const mindshareScore = mindshareData?.currentMindshare || 0;
   const pfpUrl = mindshareData?.userInfo?.pfpUrl;
   const totalPoints = pointsData?.totalPoints ?? 0;
-  console.log(totalPoints);
   const formattedTotalPoints = formatPoints(totalPoints);
   const rank = rankData[0]?.rank ?? '?';
 
@@ -168,7 +165,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
           height: '100%',
           position: 'relative',
           padding: '20px',
-          justifyContent: 'flex-start',
+          justifyContent: 'space-around',
           alignItems: 'flex-start',
           flexDirection: 'column',
           fontFamily: 'sans-serif',

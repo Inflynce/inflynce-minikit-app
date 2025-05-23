@@ -5,27 +5,20 @@ const AboutContent: React.FC = () => {
   return (
     <Box sx={{ p: 0 }}>
       <Typography variant="body1" gutterBottom>
-        Inflynce Protocol is building the intelligence layer for the decentralized internet.
+        Inflynce Protocol is the coordination layer for the onchain social graph. We transform
+        social signals into reputation scores, helping projects filter noise, reach real users and
+        distribute rewards meaningfully.
       </Typography>
 
       <Typography variant="body1" gutterBottom>
-        Likes, impressions and follower counts are no longer enough. We believe that attention
-        should be measurable, influence should be programmable and contribution should be rewarded.
+        Built on Farcaster, Inflynce powers programmable reputation: scoring every cast, follow and
+        like to help protocols activate contributors, not crowds.
       </Typography>
 
       <Typography variant="body1" gutterBottom>
-        That's why we created the InfoFi protocol - a stack that quantifies engagement, predicts
-        mindshare and powers incentive models across Farcaster.
-      </Typography>
-
-      <Typography variant="body1" gutterBottom>
-        We are not a platform. We are the infrastructure. Our mission is to help communities move
-        from chaos to clarity - from speculation to signal.
-      </Typography>
-
-      <Typography variant="body1" gutterBottom>
-        Inflynce Protocol is where AI meets Web3 governance. Where reputation becomes capital. Where
-        you finally know who matters - and why.
+        We are not a platform. We are infrastructure. Whether you're launching an NFT campaign,
+        distributing tokens or building on Base, Inflynce helps you reach the people who matter and
+        prove it onchain.
       </Typography>
     </Box>
   );

@@ -8,7 +8,13 @@ const ContactContent: React.FC = () => {
   return (
     <Box sx={{ p: 0 }}>
       <Typography variant="body1" gutterBottom>
-        Want to collaborate, invest or build with us?
+        Want to reach real users, not bots? Looking to build a community that actually cares? Let's
+        talk. We help you reward contribution, not noise and coordinate trust at scale.
+      </Typography>
+
+      <Typography variant="body1" gutterBottom>
+        We're lean, builder-friendly and here to help the next wave of onchain teams scale with
+        purpose.
       </Typography>
 
       <Box sx={{ mb: 3 }}>
@@ -80,12 +86,8 @@ const ContactContent: React.FC = () => {
         </Box>
       </Box>
 
-      <Typography variant="body1" gutterBottom>
-        We are lean, transparent and always open to building with aligned teams.
-      </Typography>
-
       <Typography variant="body1" gutterBottom fontWeight="bold">
-        Let's shape the InfoFi era - together.
+        Let's shape the InfoFi era together.
       </Typography>
     </Box>
   );

@@ -100,10 +100,6 @@ const FAQContent: React.FC = () => {
 
   return (
     <Box sx={{ p: 0 }}>
-      <Typography variant="body1" gutterBottom>
-        Frequently asked questions about Social Mindshare Prediction:
-      </Typography>
-
       {faqs.map((faq, index) => (
         <Accordion key={index} sx={{ mb: 1 }}>
           <AccordionSummary

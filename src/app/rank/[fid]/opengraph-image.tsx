@@ -40,7 +40,6 @@ async function fetchRankData(fid: string) {
         },
       }),
       cache: 'no-store',
-      next: { revalidate: 3600 }, // Cache for 1 hour
     });
 
     if (!response.ok) {

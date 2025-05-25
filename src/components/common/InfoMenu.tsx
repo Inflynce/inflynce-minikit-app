@@ -15,6 +15,7 @@ import {
   DialogContentType,
   standardMenuItems,
 } from '@/utils/dialogContentProvider';
+import { useRouter } from 'next/navigation';
 
 interface InfoMenuProps {
   buttonIcon?: React.ReactNode;
@@ -38,7 +39,7 @@ const InfoMenu: React.FC<InfoMenuProps> = ({
   });
   const anchorRef = useRef<HTMLButtonElement>(null);
   const prevOpen = useRef(openMenu);
-
+  const router = useRouter();
   useEffect(() => {
     if (prevOpen.current === true && openMenu === false) {
       anchorRef.current!.focus();
@@ -64,6 +65,10 @@ const InfoMenu: React.FC<InfoMenuProps> = ({
 
   const handleDialogClose = () => {
     setDialogOpen(false);
+  };
+
+  const handleMySpaceClick = () => {
+    router.push('/space');
   };
 
   return (
@@ -103,6 +108,14 @@ const InfoMenu: React.FC<InfoMenuProps> = ({
                   id="composition-menu"
                   aria-labelledby="composition-button"
                 >
+                  <MenuItem
+                    onClick={() => handleMySpaceClick()}
+                    sx={{
+                      color: 'black',
+                    }}
+                  >
+                    My Space
+                  </MenuItem>
                   {menuItems.map((item) => (
                     <MenuItem
                       key={item.key}

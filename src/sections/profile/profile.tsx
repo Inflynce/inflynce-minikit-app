@@ -17,42 +17,12 @@ import { UserPointChart } from '@/components/mindshare/dialog/UserPointChart';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import NFT from './NFT';
 import { useMiniKit } from '@coinbase/onchainkit/minikit';
+import { TabPanel, a11yProps } from '@/utils/tab';
 
 const PointTransactionsDrawer = dynamic(
   () => import('@/components/mindshare/dialog/PointTransactionsDrawer'),
   { ssr: false }
 );
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  dir?: string;
-  index: number;
-  value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-      style={{ height: 'auto' }}
-    >
-      {value === index && <Box sx={{ p: 0 }}>{children}</Box>}
-    </div>
-  );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
-  };
-}
 
 const StyledCard = styled(BaseCard)({
   borderRadius: '16px',

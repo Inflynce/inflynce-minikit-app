@@ -11,6 +11,7 @@ interface HeaderProps {
   showInfoMenu?: boolean;
   showAvatar?: boolean;
   showTitle?: boolean;
+  showTotalPoints?: boolean;
   rightContent?: React.ReactNode;
   leftContent?: React.ReactNode;
   showPointsEarnedToday?: boolean;
@@ -22,6 +23,7 @@ const Header = ({
   showInfoMenu = true,
   showAvatar = false,
   showTitle = false,
+  showTotalPoints = true,
   rightContent,
   leftContent,
   showPointsEarnedToday = false,
@@ -57,7 +59,7 @@ const Header = ({
           />
         )}
         {leftContent}
-        <PointsChip fid={context?.user?.fid ?? 0} />
+        {showTotalPoints && <PointsChip fid={context?.user?.fid ?? 0} />}
         {showPointsEarnedToday && <PointsEarnedTodayChip fid={context?.user?.fid ?? 0} />}
         {showTitle && (
           <Typography variant="h2" fontSize={18} fontWeight={600} color="white">

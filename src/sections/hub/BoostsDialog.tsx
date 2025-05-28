@@ -51,7 +51,7 @@ export const BoostDialog = ({ open, onClose }: BoostDialogProps) => {
   const [duration, setDuration] = useState<string>('3');
   const [mindsharePercentage, setMindsharePercentage] = useState<number>(0.1);
   const [multiplier, setMultiplier] = useState<number>(0.5);
-  const [castUrl, setCastUrl] = useState<string>('https://farcaster.xyz/inflynce/0x352001ec');
+  const [castUrl, setCastUrl] = useState<string>('');
   const [errors, setErrors] = useState<Partial<Record<keyof BoostFormData, string>>>({});
   const { token, getToken } = useInflynceAuth();
   const { showSnackbar } = useSnackbar();

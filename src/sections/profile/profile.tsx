@@ -6,7 +6,7 @@ import { UserInfoCard } from '@/components/user/UserInfoCard';
 import { useQuery } from '@tanstack/react-query';
 import { GetMindshareByFidQueryOptions } from '@/queryFn/getMindshareByFid';
 import { styled, useTheme } from '@mui/material/styles';
-import { BaseCard } from '@/components/common/BaseCard';
+import { StyledCard } from '@/components/common/BaseCard';
 import { UserMindshareTable } from '@/components/mindshare/dialog/UserMindshareTable';
 import { UserMindshareChart } from '@/components/mindshare/dialog/UserMindshareChart';
 import { MindshareResult } from '@/__generated__/graphql';
@@ -53,15 +53,6 @@ function a11yProps(index: number) {
     'aria-controls': `full-width-tabpanel-${index}`,
   };
 }
-
-const StyledCard = styled(BaseCard)({
-  borderRadius: '16px',
-  padding: '12px',
-  background: '#1E1E1E',
-  boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-  marginBottom: '12px',
-  minHeight: '200px',
-});
 
 export default function Profile() {
   const searchParams = useSearchParams();

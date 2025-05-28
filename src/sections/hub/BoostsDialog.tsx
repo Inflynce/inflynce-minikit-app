@@ -35,7 +35,7 @@ const boostSchema = z.object({
   budget: z
     .string()
     .refine((val) => !isNaN(parseFloat(val)), 'Budget must be a number')
-    .refine((val) => parseFloat(val) >= 0, 'Budget must be greater than 0'),
+    .refine((val) => parseFloat(val) >= 1, 'Budget must be at least $1'),
   castUrl: z
     .string()
     .url('Must be a valid URL')
@@ -138,7 +138,13 @@ export const BoostDialog = ({ open, onClose }: BoostDialogProps) => {
   const handleBudgetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9.]/g, ''); // Remove all non-numeric characters except decimal
     if (value === '' || !isNaN(parseFloat(value))) {
-      setBudget(value);
+      // Ensure the value is at least 1 if it's not empty
+      const numValue = parseFloat(value);
+      if (value === '' || isNaN(numValue)) {
+        setBudget('');
+      } else {
+        setBudget(Math.max(1, numValue).toString());
+      }
       setErrors({});
     }
   };
@@ -210,7 +216,7 @@ export const BoostDialog = ({ open, onClose }: BoostDialogProps) => {
           backgroundColor: '#121212',
         }}
       >
-        <Typography variant="h6">Mindshare Boosting</Typography>
+        <Typography variant="h6">Boosting Campaign</Typography>
         <IconButton onClick={onClose} sx={{ color: 'white' }}>
           <CloseIcon />
         </IconButton>
@@ -223,6 +229,7 @@ export const BoostDialog = ({ open, onClose }: BoostDialogProps) => {
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
               Set your total campaign budget. This amount will be used to reward eligible users.
+              Minimum budget is $1.
             </Typography>
             <TextField
               fullWidth
@@ -230,6 +237,15 @@ export const BoostDialog = ({ open, onClose }: BoostDialogProps) => {
               onChange={handleBudgetChange}
               error={!!errors.budget}
               helperText={errors.budget}
+              inputProps={{
+                inputMode: 'numeric',
+                pattern: '[0-9]*',
+              }}
+              slotProps={{
+                htmlInput: {
+                  inputMode: 'numeric',
+                },
+              }}
               sx={{
                 mb: 2,
                 '& .MuiOutlinedInput-root': {
@@ -332,15 +348,15 @@ export const BoostDialog = ({ open, onClose }: BoostDialogProps) => {
           </Box> */}
 
           <Box>
-            <Typography variant="subtitle1" gutterBottom>
-              Minimum cost per recast:
-            </Typography>
-            <Typography variant="h4" gutterBottom sx={{ color: '#FF6B00' }}>
-              ${calculateCostPerRecast().toFixed(2)}
-            </Typography>
+            <Box display="flex" alignItems="center" justifyContent="space-between" gap={1}>
+              <Typography variant="subtitle1">Minimum cost per recast:</Typography>
+              <Typography variant="subtitle1" sx={{ color: '#FF6B00', fontWeight: 'bold' }}>
+                ${calculateCostPerRecast().toFixed(2)}
+              </Typography>
+            </Box>
 
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-              Cost per recast = Mindshare × 100 × multiplier
+              Cost per recast = Mindshare × 100 × base multiplier
             </Typography>
             <Typography variant="body2" color="text.secondary">
               A user with 0.40% Mindshare → 0.40% × 100 × 0.5 = $0.20 per recast (10% of this cost
@@ -349,31 +365,74 @@ export const BoostDialog = ({ open, onClose }: BoostDialogProps) => {
           </Box>
 
           <Box>
-            <Typography variant="subtitle1" gutterBottom>
-              Cast URL:
-            </Typography>
-            <TextField
-              fullWidth
-              value={castUrl}
-              onChange={(e) => setCastUrl(e.target.value)}
-              placeholder="Paste the link to the cast you want to boost"
-              error={!!errors.castUrl}
-              helperText={errors.castUrl}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.2)',
-                  '& fieldset': {
-                    borderColor: 'rgba(255, 255, 255, 0.1)',
+            <Box display="flex" alignItems="center" justifyContent="space-between" gap={1} mb={1}>
+              <Typography variant="subtitle1" gutterBottom>
+                Cast URL:
+              </Typography>
+              <Box display="flex" alignItems="center" gap={1}>
+                {/* <Button
+                  onClick={async () => {
+                    try {
+                      if (!navigator.clipboard) {
+                        showSnackbar('Clipboard API not supported in this browser', 'error');
+                        return;
+                      }
+                      
+                      // Request permission first
+                      const permissionResult = await navigator.permissions.query({
+                        name: 'clipboard-read' as PermissionName
+                      });
+                      
+                      if (permissionResult.state === 'denied') {
+                        showSnackbar('Please allow clipboard access in your browser settings', 'error');
+                        return;
+                      }
+
+                      const text = await navigator.clipboard.readText();
+                      setCastUrl(text);
+                      setErrors({});
+                    } catch (err) {
+                      console.error('Failed to read clipboard:', err);
+                      showSnackbar('Please paste the URL manually', 'info');
+                    }
+                  }}
+                  size="small"
+                  variant="outlined"
+                >
+                  Paste
+                </Button> */}
+                <Button onClick={() => setCastUrl('')} size="small" variant="text">
+                  Reset
+                </Button>
+              </Box>
+            </Box>
+            <Box sx={{ display: 'flex', gap: 1 }}>
+              <TextField
+                fullWidth
+                value={castUrl}
+                onChange={(e) => {
+                  setCastUrl(e.target.value);
+                  setErrors({});
+                }}
+                placeholder="Paste the link to the cast you want to boost"
+                error={!!errors.castUrl}
+                helperText={errors.castUrl}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                    '& fieldset': {
+                      borderColor: 'rgba(255, 255, 255, 0.1)',
+                    },
                   },
-                },
-                '& input': {
-                  color: 'white',
-                },
-                '& .MuiFormHelperText-root': {
-                  color: '#ff4444',
-                },
-              }}
-            />
+                  '& input': {
+                    color: 'white',
+                  },
+                  '& .MuiFormHelperText-root': {
+                    color: '#ff4444',
+                  },
+                }}
+              />
+            </Box>
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
               E.g. https://farcaster.xyz/inflynce/0x352001ec
             </Typography>

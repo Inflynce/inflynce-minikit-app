@@ -3,8 +3,11 @@
 import Box from '@mui/material/Box';
 import Header from '@/components/common/Header';
 import Button from '@mui/material/Button';
-import { AppBar, Tabs, Tab, useTheme, Typography, IconButton } from '@mui/material';
-import { TabPanel, a11yProps } from '@/utils/tab';
+import { useTheme, Typography, IconButton } from '@mui/material';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 import { useState } from 'react';
 import BoltIcon from '@mui/icons-material/Bolt';
 import MyBoosts from './MyBoosts';
@@ -27,13 +30,14 @@ export default function Hub() {
   };
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    console.log('newValue', newValue);
     setTabValue(newValue);
   };
 
   return (
-    <Box width="100%" height="auto" sx={{ bgcolor: '#121212', color: 'white' }}>
+    <Box width="100%" height="100%" sx={{ bgcolor: '#121212', color: 'white' }}>
       <Header
-        title="Influence Hub"
+        title="Inflynce Hub"
         showTitle
         showAvatar
         showTotalPoints={false}
@@ -48,52 +52,70 @@ export default function Hub() {
             variant="outlined"
             color="primary"
             size="small"
-            endIcon={<BoltIcon />}
+            startIcon={<BoltIcon />}
             onClick={handleCreateBoostClick}
           >
             Boost
           </Button>
         }
       />
-      <AppBar
-        position="static"
-        sx={{
-          overflow: 'hidden',
-          borderTopLeftRadius: 'none',
-          borderTopRightRadius: 'none',
-          borderBottomLeftRadius: '16px',
-          borderBottomRightRadius: '16px',
-          backgroundColor: 'transparent',
-        }}
-      >
-        <Tabs
-          value={tabValue}
-          onChange={handleTabChange}
-          textColor="inherit"
-          variant="fullWidth"
-          aria-label="profile tabs"
+      <TabContext value={tabValue}>
+        <Box
+          sx={{
+            borderBottom: 1,
+            borderColor: 'rgba(255, 255, 255, 0.1)',
+            backgroundColor: '#1E1E1E',
+          }}
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
         >
-          <Tab label="Ongoing Boosts" {...a11yProps(0)} />
-          <Tab label="My Boosts" {...a11yProps(1)} />
-          <Tab label="My Earnings" {...a11yProps(2)} />
-        </Tabs>
-      </AppBar>
-      <Box p={1} sx={{ height: 'auto', bgcolor: '#121212' }}>
-        <TabPanel value={tabValue} index={0} dir={theme.direction}>
-          <OngoingBoosts />
-        </TabPanel>
-        <TabPanel value={tabValue} index={1} dir={theme.direction}>
-          <MyBoosts onBoostClick={handleCreateBoostClick} />
-        </TabPanel>
-        <TabPanel value={tabValue} index={2} dir={theme.direction}>
-          <MyEarn />
-        </TabPanel>
-      </Box>
-      <Dialog 
-        open={infoDialogOpen} 
+          <TabList
+            onChange={handleTabChange}
+            sx={{
+              width: '100%',
+              px: 1,
+              color: 'white',
+              '.Mui-selected': {
+                color: 'white',
+              },
+            }}
+            variant="fullWidth"
+          >
+            <Tab
+              label="Ongoing Boosts"
+              value={0}
+              sx={{ px: 0.5, mr: 1, fontWeight: 600, minWidth: 0, fontSize: 14 }}
+            />
+            <Tab
+              label="My Boosts"
+              value={1}
+              sx={{ px: 0.5, mr: 1, fontWeight: 600, minWidth: 0, fontSize: 14 }}
+            />
+            <Tab
+              label="My Earnings"
+              value={2}
+              sx={{ px: 0.5, mr: 1, fontWeight: 600, minWidth: 0, fontSize: 14 }}
+            />
+          </TabList>
+        </Box>
+        <Box p={1} sx={{ height: 'auto' }}>
+          <TabPanel value={0} sx={{ height: '100%', p: 1 }}>
+            <OngoingBoosts />
+          </TabPanel>
+          <TabPanel value={1} sx={{ height: '100%', p: 1 }}>
+            <MyBoosts onBoostClick={handleCreateBoostClick} />
+          </TabPanel>
+          <TabPanel value={2} sx={{ height: '100%', p: 1 }}>
+            <MyEarn />
+          </TabPanel>
+        </Box>
+      </TabContext>
+      <Dialog
+        open={infoDialogOpen}
         onClose={() => setInfoDialogOpen(false)}
         PaperProps={{
-          sx: { bgcolor: '#121212', color: 'white' }
+          sx: { bgcolor: '#121212', color: 'white' },
         }}
       >
         <DialogTitle sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -114,9 +136,9 @@ export default function Hub() {
           <Typography>
             This is not just another task feed. It's a coordination layer built on reputation.
           </Typography>
-          <Button 
-            fullWidth 
-            variant="contained" 
+          <Button
+            fullWidth
+            variant="contained"
             onClick={() => setInfoDialogOpen(false)}
             sx={{ mt: 3 }}
           >

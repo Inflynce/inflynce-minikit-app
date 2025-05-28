@@ -46,11 +46,17 @@ const MyBoosts = ({ onBoostClick }: MyBoostsProps) => {
   };
 
   return (
-    <Box width="100%" height="100%" sx={{ color: 'white', bgcolor: 'transparent' }}>
-      <Button variant="outlined" fullWidth endIcon={<BoltIcon />} onClick={onBoostClick}>
+    <Box width="100%" height="100%" sx={{ color: 'white' }}>
+      <Button
+        variant="contained"
+        size="large"
+        fullWidth
+        startIcon={<BoltIcon />}
+        onClick={onBoostClick}
+      >
         Create a New Boost
       </Button>
-      <Box height="auto" overflow="auto" sx={{ color: 'white' }} mt={2}>
+      <Box height="100%" overflow="auto" sx={{ color: 'white' }} mt={2}>
         <InfiniteScroll
           dataLength={boosts.length}
           next={fetchNextPage}
@@ -63,7 +69,7 @@ const MyBoosts = ({ onBoostClick }: MyBoostsProps) => {
             </Box>
           }
           endMessage={
-            <Box textAlign="center" p={10}>
+            <Box textAlign="center" p={1}>
               <Typography variant="body1" gutterBottom>
                 {boosts.length === 0
                   ? "You haven't created any boosts yet!"

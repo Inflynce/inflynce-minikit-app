@@ -44,11 +44,21 @@ const MyEarn = ({}: MyEarnProps) => {
             </Box>
           }
           endMessage={
-            <Box textAlign="center" p={10}>
+            <Box textAlign="left" p={1}>
               <Typography variant="body1" gutterBottom>
-                {boosts.length === 0
-                  ? 'No earnings yet but you’re close. ⚡\nCheck the Ongoing Boosts tab to find eligible tasks. Share high-signal casts and start earning based on your Mindshare.'
-                  : 'You have seen all your boosts!'}
+                {boosts.length === 0 ? (
+                  <>
+                    <Typography variant="body1" gutterBottom>
+                      No earnings yet but you're close. ⚡
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                      Check the Ongoing Boosts tab to find eligible tasks. Share high-signal casts
+                      and start earning based on your Mindshare.
+                    </Typography>
+                  </>
+                ) : (
+                  'You have seen all your boosts!'
+                )}
               </Typography>
             </Box>
           }

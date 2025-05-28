@@ -10,6 +10,7 @@ import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepart
 import LocalFireDepartmentFilledIcon from '@mui/icons-material/LocalFireDepartment';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import AccountCircleFilledIcon from '@mui/icons-material/AccountCircle';
+import BoltIcon from '@mui/icons-material/Bolt';
 import { useEffect } from 'react';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import { useMiniKit, useAddFrame } from '@coinbase/onchainkit/minikit';
@@ -123,6 +124,7 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
                 )
               }
             />
+            <BottomNavigationAction label="Boosts" value="/hub" icon={<BoltIcon />} />
             <BottomNavigationAction
               label="Rewards"
               value="/rewards"

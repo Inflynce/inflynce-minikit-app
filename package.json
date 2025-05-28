@@ -18,7 +18,7 @@
     "@farcaster/auth-kit": "^0.6.0",
     "@farcaster/frame-core": "^0.0.26",
     "@farcaster/frame-node": "^0.0.15",
-    "@farcaster/frame-sdk": "^0.0.35",
+    "@farcaster/frame-sdk": "^0.0.51",
     "@farcaster/frame-wagmi-connector": "^0.0.16",
     "@graphql-codegen/cli": "^5.0.5",
     "@mui/icons-material": "^6.4.4",
@@ -54,7 +54,8 @@
     "recharts": "^2.15.1",
     "redis": "^4.7.0",
     "ts-node": "^10.9.2",
-    "wagmi": "^2.11.0"
+    "wagmi": "^2.11.0",
+    "zod": "^3.25.28"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

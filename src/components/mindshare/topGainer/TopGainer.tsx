@@ -17,6 +17,7 @@ import { MindshareResult } from '@/__generated__/graphql';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Avatar from '@mui/material/Avatar';
 import TableSkeleton from '@/components/skeleton/TableSkeleton';
+import { BadgeAvatar } from '@/components/common/BadgeAvatar';
 
 export interface TopGainerProps {
   width?: string;
@@ -211,10 +212,12 @@ export const TopGainer = ({ desc = true, field = MINDSHARE_FIELDS.ABSOLUTE }: To
                       }}
                     >
                       <span>{index + 1}</span>
-                      <Avatar
-                        alt={user.userInfo.displayName}
-                        src={user.userInfo.pfpUrl}
-                        sx={{ width: 20, height: 20 }}
+                      <BadgeAvatar
+                        avatarUrl={user.userInfo.pfpUrl}
+                        avatarSize={20}
+                        displayName={user.userInfo.displayName}
+                        isPro={user.proUser?.isPro}
+                        smallAvatarSize={12}
                       />
                       <div
                         style={{

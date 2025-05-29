@@ -13,7 +13,7 @@ const CardSkeleton: React.FC<CardSkeletonProps> = ({ count = 6 }) => {
           <Card sx={{ height: '100%' }}>
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <Skeleton variant="circular" width={48} height={48} sx={{ mr: 2 }} />
+                <Skeleton variant="circular" width={36} height={36} sx={{ mr: 2 }} />
                 <Box sx={{ width: '100%' }}>
                   <Skeleton variant="text" width="80%" height={28} />
                   <Skeleton variant="text" width="60%" height={20} />

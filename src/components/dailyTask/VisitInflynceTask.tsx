@@ -3,7 +3,6 @@ import React from 'react';
 import { User_Tasks } from '@/__generated__/graphql';
 import { LoadingButton } from '@mui/lab';
 
-import { format } from 'date-fns';
 interface VisitInflynceTaskProps {
   task: User_Tasks;
   onClaim: (taskId: string) => void;
@@ -22,7 +21,7 @@ const VisitInflynceTask: React.FC<VisitInflynceTaskProps> = ({
 
   return (
     <ListItem
-      sx={{ bgcolor: 'rgba(255, 255, 255, 0.05)', borderRadius: 1, pr: 12 }}
+      sx={{ bgcolor: 'rgba(255, 255, 255, 0.05)', borderRadius: 1, pr: 12, mb: 1 }}
       secondaryAction={
         <LoadingButton
           loading={isPending}

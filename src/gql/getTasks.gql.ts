@@ -18,6 +18,7 @@ export const GetUserTasksGql = gql`
         target
         rewardIp
         isActive
+        taskOrder
         description
         taskType {
           id

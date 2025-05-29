@@ -43,5 +43,8 @@ export const MindshareDataFragment = gql(/* GraphQL */ `
     daily {
       ...DailyMindshare
     }
+    proUser {
+      isPro
+    }
   }
 `);

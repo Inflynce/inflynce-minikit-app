@@ -37,6 +37,9 @@ async function fetchYesterdayEarnings(fid: string) {
                 displayName
                 username
                 pfpUrl
+                proUser {
+                  isPro
+                }
               }
             }
           }
@@ -65,6 +68,21 @@ async function fetchYesterdayEarnings(fid: string) {
 export default async function Image({ params }: { params: { fid: string } }) {
   // Default fid value in case params.fid is undefined
   const fid = params?.fid || '0';
+
+  // Fetch the font from a public URL
+  let fontData;
+  try {
+    // Make sure your font is hosted somewhere publicly accessible
+    const fontUrl = `${BASE_URL}/fonts/Jersey_20/Jersey20-Regular.ttf`;
+    const fontResponse = await fetch(fontUrl);
+    if (!fontResponse.ok) throw new Error('Failed to fetch font');
+    const fontArrayBuffer = await fontResponse.arrayBuffer();
+    fontData = Buffer.from(fontArrayBuffer);
+  } catch (error) {
+    console.error('Error loading font:', error);
+    // Continue without the custom font
+  }
+
   // Try to fetch data, but use fallback values if it fails
   const yesterdayEarnings = await fetchYesterdayEarnings(fid);
   console.log('yesterdayEarnings', yesterdayEarnings);
@@ -78,8 +96,8 @@ export default async function Image({ params }: { params: { fid: string } }) {
   const pfpUrl = yesterdayEarnings[0]?.user?.pfpUrl || 'https://placekitten.com/200/200';
 
   // Logo URL - replace with your actual logo URL
-  const logoUrl = `${BASE_URL}/logo.png`;
-
+  const logoUrl = `${BASE_URL}/cast_logo.png`;
+  const badgeUrl = `${BASE_URL}/pro_user.svg`;
   // Get current date in a nice format
   const currentDate = new Date().toLocaleDateString('en-US', {
     year: 'numeric',
@@ -97,7 +115,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
           height: '100%',
           position: 'relative',
           padding: '20px',
-          justifyContent: 'center',
+          justifyContent: 'space-around',
           alignItems: 'center',
           flexDirection: 'column',
           fontFamily: 'sans-serif',
@@ -110,17 +128,26 @@ export default async function Image({ params }: { params: { fid: string } }) {
             alignItems: 'center',
             justifyContent: 'flex-start',
             marginBottom: '30px',
-            gap: '15px',
+            gap: '10px',
             width: '100%',
           }}
         >
-          <img src={logoUrl} width={28} height={28} alt="Inflynce Logo" />
+          <img
+            src={logoUrl}
+            width={24}
+            height={24}
+            alt="Inflynce Logo"
+            style={{ objectFit: 'fill' }}
+          />
           <div
             style={{
               display: 'flex',
               fontSize: 24,
-              fontWeight: 'bold',
-              color: '#CCCCCC',
+              background: 'linear-gradient(90deg, #ff6b00, #ff9d00)',
+              backgroundClip: 'text',
+              color: 'transparent',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
             }}
           >
             Inflynce
@@ -136,16 +163,32 @@ export default async function Image({ params }: { params: { fid: string } }) {
             gap: '20px',
           }}
         >
-          <img
-            src={pfpUrl}
-            width={64}
-            height={64}
-            style={{
-              borderRadius: '50%',
-              objectFit: 'cover',
-            }}
-            alt={displayName}
-          />
+          <div style={{ position: 'relative', display: 'flex' }}>
+            <img
+              src={pfpUrl}
+              width={64}
+              height={64}
+              style={{
+                borderRadius: '50%',
+                objectFit: 'cover',
+              }}
+              alt={displayName}
+            />
+            {yesterdayEarnings[0]?.user?.proUser?.isPro && (
+              <img
+                src={badgeUrl}
+                width={28}
+                height={28}
+                style={{
+                  position: 'absolute',
+                  bottom: -6,
+                  right: -6,
+                  zIndex: 10,
+                }}
+                alt="Pro User"
+              />
+            )}
+          </div>
 
           <div
             style={{
@@ -157,7 +200,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
               style={{
                 display: 'flex',
                 fontSize: 28,
-                color: '#fff',
+                color: '#eee',
                 marginBottom: '5px',
                 fontWeight: 'bold',
               }}
@@ -168,7 +211,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
               style={{
                 display: 'flex',
                 fontSize: 14,
-                color: '#CCCCCC',
+                color: '#666',
               }}
             >
               @{username}
@@ -201,12 +244,12 @@ export default async function Image({ params }: { params: { fid: string } }) {
           <span
             style={{
               fontSize: '14px',
-              color: '#CCCCCC',
+              color: '#666',
               alignSelf: 'flex-end',
               marginBottom: '12px',
             }}
           >
-            points
+            IP
           </span>
         </div>
         <div
@@ -216,7 +259,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
-            color: '#CCCCCC',
+            color: '#666',
             fontSize: '12px',
             marginTop: '12px',
           }}
@@ -227,6 +270,14 @@ export default async function Image({ params }: { params: { fid: string } }) {
     ),
     {
       ...size,
+      fonts: [
+        {
+          name: 'Jersey',
+          // @ts-ignore
+          data: fontData,
+          style: 'normal',
+        },
+      ],
     }
   );
 }

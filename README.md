@@ -14,6 +14,8 @@ Inflynce Protocol is building the intelligence layer for the decentralized inter
 
 ## Quick Reference
 - [About Inflynce Protocol](#about-inflynce-protocol)
+- [Technical Stack](#technical-stack)
+- [Inflynce Architecture](#inflynce-architecture)
 - [FAQ](#faq)
   - [What is Inflynce Protocol?](#what-is-inflynce-protocol)
   - [How are mindshare scores calculated?](#how-are-mindshare-scores-calculated)
@@ -69,6 +71,11 @@ Our platform leverages Coinbase's onChainKit to provide a seamless Web3 experien
 - **Kubernetes (kubectl)**: Container orchestration for scalable, resilient deployment
 - **Docker**: Containerization for consistent development and production environments
 - **InfluDB**: Proprietary data storage and processing system for influence metrics
+
+
+## Inflynce Architecture
+
+![Inflynce Architecture](doc/inflynce_architecture.png)
 
 ## FAQ
 

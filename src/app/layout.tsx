@@ -5,6 +5,12 @@ import './globals.css';
 import { Providers } from './providers';
 import AppLayout from './appLayout';
 import Script from 'next/script';
+import { Jersey_20 } from 'next/font/google';
+
+const font = Jersey_20({
+  subsets: ['latin'],
+  weight: ['400'],
+});
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -45,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={font.className}>
       <head>
         {/* Google Tag Manager */}
         <Script id="google-tag-manager" strategy="afterInteractive">

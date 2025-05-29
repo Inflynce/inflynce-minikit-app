@@ -1,35 +1,21 @@
 'use client';
 
-import sdk, { type Context } from '@farcaster/frame-sdk';
-import { useState, useEffect, Suspense } from 'react';
-import {
-  Box,
-  Typography,
-  AppBar,
-  Tabs,
-  Tab,
-  Skeleton,
-  Stack,
-  Button,
-  IconButton,
-} from '@mui/material';
+import { useState } from 'react';
+import { Box, Typography, AppBar, Tabs, Tab, Stack, IconButton } from '@mui/material';
 import { UserInfoCard } from '@/components/user/UserInfoCard';
 import { useQuery } from '@tanstack/react-query';
 import { GetMindshareByFidQueryOptions } from '@/queryFn/getMindshareByFid';
-import { styled, useTheme } from '@mui/material/styles';
-import { BaseCard } from '@/components/common/BaseCard';
+import { useTheme } from '@mui/material/styles';
+import { StyledCard } from '@/components/common/BaseCard';
 import { UserMindshareTable } from '@/components/mindshare/dialog/UserMindshareTable';
 import { UserMindshareChart } from '@/components/mindshare/dialog/UserMindshareChart';
 import { MindshareResult } from '@/__generated__/graphql';
 import { useParams, useSearchParams } from 'next/navigation';
-import { textColor } from '@/utils/color';
 import dynamic from 'next/dynamic';
-import { VoteDrawer } from '@/sections/vote/VoteDrawer';
-import { VoterVoteRecords } from '@/components/profile/VoterVoteRecords';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { UserPointChart } from '@/components/mindshare/dialog/UserPointChart';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import NFT from './NFT';
+import { useMiniKit } from '@coinbase/onchainkit/minikit';
 
 const PointTransactionsDrawer = dynamic(
   () => import('@/components/mindshare/dialog/PointTransactionsDrawer'),
@@ -67,37 +53,17 @@ function a11yProps(index: number) {
   };
 }
 
-const StyledCard = styled(BaseCard)({
-  borderRadius: '16px',
-  padding: '12px',
-  background: '#1E1E1E',
-  boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-  marginBottom: '12px',
-  minHeight: '200px',
-});
-
 export default function Profile() {
-  const [isSDKLoaded, setIsSDKLoaded] = useState(false);
   const searchParams = useSearchParams();
-  const [context, setContext] = useState<Context.FrameContext>();
+  const { context } = useMiniKit();
   const params = useParams();
   const theme = useTheme();
-  const [tabValue, setTabValue] = useState(searchParams.get('tab') === 'nft' ? 2 : 0);
+  const [tabValue, setTabValue] = useState(searchParams.get('tab') === 'nft' ? 1 : 0);
   const [pointTransactionsDrawerOpen, setPointTransactionsDrawerOpen] = useState(false);
+
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
-
-  useEffect(() => {
-    const load = async () => {
-      setContext(await sdk.context);
-      sdk.actions.ready();
-    };
-    if (sdk && !isSDKLoaded) {
-      setIsSDKLoaded(true);
-      load();
-    }
-  }, [isSDKLoaded]);
 
   const { data, isLoading } = useQuery(
     GetMindshareByFidQueryOptions({
@@ -153,9 +119,7 @@ export default function Profile() {
               aria-label="profile tabs"
             >
               <Tab label="My Stats" {...a11yProps(0)} />
-              <Tab label="Predictions" {...a11yProps(1)} />
               <Tab label="NFT" {...a11yProps(1)} />
-              {/* <Tab label="Other Stats" {...a11yProps(2)} /> */}
             </Tabs>
           </AppBar>
         }
@@ -191,33 +155,7 @@ export default function Profile() {
             />
           </StyledCard>
         </TabPanel>
-
         <TabPanel value={tabValue} index={1} dir={theme.direction}>
-          <StyledCard>
-            <Stack spacing={2} alignItems="center" textAlign="center">
-              <AccessTimeIcon sx={{ fontSize: 60, color: 'primary.main' }} />
-              <Typography variant="h5" fontWeight={600}>
-                Predictions Coming Soon
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                We are working on exciting predictions features that will help you earn more points.
-                Check back soon for updates!
-              </Typography>
-            </Stack>
-          </StyledCard>
-          {/* <Suspense fallback={<Skeleton variant="rectangular" width="100%" height={200} />}>
-            <StyledCard>
-              <Typography sx={{ color: 'white' }}>Ongoing Vote</Typography>
-              <Vote fid={params?.fid as string} />
-            </StyledCard>
-          </Suspense>
-          <StyledCard>
-            <Typography sx={{ color: 'white' }}>My votes</Typography>
-            <VoterVoteRecords voterId={params?.fid as string} />
-          </StyledCard> */}
-        </TabPanel>
-
-        <TabPanel value={tabValue} index={2} dir={theme.direction}>
           <NFT />
         </TabPanel>
       </Box>

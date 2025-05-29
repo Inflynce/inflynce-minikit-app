@@ -108,7 +108,7 @@ const InfoMenu: React.FC<InfoMenuProps> = ({
                       key={item.key}
                       onClick={() => handleMenuItemClick(item.key)}
                       sx={{
-                        color: 'black',
+                        color: 'white',
                       }}
                     >
                       {item.label}

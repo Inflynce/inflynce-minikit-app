@@ -20,6 +20,7 @@ export type Scalars = {
   Float: { input: number; output: number };
   bigint: { input: any; output: any };
   date: { input: any; output: any };
+  jsonb: { input: any; output: any };
   numeric: { input: any; output: any };
   timestamp: { input: any; output: any };
   timestamptz: { input: any; output: any };
@@ -100,9 +101,22 @@ export type MindshareResult = {
   last3dMindshare: Scalars['Float']['output'];
   last7dMindshare: Scalars['Float']['output'];
   last30dMindshare: Scalars['Float']['output'];
+  proUser?: Maybe<Users>;
   rank: Scalars['Int']['output'];
   time: Scalars['String']['output'];
   userInfo: UserInfo;
+};
+
+export type PostGeneralNotificationInput = {
+  body: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+};
+
+export type PostGeneralNotificationOutput = {
+  __typename?: 'PostGeneralNotificationOutput';
+  message?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Scalars['Int']['output']>;
+  success?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type PostTasksInput = {
@@ -179,6 +193,7 @@ export type User = {
   neynarUserScore?: Maybe<Scalars['Int']['output']>;
   pfpUrl?: Maybe<Scalars['String']['output']>;
   powerBadge?: Maybe<Scalars['Boolean']['output']>;
+  proUser?: Maybe<Users>;
   username?: Maybe<Scalars['String']['output']>;
 };
 
@@ -413,6 +428,694 @@ export type Bigint_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['bigint']['input']>>;
 };
 
+/** columns and relationships of "boost_recast_records" */
+export type Boost_Recast_Records = {
+  __typename?: 'boost_recast_records';
+  address: Scalars['String']['output'];
+  boostId: Scalars['uuid']['output'];
+  createdAt?: Maybe<Scalars['timestamp']['output']>;
+  earnedAmount: Scalars['numeric']['output'];
+  id: Scalars['uuid']['output'];
+  mindshare: Scalars['numeric']['output'];
+  /** An object relationship */
+  mindshareBoost: Mindshare_Boosts;
+  recastHash: Scalars['String']['output'];
+  recasterFid: Scalars['String']['output'];
+  transactionHash?: Maybe<Scalars['String']['output']>;
+  txStatus?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['timestamp']['output']>;
+  user?: Maybe<User>;
+};
+
+/** aggregated selection of "boost_recast_records" */
+export type Boost_Recast_Records_Aggregate = {
+  __typename?: 'boost_recast_records_aggregate';
+  aggregate?: Maybe<Boost_Recast_Records_Aggregate_Fields>;
+  nodes: Array<Boost_Recast_Records>;
+};
+
+export type Boost_Recast_Records_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Boost_Recast_Records_Aggregate_Bool_Exp_Count>;
+};
+
+export type Boost_Recast_Records_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Boost_Recast_Records_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Boost_Recast_Records_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "boost_recast_records" */
+export type Boost_Recast_Records_Aggregate_Fields = {
+  __typename?: 'boost_recast_records_aggregate_fields';
+  avg?: Maybe<Boost_Recast_Records_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Boost_Recast_Records_Max_Fields>;
+  min?: Maybe<Boost_Recast_Records_Min_Fields>;
+  stddev?: Maybe<Boost_Recast_Records_Stddev_Fields>;
+  stddev_pop?: Maybe<Boost_Recast_Records_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Boost_Recast_Records_Stddev_Samp_Fields>;
+  sum?: Maybe<Boost_Recast_Records_Sum_Fields>;
+  var_pop?: Maybe<Boost_Recast_Records_Var_Pop_Fields>;
+  var_samp?: Maybe<Boost_Recast_Records_Var_Samp_Fields>;
+  variance?: Maybe<Boost_Recast_Records_Variance_Fields>;
+};
+
+/** aggregate fields of "boost_recast_records" */
+export type Boost_Recast_Records_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Boost_Recast_Records_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "boost_recast_records" */
+export type Boost_Recast_Records_Aggregate_Order_By = {
+  avg?: InputMaybe<Boost_Recast_Records_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Boost_Recast_Records_Max_Order_By>;
+  min?: InputMaybe<Boost_Recast_Records_Min_Order_By>;
+  stddev?: InputMaybe<Boost_Recast_Records_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Boost_Recast_Records_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Boost_Recast_Records_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Boost_Recast_Records_Sum_Order_By>;
+  var_pop?: InputMaybe<Boost_Recast_Records_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Boost_Recast_Records_Var_Samp_Order_By>;
+  variance?: InputMaybe<Boost_Recast_Records_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "boost_recast_records" */
+export type Boost_Recast_Records_Arr_Rel_Insert_Input = {
+  data: Array<Boost_Recast_Records_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Boost_Recast_Records_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Boost_Recast_Records_Avg_Fields = {
+  __typename?: 'boost_recast_records_avg_fields';
+  earnedAmount?: Maybe<Scalars['Float']['output']>;
+  mindshare?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "boost_recast_records" */
+export type Boost_Recast_Records_Avg_Order_By = {
+  earnedAmount?: InputMaybe<Order_By>;
+  mindshare?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "boost_recast_records". All fields are combined with a logical 'AND'. */
+export type Boost_Recast_Records_Bool_Exp = {
+  _and?: InputMaybe<Array<Boost_Recast_Records_Bool_Exp>>;
+  _not?: InputMaybe<Boost_Recast_Records_Bool_Exp>;
+  _or?: InputMaybe<Array<Boost_Recast_Records_Bool_Exp>>;
+  address?: InputMaybe<String_Comparison_Exp>;
+  boostId?: InputMaybe<Uuid_Comparison_Exp>;
+  createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  earnedAmount?: InputMaybe<Numeric_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  mindshare?: InputMaybe<Numeric_Comparison_Exp>;
+  mindshareBoost?: InputMaybe<Mindshare_Boosts_Bool_Exp>;
+  recastHash?: InputMaybe<String_Comparison_Exp>;
+  recasterFid?: InputMaybe<String_Comparison_Exp>;
+  transactionHash?: InputMaybe<String_Comparison_Exp>;
+  txStatus?: InputMaybe<String_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "boost_recast_records" */
+export enum Boost_Recast_Records_Constraint {
+  /** unique or primary key constraint on columns "recaster_fid", "boost_id" */
+  BoostRecastRecordsBoostIdRecasterFidKey = 'boost_recast_records_boost_id_recaster_fid_key',
+  /** unique or primary key constraint on columns "id" */
+  BoostRecastRecordsPkey = 'boost_recast_records_pkey',
+}
+
+/** input type for incrementing numeric columns in table "boost_recast_records" */
+export type Boost_Recast_Records_Inc_Input = {
+  earnedAmount?: InputMaybe<Scalars['numeric']['input']>;
+  mindshare?: InputMaybe<Scalars['numeric']['input']>;
+};
+
+/** input type for inserting data into table "boost_recast_records" */
+export type Boost_Recast_Records_Insert_Input = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  boostId?: InputMaybe<Scalars['uuid']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamp']['input']>;
+  earnedAmount?: InputMaybe<Scalars['numeric']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  mindshare?: InputMaybe<Scalars['numeric']['input']>;
+  mindshareBoost?: InputMaybe<Mindshare_Boosts_Obj_Rel_Insert_Input>;
+  recastHash?: InputMaybe<Scalars['String']['input']>;
+  recasterFid?: InputMaybe<Scalars['String']['input']>;
+  transactionHash?: InputMaybe<Scalars['String']['input']>;
+  txStatus?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']['input']>;
+};
+
+/** aggregate max on columns */
+export type Boost_Recast_Records_Max_Fields = {
+  __typename?: 'boost_recast_records_max_fields';
+  address?: Maybe<Scalars['String']['output']>;
+  boostId?: Maybe<Scalars['uuid']['output']>;
+  createdAt?: Maybe<Scalars['timestamp']['output']>;
+  earnedAmount?: Maybe<Scalars['numeric']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  mindshare?: Maybe<Scalars['numeric']['output']>;
+  recastHash?: Maybe<Scalars['String']['output']>;
+  recasterFid?: Maybe<Scalars['String']['output']>;
+  transactionHash?: Maybe<Scalars['String']['output']>;
+  txStatus?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['timestamp']['output']>;
+};
+
+/** order by max() on columns of table "boost_recast_records" */
+export type Boost_Recast_Records_Max_Order_By = {
+  address?: InputMaybe<Order_By>;
+  boostId?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  earnedAmount?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  mindshare?: InputMaybe<Order_By>;
+  recastHash?: InputMaybe<Order_By>;
+  recasterFid?: InputMaybe<Order_By>;
+  transactionHash?: InputMaybe<Order_By>;
+  txStatus?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Boost_Recast_Records_Min_Fields = {
+  __typename?: 'boost_recast_records_min_fields';
+  address?: Maybe<Scalars['String']['output']>;
+  boostId?: Maybe<Scalars['uuid']['output']>;
+  createdAt?: Maybe<Scalars['timestamp']['output']>;
+  earnedAmount?: Maybe<Scalars['numeric']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  mindshare?: Maybe<Scalars['numeric']['output']>;
+  recastHash?: Maybe<Scalars['String']['output']>;
+  recasterFid?: Maybe<Scalars['String']['output']>;
+  transactionHash?: Maybe<Scalars['String']['output']>;
+  txStatus?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['timestamp']['output']>;
+};
+
+/** order by min() on columns of table "boost_recast_records" */
+export type Boost_Recast_Records_Min_Order_By = {
+  address?: InputMaybe<Order_By>;
+  boostId?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  earnedAmount?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  mindshare?: InputMaybe<Order_By>;
+  recastHash?: InputMaybe<Order_By>;
+  recasterFid?: InputMaybe<Order_By>;
+  transactionHash?: InputMaybe<Order_By>;
+  txStatus?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "boost_recast_records" */
+export type Boost_Recast_Records_Mutation_Response = {
+  __typename?: 'boost_recast_records_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Boost_Recast_Records>;
+};
+
+/** on_conflict condition type for table "boost_recast_records" */
+export type Boost_Recast_Records_On_Conflict = {
+  constraint: Boost_Recast_Records_Constraint;
+  update_columns?: Array<Boost_Recast_Records_Update_Column>;
+  where?: InputMaybe<Boost_Recast_Records_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "boost_recast_records". */
+export type Boost_Recast_Records_Order_By = {
+  address?: InputMaybe<Order_By>;
+  boostId?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  earnedAmount?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  mindshare?: InputMaybe<Order_By>;
+  mindshareBoost?: InputMaybe<Mindshare_Boosts_Order_By>;
+  recastHash?: InputMaybe<Order_By>;
+  recasterFid?: InputMaybe<Order_By>;
+  transactionHash?: InputMaybe<Order_By>;
+  txStatus?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: boost_recast_records */
+export type Boost_Recast_Records_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "boost_recast_records" */
+export enum Boost_Recast_Records_Select_Column {
+  /** column name */
+  Address = 'address',
+  /** column name */
+  BoostId = 'boostId',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  EarnedAmount = 'earnedAmount',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Mindshare = 'mindshare',
+  /** column name */
+  RecastHash = 'recastHash',
+  /** column name */
+  RecasterFid = 'recasterFid',
+  /** column name */
+  TransactionHash = 'transactionHash',
+  /** column name */
+  TxStatus = 'txStatus',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+}
+
+/** input type for updating data in table "boost_recast_records" */
+export type Boost_Recast_Records_Set_Input = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  boostId?: InputMaybe<Scalars['uuid']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamp']['input']>;
+  earnedAmount?: InputMaybe<Scalars['numeric']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  mindshare?: InputMaybe<Scalars['numeric']['input']>;
+  recastHash?: InputMaybe<Scalars['String']['input']>;
+  recasterFid?: InputMaybe<Scalars['String']['input']>;
+  transactionHash?: InputMaybe<Scalars['String']['input']>;
+  txStatus?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Boost_Recast_Records_Stddev_Fields = {
+  __typename?: 'boost_recast_records_stddev_fields';
+  earnedAmount?: Maybe<Scalars['Float']['output']>;
+  mindshare?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "boost_recast_records" */
+export type Boost_Recast_Records_Stddev_Order_By = {
+  earnedAmount?: InputMaybe<Order_By>;
+  mindshare?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Boost_Recast_Records_Stddev_Pop_Fields = {
+  __typename?: 'boost_recast_records_stddev_pop_fields';
+  earnedAmount?: Maybe<Scalars['Float']['output']>;
+  mindshare?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "boost_recast_records" */
+export type Boost_Recast_Records_Stddev_Pop_Order_By = {
+  earnedAmount?: InputMaybe<Order_By>;
+  mindshare?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Boost_Recast_Records_Stddev_Samp_Fields = {
+  __typename?: 'boost_recast_records_stddev_samp_fields';
+  earnedAmount?: Maybe<Scalars['Float']['output']>;
+  mindshare?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "boost_recast_records" */
+export type Boost_Recast_Records_Stddev_Samp_Order_By = {
+  earnedAmount?: InputMaybe<Order_By>;
+  mindshare?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "boost_recast_records" */
+export type Boost_Recast_Records_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Boost_Recast_Records_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Boost_Recast_Records_Stream_Cursor_Value_Input = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  boostId?: InputMaybe<Scalars['uuid']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamp']['input']>;
+  earnedAmount?: InputMaybe<Scalars['numeric']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  mindshare?: InputMaybe<Scalars['numeric']['input']>;
+  recastHash?: InputMaybe<Scalars['String']['input']>;
+  recasterFid?: InputMaybe<Scalars['String']['input']>;
+  transactionHash?: InputMaybe<Scalars['String']['input']>;
+  txStatus?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Boost_Recast_Records_Sum_Fields = {
+  __typename?: 'boost_recast_records_sum_fields';
+  earnedAmount?: Maybe<Scalars['numeric']['output']>;
+  mindshare?: Maybe<Scalars['numeric']['output']>;
+};
+
+/** order by sum() on columns of table "boost_recast_records" */
+export type Boost_Recast_Records_Sum_Order_By = {
+  earnedAmount?: InputMaybe<Order_By>;
+  mindshare?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "boost_recast_records" */
+export enum Boost_Recast_Records_Update_Column {
+  /** column name */
+  Address = 'address',
+  /** column name */
+  BoostId = 'boostId',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  EarnedAmount = 'earnedAmount',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Mindshare = 'mindshare',
+  /** column name */
+  RecastHash = 'recastHash',
+  /** column name */
+  RecasterFid = 'recasterFid',
+  /** column name */
+  TransactionHash = 'transactionHash',
+  /** column name */
+  TxStatus = 'txStatus',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+}
+
+export type Boost_Recast_Records_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Boost_Recast_Records_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Boost_Recast_Records_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Boost_Recast_Records_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Boost_Recast_Records_Var_Pop_Fields = {
+  __typename?: 'boost_recast_records_var_pop_fields';
+  earnedAmount?: Maybe<Scalars['Float']['output']>;
+  mindshare?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "boost_recast_records" */
+export type Boost_Recast_Records_Var_Pop_Order_By = {
+  earnedAmount?: InputMaybe<Order_By>;
+  mindshare?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Boost_Recast_Records_Var_Samp_Fields = {
+  __typename?: 'boost_recast_records_var_samp_fields';
+  earnedAmount?: Maybe<Scalars['Float']['output']>;
+  mindshare?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "boost_recast_records" */
+export type Boost_Recast_Records_Var_Samp_Order_By = {
+  earnedAmount?: InputMaybe<Order_By>;
+  mindshare?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Boost_Recast_Records_Variance_Fields = {
+  __typename?: 'boost_recast_records_variance_fields';
+  earnedAmount?: Maybe<Scalars['Float']['output']>;
+  mindshare?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "boost_recast_records" */
+export type Boost_Recast_Records_Variance_Order_By = {
+  earnedAmount?: InputMaybe<Order_By>;
+  mindshare?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "boost_statuses" */
+export type Boost_Statuses = {
+  __typename?: 'boost_statuses';
+  status: Scalars['String']['output'];
+};
+
+/** aggregated selection of "boost_statuses" */
+export type Boost_Statuses_Aggregate = {
+  __typename?: 'boost_statuses_aggregate';
+  aggregate?: Maybe<Boost_Statuses_Aggregate_Fields>;
+  nodes: Array<Boost_Statuses>;
+};
+
+/** aggregate fields of "boost_statuses" */
+export type Boost_Statuses_Aggregate_Fields = {
+  __typename?: 'boost_statuses_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Boost_Statuses_Max_Fields>;
+  min?: Maybe<Boost_Statuses_Min_Fields>;
+};
+
+/** aggregate fields of "boost_statuses" */
+export type Boost_Statuses_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Boost_Statuses_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "boost_statuses". All fields are combined with a logical 'AND'. */
+export type Boost_Statuses_Bool_Exp = {
+  _and?: InputMaybe<Array<Boost_Statuses_Bool_Exp>>;
+  _not?: InputMaybe<Boost_Statuses_Bool_Exp>;
+  _or?: InputMaybe<Array<Boost_Statuses_Bool_Exp>>;
+  status?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "boost_statuses" */
+export enum Boost_Statuses_Constraint {
+  /** unique or primary key constraint on columns "status" */
+  BoostStatusesPkey = 'boost_statuses_pkey',
+}
+
+/** input type for inserting data into table "boost_statuses" */
+export type Boost_Statuses_Insert_Input = {
+  status?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type Boost_Statuses_Max_Fields = {
+  __typename?: 'boost_statuses_max_fields';
+  status?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type Boost_Statuses_Min_Fields = {
+  __typename?: 'boost_statuses_min_fields';
+  status?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "boost_statuses" */
+export type Boost_Statuses_Mutation_Response = {
+  __typename?: 'boost_statuses_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Boost_Statuses>;
+};
+
+/** input type for inserting object relation for remote table "boost_statuses" */
+export type Boost_Statuses_Obj_Rel_Insert_Input = {
+  data: Boost_Statuses_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Boost_Statuses_On_Conflict>;
+};
+
+/** on_conflict condition type for table "boost_statuses" */
+export type Boost_Statuses_On_Conflict = {
+  constraint: Boost_Statuses_Constraint;
+  update_columns?: Array<Boost_Statuses_Update_Column>;
+  where?: InputMaybe<Boost_Statuses_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "boost_statuses". */
+export type Boost_Statuses_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: boost_statuses */
+export type Boost_Statuses_Pk_Columns_Input = {
+  status: Scalars['String']['input'];
+};
+
+/** select columns of table "boost_statuses" */
+export enum Boost_Statuses_Select_Column {
+  /** column name */
+  Status = 'status',
+}
+
+/** input type for updating data in table "boost_statuses" */
+export type Boost_Statuses_Set_Input = {
+  status?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "boost_statuses" */
+export type Boost_Statuses_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Boost_Statuses_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Boost_Statuses_Stream_Cursor_Value_Input = {
+  status?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "boost_statuses" */
+export enum Boost_Statuses_Update_Column {
+  /** column name */
+  Status = 'status',
+}
+
+export type Boost_Statuses_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Boost_Statuses_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Boost_Statuses_Bool_Exp;
+};
+
+/** columns and relationships of "boost_tx_statuses" */
+export type Boost_Tx_Statuses = {
+  __typename?: 'boost_tx_statuses';
+  status: Scalars['String']['output'];
+};
+
+/** aggregated selection of "boost_tx_statuses" */
+export type Boost_Tx_Statuses_Aggregate = {
+  __typename?: 'boost_tx_statuses_aggregate';
+  aggregate?: Maybe<Boost_Tx_Statuses_Aggregate_Fields>;
+  nodes: Array<Boost_Tx_Statuses>;
+};
+
+/** aggregate fields of "boost_tx_statuses" */
+export type Boost_Tx_Statuses_Aggregate_Fields = {
+  __typename?: 'boost_tx_statuses_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Boost_Tx_Statuses_Max_Fields>;
+  min?: Maybe<Boost_Tx_Statuses_Min_Fields>;
+};
+
+/** aggregate fields of "boost_tx_statuses" */
+export type Boost_Tx_Statuses_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Boost_Tx_Statuses_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "boost_tx_statuses". All fields are combined with a logical 'AND'. */
+export type Boost_Tx_Statuses_Bool_Exp = {
+  _and?: InputMaybe<Array<Boost_Tx_Statuses_Bool_Exp>>;
+  _not?: InputMaybe<Boost_Tx_Statuses_Bool_Exp>;
+  _or?: InputMaybe<Array<Boost_Tx_Statuses_Bool_Exp>>;
+  status?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "boost_tx_statuses" */
+export enum Boost_Tx_Statuses_Constraint {
+  /** unique or primary key constraint on columns "status" */
+  BoostTxStatusesPkey = 'boost_tx_statuses_pkey',
+}
+
+/** input type for inserting data into table "boost_tx_statuses" */
+export type Boost_Tx_Statuses_Insert_Input = {
+  status?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type Boost_Tx_Statuses_Max_Fields = {
+  __typename?: 'boost_tx_statuses_max_fields';
+  status?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type Boost_Tx_Statuses_Min_Fields = {
+  __typename?: 'boost_tx_statuses_min_fields';
+  status?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "boost_tx_statuses" */
+export type Boost_Tx_Statuses_Mutation_Response = {
+  __typename?: 'boost_tx_statuses_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Boost_Tx_Statuses>;
+};
+
+/** input type for inserting object relation for remote table "boost_tx_statuses" */
+export type Boost_Tx_Statuses_Obj_Rel_Insert_Input = {
+  data: Boost_Tx_Statuses_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Boost_Tx_Statuses_On_Conflict>;
+};
+
+/** on_conflict condition type for table "boost_tx_statuses" */
+export type Boost_Tx_Statuses_On_Conflict = {
+  constraint: Boost_Tx_Statuses_Constraint;
+  update_columns?: Array<Boost_Tx_Statuses_Update_Column>;
+  where?: InputMaybe<Boost_Tx_Statuses_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "boost_tx_statuses". */
+export type Boost_Tx_Statuses_Order_By = {
+  status?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: boost_tx_statuses */
+export type Boost_Tx_Statuses_Pk_Columns_Input = {
+  status: Scalars['String']['input'];
+};
+
+/** select columns of table "boost_tx_statuses" */
+export enum Boost_Tx_Statuses_Select_Column {
+  /** column name */
+  Status = 'status',
+}
+
+/** input type for updating data in table "boost_tx_statuses" */
+export type Boost_Tx_Statuses_Set_Input = {
+  status?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "boost_tx_statuses" */
+export type Boost_Tx_Statuses_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Boost_Tx_Statuses_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Boost_Tx_Statuses_Stream_Cursor_Value_Input = {
+  status?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "boost_tx_statuses" */
+export enum Boost_Tx_Statuses_Update_Column {
+  /** column name */
+  Status = 'status',
+}
+
+export type Boost_Tx_Statuses_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Boost_Tx_Statuses_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Boost_Tx_Statuses_Bool_Exp;
+};
+
 /** ordering argument of a cursor */
 export enum Cursor_Ordering {
   /** ascending ordering of the cursor */
@@ -420,6 +1123,205 @@ export enum Cursor_Ordering {
   /** descending ordering of the cursor */
   Desc = 'DESC',
 }
+
+/** columns and relationships of "daily_completed_tasks" */
+export type Daily_Completed_Tasks = {
+  __typename?: 'daily_completed_tasks';
+  completed_daily_visit?: Maybe<Scalars['bigint']['output']>;
+  completed_early_inflyncer_bonus?: Maybe<Scalars['bigint']['output']>;
+  date?: Maybe<Scalars['date']['output']>;
+  total_completed?: Maybe<Scalars['bigint']['output']>;
+  total_daily_visit?: Maybe<Scalars['bigint']['output']>;
+  total_early_inflyncer_bonus?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** aggregated selection of "daily_completed_tasks" */
+export type Daily_Completed_Tasks_Aggregate = {
+  __typename?: 'daily_completed_tasks_aggregate';
+  aggregate?: Maybe<Daily_Completed_Tasks_Aggregate_Fields>;
+  nodes: Array<Daily_Completed_Tasks>;
+};
+
+/** aggregate fields of "daily_completed_tasks" */
+export type Daily_Completed_Tasks_Aggregate_Fields = {
+  __typename?: 'daily_completed_tasks_aggregate_fields';
+  avg?: Maybe<Daily_Completed_Tasks_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Daily_Completed_Tasks_Max_Fields>;
+  min?: Maybe<Daily_Completed_Tasks_Min_Fields>;
+  stddev?: Maybe<Daily_Completed_Tasks_Stddev_Fields>;
+  stddev_pop?: Maybe<Daily_Completed_Tasks_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Daily_Completed_Tasks_Stddev_Samp_Fields>;
+  sum?: Maybe<Daily_Completed_Tasks_Sum_Fields>;
+  var_pop?: Maybe<Daily_Completed_Tasks_Var_Pop_Fields>;
+  var_samp?: Maybe<Daily_Completed_Tasks_Var_Samp_Fields>;
+  variance?: Maybe<Daily_Completed_Tasks_Variance_Fields>;
+};
+
+/** aggregate fields of "daily_completed_tasks" */
+export type Daily_Completed_Tasks_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Daily_Completed_Tasks_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Daily_Completed_Tasks_Avg_Fields = {
+  __typename?: 'daily_completed_tasks_avg_fields';
+  completed_daily_visit?: Maybe<Scalars['Float']['output']>;
+  completed_early_inflyncer_bonus?: Maybe<Scalars['Float']['output']>;
+  total_completed?: Maybe<Scalars['Float']['output']>;
+  total_daily_visit?: Maybe<Scalars['Float']['output']>;
+  total_early_inflyncer_bonus?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "daily_completed_tasks". All fields are combined with a logical 'AND'. */
+export type Daily_Completed_Tasks_Bool_Exp = {
+  _and?: InputMaybe<Array<Daily_Completed_Tasks_Bool_Exp>>;
+  _not?: InputMaybe<Daily_Completed_Tasks_Bool_Exp>;
+  _or?: InputMaybe<Array<Daily_Completed_Tasks_Bool_Exp>>;
+  completed_daily_visit?: InputMaybe<Bigint_Comparison_Exp>;
+  completed_early_inflyncer_bonus?: InputMaybe<Bigint_Comparison_Exp>;
+  date?: InputMaybe<Date_Comparison_Exp>;
+  total_completed?: InputMaybe<Bigint_Comparison_Exp>;
+  total_daily_visit?: InputMaybe<Bigint_Comparison_Exp>;
+  total_early_inflyncer_bonus?: InputMaybe<Bigint_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Daily_Completed_Tasks_Max_Fields = {
+  __typename?: 'daily_completed_tasks_max_fields';
+  completed_daily_visit?: Maybe<Scalars['bigint']['output']>;
+  completed_early_inflyncer_bonus?: Maybe<Scalars['bigint']['output']>;
+  date?: Maybe<Scalars['date']['output']>;
+  total_completed?: Maybe<Scalars['bigint']['output']>;
+  total_daily_visit?: Maybe<Scalars['bigint']['output']>;
+  total_early_inflyncer_bonus?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** aggregate min on columns */
+export type Daily_Completed_Tasks_Min_Fields = {
+  __typename?: 'daily_completed_tasks_min_fields';
+  completed_daily_visit?: Maybe<Scalars['bigint']['output']>;
+  completed_early_inflyncer_bonus?: Maybe<Scalars['bigint']['output']>;
+  date?: Maybe<Scalars['date']['output']>;
+  total_completed?: Maybe<Scalars['bigint']['output']>;
+  total_daily_visit?: Maybe<Scalars['bigint']['output']>;
+  total_early_inflyncer_bonus?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** Ordering options when selecting data from "daily_completed_tasks". */
+export type Daily_Completed_Tasks_Order_By = {
+  completed_daily_visit?: InputMaybe<Order_By>;
+  completed_early_inflyncer_bonus?: InputMaybe<Order_By>;
+  date?: InputMaybe<Order_By>;
+  total_completed?: InputMaybe<Order_By>;
+  total_daily_visit?: InputMaybe<Order_By>;
+  total_early_inflyncer_bonus?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "daily_completed_tasks" */
+export enum Daily_Completed_Tasks_Select_Column {
+  /** column name */
+  CompletedDailyVisit = 'completed_daily_visit',
+  /** column name */
+  CompletedEarlyInflyncerBonus = 'completed_early_inflyncer_bonus',
+  /** column name */
+  Date = 'date',
+  /** column name */
+  TotalCompleted = 'total_completed',
+  /** column name */
+  TotalDailyVisit = 'total_daily_visit',
+  /** column name */
+  TotalEarlyInflyncerBonus = 'total_early_inflyncer_bonus',
+}
+
+/** aggregate stddev on columns */
+export type Daily_Completed_Tasks_Stddev_Fields = {
+  __typename?: 'daily_completed_tasks_stddev_fields';
+  completed_daily_visit?: Maybe<Scalars['Float']['output']>;
+  completed_early_inflyncer_bonus?: Maybe<Scalars['Float']['output']>;
+  total_completed?: Maybe<Scalars['Float']['output']>;
+  total_daily_visit?: Maybe<Scalars['Float']['output']>;
+  total_early_inflyncer_bonus?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Daily_Completed_Tasks_Stddev_Pop_Fields = {
+  __typename?: 'daily_completed_tasks_stddev_pop_fields';
+  completed_daily_visit?: Maybe<Scalars['Float']['output']>;
+  completed_early_inflyncer_bonus?: Maybe<Scalars['Float']['output']>;
+  total_completed?: Maybe<Scalars['Float']['output']>;
+  total_daily_visit?: Maybe<Scalars['Float']['output']>;
+  total_early_inflyncer_bonus?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Daily_Completed_Tasks_Stddev_Samp_Fields = {
+  __typename?: 'daily_completed_tasks_stddev_samp_fields';
+  completed_daily_visit?: Maybe<Scalars['Float']['output']>;
+  completed_early_inflyncer_bonus?: Maybe<Scalars['Float']['output']>;
+  total_completed?: Maybe<Scalars['Float']['output']>;
+  total_daily_visit?: Maybe<Scalars['Float']['output']>;
+  total_early_inflyncer_bonus?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "daily_completed_tasks" */
+export type Daily_Completed_Tasks_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Daily_Completed_Tasks_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Daily_Completed_Tasks_Stream_Cursor_Value_Input = {
+  completed_daily_visit?: InputMaybe<Scalars['bigint']['input']>;
+  completed_early_inflyncer_bonus?: InputMaybe<Scalars['bigint']['input']>;
+  date?: InputMaybe<Scalars['date']['input']>;
+  total_completed?: InputMaybe<Scalars['bigint']['input']>;
+  total_daily_visit?: InputMaybe<Scalars['bigint']['input']>;
+  total_early_inflyncer_bonus?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Daily_Completed_Tasks_Sum_Fields = {
+  __typename?: 'daily_completed_tasks_sum_fields';
+  completed_daily_visit?: Maybe<Scalars['bigint']['output']>;
+  completed_early_inflyncer_bonus?: Maybe<Scalars['bigint']['output']>;
+  total_completed?: Maybe<Scalars['bigint']['output']>;
+  total_daily_visit?: Maybe<Scalars['bigint']['output']>;
+  total_early_inflyncer_bonus?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** aggregate var_pop on columns */
+export type Daily_Completed_Tasks_Var_Pop_Fields = {
+  __typename?: 'daily_completed_tasks_var_pop_fields';
+  completed_daily_visit?: Maybe<Scalars['Float']['output']>;
+  completed_early_inflyncer_bonus?: Maybe<Scalars['Float']['output']>;
+  total_completed?: Maybe<Scalars['Float']['output']>;
+  total_daily_visit?: Maybe<Scalars['Float']['output']>;
+  total_early_inflyncer_bonus?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Daily_Completed_Tasks_Var_Samp_Fields = {
+  __typename?: 'daily_completed_tasks_var_samp_fields';
+  completed_daily_visit?: Maybe<Scalars['Float']['output']>;
+  completed_early_inflyncer_bonus?: Maybe<Scalars['Float']['output']>;
+  total_completed?: Maybe<Scalars['Float']['output']>;
+  total_daily_visit?: Maybe<Scalars['Float']['output']>;
+  total_early_inflyncer_bonus?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Daily_Completed_Tasks_Variance_Fields = {
+  __typename?: 'daily_completed_tasks_variance_fields';
+  completed_daily_visit?: Maybe<Scalars['Float']['output']>;
+  completed_early_inflyncer_bonus?: Maybe<Scalars['Float']['output']>;
+  total_completed?: Maybe<Scalars['Float']['output']>;
+  total_daily_visit?: Maybe<Scalars['Float']['output']>;
+  total_early_inflyncer_bonus?: Maybe<Scalars['Float']['output']>;
+};
 
 /** Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'. */
 export type Date_Comparison_Exp = {
@@ -603,6 +1505,444 @@ export type Early_Inflyncer_Nft_Mind_Records_Updates = {
   where: Early_Inflyncer_Nft_Mind_Records_Bool_Exp;
 };
 
+export type Jsonb_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'. */
+export type Jsonb_Comparison_Exp = {
+  _cast?: InputMaybe<Jsonb_Cast_Exp>;
+  /** is the column contained in the given json value */
+  _contained_in?: InputMaybe<Scalars['jsonb']['input']>;
+  /** does the column contain the given json value at the top level */
+  _contains?: InputMaybe<Scalars['jsonb']['input']>;
+  _eq?: InputMaybe<Scalars['jsonb']['input']>;
+  _gt?: InputMaybe<Scalars['jsonb']['input']>;
+  _gte?: InputMaybe<Scalars['jsonb']['input']>;
+  /** does the string exist as a top-level key in the column */
+  _has_key?: InputMaybe<Scalars['String']['input']>;
+  /** do all of these strings exist as top-level keys in the column */
+  _has_keys_all?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** do any of these strings exist as top-level keys in the column */
+  _has_keys_any?: InputMaybe<Array<Scalars['String']['input']>>;
+  _in?: InputMaybe<Array<Scalars['jsonb']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['jsonb']['input']>;
+  _lte?: InputMaybe<Scalars['jsonb']['input']>;
+  _neq?: InputMaybe<Scalars['jsonb']['input']>;
+  _nin?: InputMaybe<Array<Scalars['jsonb']['input']>>;
+};
+
+/** columns and relationships of "mindshare_boosts" */
+export type Mindshare_Boosts = {
+  __typename?: 'mindshare_boosts';
+  /** An array relationship */
+  boostRecastRecords: Array<Boost_Recast_Records>;
+  /** An aggregate relationship */
+  boostRecastRecords_aggregate: Boost_Recast_Records_Aggregate;
+  boostStatus?: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  boostStatusEnum?: Maybe<Boost_Statuses>;
+  /** An object relationship */
+  boostTxStatusEnum?: Maybe<Boost_Tx_Statuses>;
+  campaignBudget: Scalars['numeric']['output'];
+  castUrl: Scalars['String']['output'];
+  costMultiplier: Scalars['numeric']['output'];
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  creatorFid: Scalars['String']['output'];
+  id: Scalars['uuid']['output'];
+  minMindshare: Scalars['numeric']['output'];
+  mindshareFilterDuration: Scalars['Int']['output'];
+  remainingBudget: Scalars['numeric']['output'];
+  txHash?: Maybe<Scalars['String']['output']>;
+  txStatus?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+  user?: Maybe<User>;
+};
+
+/** columns and relationships of "mindshare_boosts" */
+export type Mindshare_BoostsBoostRecastRecordsArgs = {
+  distinct_on?: InputMaybe<Array<Boost_Recast_Records_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Boost_Recast_Records_Order_By>>;
+  where?: InputMaybe<Boost_Recast_Records_Bool_Exp>;
+};
+
+/** columns and relationships of "mindshare_boosts" */
+export type Mindshare_BoostsBoostRecastRecords_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Boost_Recast_Records_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Boost_Recast_Records_Order_By>>;
+  where?: InputMaybe<Boost_Recast_Records_Bool_Exp>;
+};
+
+/** aggregated selection of "mindshare_boosts" */
+export type Mindshare_Boosts_Aggregate = {
+  __typename?: 'mindshare_boosts_aggregate';
+  aggregate?: Maybe<Mindshare_Boosts_Aggregate_Fields>;
+  nodes: Array<Mindshare_Boosts>;
+};
+
+/** aggregate fields of "mindshare_boosts" */
+export type Mindshare_Boosts_Aggregate_Fields = {
+  __typename?: 'mindshare_boosts_aggregate_fields';
+  avg?: Maybe<Mindshare_Boosts_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Mindshare_Boosts_Max_Fields>;
+  min?: Maybe<Mindshare_Boosts_Min_Fields>;
+  stddev?: Maybe<Mindshare_Boosts_Stddev_Fields>;
+  stddev_pop?: Maybe<Mindshare_Boosts_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Mindshare_Boosts_Stddev_Samp_Fields>;
+  sum?: Maybe<Mindshare_Boosts_Sum_Fields>;
+  var_pop?: Maybe<Mindshare_Boosts_Var_Pop_Fields>;
+  var_samp?: Maybe<Mindshare_Boosts_Var_Samp_Fields>;
+  variance?: Maybe<Mindshare_Boosts_Variance_Fields>;
+};
+
+/** aggregate fields of "mindshare_boosts" */
+export type Mindshare_Boosts_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Mindshare_Boosts_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Mindshare_Boosts_Avg_Fields = {
+  __typename?: 'mindshare_boosts_avg_fields';
+  campaignBudget?: Maybe<Scalars['Float']['output']>;
+  costMultiplier?: Maybe<Scalars['Float']['output']>;
+  minMindshare?: Maybe<Scalars['Float']['output']>;
+  mindshareFilterDuration?: Maybe<Scalars['Float']['output']>;
+  remainingBudget?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "mindshare_boosts". All fields are combined with a logical 'AND'. */
+export type Mindshare_Boosts_Bool_Exp = {
+  _and?: InputMaybe<Array<Mindshare_Boosts_Bool_Exp>>;
+  _not?: InputMaybe<Mindshare_Boosts_Bool_Exp>;
+  _or?: InputMaybe<Array<Mindshare_Boosts_Bool_Exp>>;
+  boostRecastRecords?: InputMaybe<Boost_Recast_Records_Bool_Exp>;
+  boostRecastRecords_aggregate?: InputMaybe<Boost_Recast_Records_Aggregate_Bool_Exp>;
+  boostStatus?: InputMaybe<String_Comparison_Exp>;
+  boostStatusEnum?: InputMaybe<Boost_Statuses_Bool_Exp>;
+  boostTxStatusEnum?: InputMaybe<Boost_Tx_Statuses_Bool_Exp>;
+  campaignBudget?: InputMaybe<Numeric_Comparison_Exp>;
+  castUrl?: InputMaybe<String_Comparison_Exp>;
+  costMultiplier?: InputMaybe<Numeric_Comparison_Exp>;
+  createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+  creatorFid?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  minMindshare?: InputMaybe<Numeric_Comparison_Exp>;
+  mindshareFilterDuration?: InputMaybe<Int_Comparison_Exp>;
+  remainingBudget?: InputMaybe<Numeric_Comparison_Exp>;
+  txHash?: InputMaybe<String_Comparison_Exp>;
+  txStatus?: InputMaybe<String_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "mindshare_boosts" */
+export enum Mindshare_Boosts_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  MindshareBoostsPkey = 'mindshare_boosts_pkey',
+  /** unique or primary key constraint on columns "tx_hash" */
+  MindshareBoostsTxHashKey = 'mindshare_boosts_tx_hash_key',
+}
+
+/** input type for incrementing numeric columns in table "mindshare_boosts" */
+export type Mindshare_Boosts_Inc_Input = {
+  campaignBudget?: InputMaybe<Scalars['numeric']['input']>;
+  costMultiplier?: InputMaybe<Scalars['numeric']['input']>;
+  minMindshare?: InputMaybe<Scalars['numeric']['input']>;
+  mindshareFilterDuration?: InputMaybe<Scalars['Int']['input']>;
+  remainingBudget?: InputMaybe<Scalars['numeric']['input']>;
+};
+
+/** input type for inserting data into table "mindshare_boosts" */
+export type Mindshare_Boosts_Insert_Input = {
+  boostRecastRecords?: InputMaybe<Boost_Recast_Records_Arr_Rel_Insert_Input>;
+  boostStatus?: InputMaybe<Scalars['String']['input']>;
+  boostStatusEnum?: InputMaybe<Boost_Statuses_Obj_Rel_Insert_Input>;
+  boostTxStatusEnum?: InputMaybe<Boost_Tx_Statuses_Obj_Rel_Insert_Input>;
+  campaignBudget?: InputMaybe<Scalars['numeric']['input']>;
+  castUrl?: InputMaybe<Scalars['String']['input']>;
+  costMultiplier?: InputMaybe<Scalars['numeric']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  creatorFid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  minMindshare?: InputMaybe<Scalars['numeric']['input']>;
+  mindshareFilterDuration?: InputMaybe<Scalars['Int']['input']>;
+  remainingBudget?: InputMaybe<Scalars['numeric']['input']>;
+  txHash?: InputMaybe<Scalars['String']['input']>;
+  txStatus?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate max on columns */
+export type Mindshare_Boosts_Max_Fields = {
+  __typename?: 'mindshare_boosts_max_fields';
+  boostStatus?: Maybe<Scalars['String']['output']>;
+  campaignBudget?: Maybe<Scalars['numeric']['output']>;
+  castUrl?: Maybe<Scalars['String']['output']>;
+  costMultiplier?: Maybe<Scalars['numeric']['output']>;
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  creatorFid?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  minMindshare?: Maybe<Scalars['numeric']['output']>;
+  mindshareFilterDuration?: Maybe<Scalars['Int']['output']>;
+  remainingBudget?: Maybe<Scalars['numeric']['output']>;
+  txHash?: Maybe<Scalars['String']['output']>;
+  txStatus?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** aggregate min on columns */
+export type Mindshare_Boosts_Min_Fields = {
+  __typename?: 'mindshare_boosts_min_fields';
+  boostStatus?: Maybe<Scalars['String']['output']>;
+  campaignBudget?: Maybe<Scalars['numeric']['output']>;
+  castUrl?: Maybe<Scalars['String']['output']>;
+  costMultiplier?: Maybe<Scalars['numeric']['output']>;
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  creatorFid?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  minMindshare?: Maybe<Scalars['numeric']['output']>;
+  mindshareFilterDuration?: Maybe<Scalars['Int']['output']>;
+  remainingBudget?: Maybe<Scalars['numeric']['output']>;
+  txHash?: Maybe<Scalars['String']['output']>;
+  txStatus?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** response of any mutation on the table "mindshare_boosts" */
+export type Mindshare_Boosts_Mutation_Response = {
+  __typename?: 'mindshare_boosts_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Mindshare_Boosts>;
+};
+
+/** input type for inserting object relation for remote table "mindshare_boosts" */
+export type Mindshare_Boosts_Obj_Rel_Insert_Input = {
+  data: Mindshare_Boosts_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Mindshare_Boosts_On_Conflict>;
+};
+
+/** on_conflict condition type for table "mindshare_boosts" */
+export type Mindshare_Boosts_On_Conflict = {
+  constraint: Mindshare_Boosts_Constraint;
+  update_columns?: Array<Mindshare_Boosts_Update_Column>;
+  where?: InputMaybe<Mindshare_Boosts_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "mindshare_boosts". */
+export type Mindshare_Boosts_Order_By = {
+  boostRecastRecords_aggregate?: InputMaybe<Boost_Recast_Records_Aggregate_Order_By>;
+  boostStatus?: InputMaybe<Order_By>;
+  boostStatusEnum?: InputMaybe<Boost_Statuses_Order_By>;
+  boostTxStatusEnum?: InputMaybe<Boost_Tx_Statuses_Order_By>;
+  campaignBudget?: InputMaybe<Order_By>;
+  castUrl?: InputMaybe<Order_By>;
+  costMultiplier?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  creatorFid?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  minMindshare?: InputMaybe<Order_By>;
+  mindshareFilterDuration?: InputMaybe<Order_By>;
+  remainingBudget?: InputMaybe<Order_By>;
+  txHash?: InputMaybe<Order_By>;
+  txStatus?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: mindshare_boosts */
+export type Mindshare_Boosts_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "mindshare_boosts" */
+export enum Mindshare_Boosts_Select_Column {
+  /** column name */
+  BoostStatus = 'boostStatus',
+  /** column name */
+  CampaignBudget = 'campaignBudget',
+  /** column name */
+  CastUrl = 'castUrl',
+  /** column name */
+  CostMultiplier = 'costMultiplier',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  CreatorFid = 'creatorFid',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  MinMindshare = 'minMindshare',
+  /** column name */
+  MindshareFilterDuration = 'mindshareFilterDuration',
+  /** column name */
+  RemainingBudget = 'remainingBudget',
+  /** column name */
+  TxHash = 'txHash',
+  /** column name */
+  TxStatus = 'txStatus',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+}
+
+/** input type for updating data in table "mindshare_boosts" */
+export type Mindshare_Boosts_Set_Input = {
+  boostStatus?: InputMaybe<Scalars['String']['input']>;
+  campaignBudget?: InputMaybe<Scalars['numeric']['input']>;
+  castUrl?: InputMaybe<Scalars['String']['input']>;
+  costMultiplier?: InputMaybe<Scalars['numeric']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  creatorFid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  minMindshare?: InputMaybe<Scalars['numeric']['input']>;
+  mindshareFilterDuration?: InputMaybe<Scalars['Int']['input']>;
+  remainingBudget?: InputMaybe<Scalars['numeric']['input']>;
+  txHash?: InputMaybe<Scalars['String']['input']>;
+  txStatus?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Mindshare_Boosts_Stddev_Fields = {
+  __typename?: 'mindshare_boosts_stddev_fields';
+  campaignBudget?: Maybe<Scalars['Float']['output']>;
+  costMultiplier?: Maybe<Scalars['Float']['output']>;
+  minMindshare?: Maybe<Scalars['Float']['output']>;
+  mindshareFilterDuration?: Maybe<Scalars['Float']['output']>;
+  remainingBudget?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Mindshare_Boosts_Stddev_Pop_Fields = {
+  __typename?: 'mindshare_boosts_stddev_pop_fields';
+  campaignBudget?: Maybe<Scalars['Float']['output']>;
+  costMultiplier?: Maybe<Scalars['Float']['output']>;
+  minMindshare?: Maybe<Scalars['Float']['output']>;
+  mindshareFilterDuration?: Maybe<Scalars['Float']['output']>;
+  remainingBudget?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Mindshare_Boosts_Stddev_Samp_Fields = {
+  __typename?: 'mindshare_boosts_stddev_samp_fields';
+  campaignBudget?: Maybe<Scalars['Float']['output']>;
+  costMultiplier?: Maybe<Scalars['Float']['output']>;
+  minMindshare?: Maybe<Scalars['Float']['output']>;
+  mindshareFilterDuration?: Maybe<Scalars['Float']['output']>;
+  remainingBudget?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "mindshare_boosts" */
+export type Mindshare_Boosts_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Mindshare_Boosts_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Mindshare_Boosts_Stream_Cursor_Value_Input = {
+  boostStatus?: InputMaybe<Scalars['String']['input']>;
+  campaignBudget?: InputMaybe<Scalars['numeric']['input']>;
+  castUrl?: InputMaybe<Scalars['String']['input']>;
+  costMultiplier?: InputMaybe<Scalars['numeric']['input']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  creatorFid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  minMindshare?: InputMaybe<Scalars['numeric']['input']>;
+  mindshareFilterDuration?: InputMaybe<Scalars['Int']['input']>;
+  remainingBudget?: InputMaybe<Scalars['numeric']['input']>;
+  txHash?: InputMaybe<Scalars['String']['input']>;
+  txStatus?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Mindshare_Boosts_Sum_Fields = {
+  __typename?: 'mindshare_boosts_sum_fields';
+  campaignBudget?: Maybe<Scalars['numeric']['output']>;
+  costMultiplier?: Maybe<Scalars['numeric']['output']>;
+  minMindshare?: Maybe<Scalars['numeric']['output']>;
+  mindshareFilterDuration?: Maybe<Scalars['Int']['output']>;
+  remainingBudget?: Maybe<Scalars['numeric']['output']>;
+};
+
+/** update columns of table "mindshare_boosts" */
+export enum Mindshare_Boosts_Update_Column {
+  /** column name */
+  BoostStatus = 'boostStatus',
+  /** column name */
+  CampaignBudget = 'campaignBudget',
+  /** column name */
+  CastUrl = 'castUrl',
+  /** column name */
+  CostMultiplier = 'costMultiplier',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  CreatorFid = 'creatorFid',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  MinMindshare = 'minMindshare',
+  /** column name */
+  MindshareFilterDuration = 'mindshareFilterDuration',
+  /** column name */
+  RemainingBudget = 'remainingBudget',
+  /** column name */
+  TxHash = 'txHash',
+  /** column name */
+  TxStatus = 'txStatus',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+}
+
+export type Mindshare_Boosts_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Mindshare_Boosts_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Mindshare_Boosts_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Mindshare_Boosts_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Mindshare_Boosts_Var_Pop_Fields = {
+  __typename?: 'mindshare_boosts_var_pop_fields';
+  campaignBudget?: Maybe<Scalars['Float']['output']>;
+  costMultiplier?: Maybe<Scalars['Float']['output']>;
+  minMindshare?: Maybe<Scalars['Float']['output']>;
+  mindshareFilterDuration?: Maybe<Scalars['Float']['output']>;
+  remainingBudget?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Mindshare_Boosts_Var_Samp_Fields = {
+  __typename?: 'mindshare_boosts_var_samp_fields';
+  campaignBudget?: Maybe<Scalars['Float']['output']>;
+  costMultiplier?: Maybe<Scalars['Float']['output']>;
+  minMindshare?: Maybe<Scalars['Float']['output']>;
+  mindshareFilterDuration?: Maybe<Scalars['Float']['output']>;
+  remainingBudget?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Mindshare_Boosts_Variance_Fields = {
+  __typename?: 'mindshare_boosts_variance_fields';
+  campaignBudget?: Maybe<Scalars['Float']['output']>;
+  costMultiplier?: Maybe<Scalars['Float']['output']>;
+  minMindshare?: Maybe<Scalars['Float']['output']>;
+  mindshareFilterDuration?: Maybe<Scalars['Float']['output']>;
+  remainingBudget?: Maybe<Scalars['Float']['output']>;
+};
+
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
@@ -610,10 +1950,26 @@ export type Mutation_Root = {
   delete_action_types?: Maybe<Action_Types_Mutation_Response>;
   /** delete single row from the table: "action_types" */
   delete_action_types_by_pk?: Maybe<Action_Types>;
+  /** delete data from the table: "boost_recast_records" */
+  delete_boost_recast_records?: Maybe<Boost_Recast_Records_Mutation_Response>;
+  /** delete single row from the table: "boost_recast_records" */
+  delete_boost_recast_records_by_pk?: Maybe<Boost_Recast_Records>;
+  /** delete data from the table: "boost_statuses" */
+  delete_boost_statuses?: Maybe<Boost_Statuses_Mutation_Response>;
+  /** delete single row from the table: "boost_statuses" */
+  delete_boost_statuses_by_pk?: Maybe<Boost_Statuses>;
+  /** delete data from the table: "boost_tx_statuses" */
+  delete_boost_tx_statuses?: Maybe<Boost_Tx_Statuses_Mutation_Response>;
+  /** delete single row from the table: "boost_tx_statuses" */
+  delete_boost_tx_statuses_by_pk?: Maybe<Boost_Tx_Statuses>;
   /** delete data from the table: "early_inflyncer_nft_mind_records" */
   delete_early_inflyncer_nft_mind_records?: Maybe<Early_Inflyncer_Nft_Mind_Records_Mutation_Response>;
   /** delete single row from the table: "early_inflyncer_nft_mind_records" */
   delete_early_inflyncer_nft_mind_records_by_pk?: Maybe<Early_Inflyncer_Nft_Mind_Records>;
+  /** delete data from the table: "mindshare_boosts" */
+  delete_mindshare_boosts?: Maybe<Mindshare_Boosts_Mutation_Response>;
+  /** delete single row from the table: "mindshare_boosts" */
+  delete_mindshare_boosts_by_pk?: Maybe<Mindshare_Boosts>;
   /** delete data from the table: "point_transaction_directions" */
   delete_point_transaction_directions?: Maybe<Point_Transaction_Directions_Mutation_Response>;
   /** delete single row from the table: "point_transaction_directions" */
@@ -626,6 +1982,10 @@ export type Mutation_Root = {
   delete_point_transactions?: Maybe<Point_Transactions_Mutation_Response>;
   /** delete single row from the table: "point_transactions" */
   delete_point_transactions_by_pk?: Maybe<Point_Transactions>;
+  /** delete data from the table: "raw_events" */
+  delete_raw_events?: Maybe<Raw_Events_Mutation_Response>;
+  /** delete single row from the table: "raw_events" */
+  delete_raw_events_by_pk?: Maybe<Raw_Events>;
   /** delete data from the table: "task_types" */
   delete_task_types?: Maybe<Task_Types_Mutation_Response>;
   /** delete single row from the table: "task_types" */
@@ -646,6 +2006,10 @@ export type Mutation_Root = {
   delete_user_tasks?: Maybe<User_Tasks_Mutation_Response>;
   /** delete single row from the table: "user_tasks" */
   delete_user_tasks_by_pk?: Maybe<User_Tasks>;
+  /** delete data from the table: "users" */
+  delete_users?: Maybe<Users_Mutation_Response>;
+  /** delete single row from the table: "users" */
+  delete_users_by_pk?: Maybe<Users>;
   /** delete data from the table: "vote_outcome" */
   delete_vote_outcome?: Maybe<Vote_Outcome_Mutation_Response>;
   /** delete single row from the table: "vote_outcome" */
@@ -678,10 +2042,26 @@ export type Mutation_Root = {
   insert_action_types?: Maybe<Action_Types_Mutation_Response>;
   /** insert a single row into the table: "action_types" */
   insert_action_types_one?: Maybe<Action_Types>;
+  /** insert data into the table: "boost_recast_records" */
+  insert_boost_recast_records?: Maybe<Boost_Recast_Records_Mutation_Response>;
+  /** insert a single row into the table: "boost_recast_records" */
+  insert_boost_recast_records_one?: Maybe<Boost_Recast_Records>;
+  /** insert data into the table: "boost_statuses" */
+  insert_boost_statuses?: Maybe<Boost_Statuses_Mutation_Response>;
+  /** insert a single row into the table: "boost_statuses" */
+  insert_boost_statuses_one?: Maybe<Boost_Statuses>;
+  /** insert data into the table: "boost_tx_statuses" */
+  insert_boost_tx_statuses?: Maybe<Boost_Tx_Statuses_Mutation_Response>;
+  /** insert a single row into the table: "boost_tx_statuses" */
+  insert_boost_tx_statuses_one?: Maybe<Boost_Tx_Statuses>;
   /** insert data into the table: "early_inflyncer_nft_mind_records" */
   insert_early_inflyncer_nft_mind_records?: Maybe<Early_Inflyncer_Nft_Mind_Records_Mutation_Response>;
   /** insert a single row into the table: "early_inflyncer_nft_mind_records" */
   insert_early_inflyncer_nft_mind_records_one?: Maybe<Early_Inflyncer_Nft_Mind_Records>;
+  /** insert data into the table: "mindshare_boosts" */
+  insert_mindshare_boosts?: Maybe<Mindshare_Boosts_Mutation_Response>;
+  /** insert a single row into the table: "mindshare_boosts" */
+  insert_mindshare_boosts_one?: Maybe<Mindshare_Boosts>;
   /** insert data into the table: "point_transaction_directions" */
   insert_point_transaction_directions?: Maybe<Point_Transaction_Directions_Mutation_Response>;
   /** insert a single row into the table: "point_transaction_directions" */
@@ -694,6 +2074,10 @@ export type Mutation_Root = {
   insert_point_transactions?: Maybe<Point_Transactions_Mutation_Response>;
   /** insert a single row into the table: "point_transactions" */
   insert_point_transactions_one?: Maybe<Point_Transactions>;
+  /** insert data into the table: "raw_events" */
+  insert_raw_events?: Maybe<Raw_Events_Mutation_Response>;
+  /** insert a single row into the table: "raw_events" */
+  insert_raw_events_one?: Maybe<Raw_Events>;
   /** insert data into the table: "task_types" */
   insert_task_types?: Maybe<Task_Types_Mutation_Response>;
   /** insert a single row into the table: "task_types" */
@@ -714,6 +2098,10 @@ export type Mutation_Root = {
   insert_user_tasks?: Maybe<User_Tasks_Mutation_Response>;
   /** insert a single row into the table: "user_tasks" */
   insert_user_tasks_one?: Maybe<User_Tasks>;
+  /** insert data into the table: "users" */
+  insert_users?: Maybe<Users_Mutation_Response>;
+  /** insert a single row into the table: "users" */
+  insert_users_one?: Maybe<Users>;
   /** insert data into the table: "vote_outcome" */
   insert_vote_outcome?: Maybe<Vote_Outcome_Mutation_Response>;
   /** insert a single row into the table: "vote_outcome" */
@@ -742,6 +2130,7 @@ export type Mutation_Root = {
   insert_vote_type?: Maybe<Vote_Type_Mutation_Response>;
   /** insert a single row into the table: "vote_type" */
   insert_vote_type_one?: Maybe<Vote_Type>;
+  postGeneralNotification?: Maybe<PostGeneralNotificationOutput>;
   /** postTasks */
   postTasks?: Maybe<PostTasksOutput>;
   /** postVote */
@@ -754,6 +2143,24 @@ export type Mutation_Root = {
   update_action_types_by_pk?: Maybe<Action_Types>;
   /** update multiples rows of table: "action_types" */
   update_action_types_many?: Maybe<Array<Maybe<Action_Types_Mutation_Response>>>;
+  /** update data of the table: "boost_recast_records" */
+  update_boost_recast_records?: Maybe<Boost_Recast_Records_Mutation_Response>;
+  /** update single row of the table: "boost_recast_records" */
+  update_boost_recast_records_by_pk?: Maybe<Boost_Recast_Records>;
+  /** update multiples rows of table: "boost_recast_records" */
+  update_boost_recast_records_many?: Maybe<Array<Maybe<Boost_Recast_Records_Mutation_Response>>>;
+  /** update data of the table: "boost_statuses" */
+  update_boost_statuses?: Maybe<Boost_Statuses_Mutation_Response>;
+  /** update single row of the table: "boost_statuses" */
+  update_boost_statuses_by_pk?: Maybe<Boost_Statuses>;
+  /** update multiples rows of table: "boost_statuses" */
+  update_boost_statuses_many?: Maybe<Array<Maybe<Boost_Statuses_Mutation_Response>>>;
+  /** update data of the table: "boost_tx_statuses" */
+  update_boost_tx_statuses?: Maybe<Boost_Tx_Statuses_Mutation_Response>;
+  /** update single row of the table: "boost_tx_statuses" */
+  update_boost_tx_statuses_by_pk?: Maybe<Boost_Tx_Statuses>;
+  /** update multiples rows of table: "boost_tx_statuses" */
+  update_boost_tx_statuses_many?: Maybe<Array<Maybe<Boost_Tx_Statuses_Mutation_Response>>>;
   /** update data of the table: "early_inflyncer_nft_mind_records" */
   update_early_inflyncer_nft_mind_records?: Maybe<Early_Inflyncer_Nft_Mind_Records_Mutation_Response>;
   /** update single row of the table: "early_inflyncer_nft_mind_records" */
@@ -762,6 +2169,12 @@ export type Mutation_Root = {
   update_early_inflyncer_nft_mind_records_many?: Maybe<
     Array<Maybe<Early_Inflyncer_Nft_Mind_Records_Mutation_Response>>
   >;
+  /** update data of the table: "mindshare_boosts" */
+  update_mindshare_boosts?: Maybe<Mindshare_Boosts_Mutation_Response>;
+  /** update single row of the table: "mindshare_boosts" */
+  update_mindshare_boosts_by_pk?: Maybe<Mindshare_Boosts>;
+  /** update multiples rows of table: "mindshare_boosts" */
+  update_mindshare_boosts_many?: Maybe<Array<Maybe<Mindshare_Boosts_Mutation_Response>>>;
   /** update data of the table: "point_transaction_directions" */
   update_point_transaction_directions?: Maybe<Point_Transaction_Directions_Mutation_Response>;
   /** update single row of the table: "point_transaction_directions" */
@@ -784,6 +2197,12 @@ export type Mutation_Root = {
   update_point_transactions_by_pk?: Maybe<Point_Transactions>;
   /** update multiples rows of table: "point_transactions" */
   update_point_transactions_many?: Maybe<Array<Maybe<Point_Transactions_Mutation_Response>>>;
+  /** update data of the table: "raw_events" */
+  update_raw_events?: Maybe<Raw_Events_Mutation_Response>;
+  /** update single row of the table: "raw_events" */
+  update_raw_events_by_pk?: Maybe<Raw_Events>;
+  /** update multiples rows of table: "raw_events" */
+  update_raw_events_many?: Maybe<Array<Maybe<Raw_Events_Mutation_Response>>>;
   /** update data of the table: "task_types" */
   update_task_types?: Maybe<Task_Types_Mutation_Response>;
   /** update single row of the table: "task_types" */
@@ -816,6 +2235,12 @@ export type Mutation_Root = {
   update_user_tasks_by_pk?: Maybe<User_Tasks>;
   /** update multiples rows of table: "user_tasks" */
   update_user_tasks_many?: Maybe<Array<Maybe<User_Tasks_Mutation_Response>>>;
+  /** update data of the table: "users" */
+  update_users?: Maybe<Users_Mutation_Response>;
+  /** update single row of the table: "users" */
+  update_users_by_pk?: Maybe<Users>;
+  /** update multiples rows of table: "users" */
+  update_users_many?: Maybe<Array<Maybe<Users_Mutation_Response>>>;
   /** update data of the table: "vote_outcome" */
   update_vote_outcome?: Maybe<Vote_Outcome_Mutation_Response>;
   /** update single row of the table: "vote_outcome" */
@@ -858,6 +2283,8 @@ export type Mutation_Root = {
   update_vote_type_by_pk?: Maybe<Vote_Type>;
   /** update multiples rows of table: "vote_type" */
   update_vote_type_many?: Maybe<Array<Maybe<Vote_Type_Mutation_Response>>>;
+  /** verifyBoostRecast */
+  verifyBoostRecast?: Maybe<VerifyBoostRecastOutput>;
 };
 
 /** mutation root */
@@ -871,12 +2298,52 @@ export type Mutation_RootDelete_Action_Types_By_PkArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootDelete_Boost_Recast_RecordsArgs = {
+  where: Boost_Recast_Records_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Boost_Recast_Records_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Boost_StatusesArgs = {
+  where: Boost_Statuses_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Boost_Statuses_By_PkArgs = {
+  status: Scalars['String']['input'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Boost_Tx_StatusesArgs = {
+  where: Boost_Tx_Statuses_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Boost_Tx_Statuses_By_PkArgs = {
+  status: Scalars['String']['input'];
+};
+
+/** mutation root */
 export type Mutation_RootDelete_Early_Inflyncer_Nft_Mind_RecordsArgs = {
   where: Early_Inflyncer_Nft_Mind_Records_Bool_Exp;
 };
 
 /** mutation root */
 export type Mutation_RootDelete_Early_Inflyncer_Nft_Mind_Records_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Mindshare_BoostsArgs = {
+  where: Mindshare_Boosts_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Mindshare_Boosts_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -907,6 +2374,16 @@ export type Mutation_RootDelete_Point_TransactionsArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Point_Transactions_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Raw_EventsArgs = {
+  where: Raw_Events_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Raw_Events_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -957,6 +2434,16 @@ export type Mutation_RootDelete_User_TasksArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_User_Tasks_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_UsersArgs = {
+  where: Users_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Users_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -1043,6 +2530,42 @@ export type Mutation_RootInsert_Action_Types_OneArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootInsert_Boost_Recast_RecordsArgs = {
+  objects: Array<Boost_Recast_Records_Insert_Input>;
+  on_conflict?: InputMaybe<Boost_Recast_Records_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Boost_Recast_Records_OneArgs = {
+  object: Boost_Recast_Records_Insert_Input;
+  on_conflict?: InputMaybe<Boost_Recast_Records_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Boost_StatusesArgs = {
+  objects: Array<Boost_Statuses_Insert_Input>;
+  on_conflict?: InputMaybe<Boost_Statuses_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Boost_Statuses_OneArgs = {
+  object: Boost_Statuses_Insert_Input;
+  on_conflict?: InputMaybe<Boost_Statuses_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Boost_Tx_StatusesArgs = {
+  objects: Array<Boost_Tx_Statuses_Insert_Input>;
+  on_conflict?: InputMaybe<Boost_Tx_Statuses_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Boost_Tx_Statuses_OneArgs = {
+  object: Boost_Tx_Statuses_Insert_Input;
+  on_conflict?: InputMaybe<Boost_Tx_Statuses_On_Conflict>;
+};
+
+/** mutation root */
 export type Mutation_RootInsert_Early_Inflyncer_Nft_Mind_RecordsArgs = {
   objects: Array<Early_Inflyncer_Nft_Mind_Records_Insert_Input>;
   on_conflict?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_On_Conflict>;
@@ -1052,6 +2575,18 @@ export type Mutation_RootInsert_Early_Inflyncer_Nft_Mind_RecordsArgs = {
 export type Mutation_RootInsert_Early_Inflyncer_Nft_Mind_Records_OneArgs = {
   object: Early_Inflyncer_Nft_Mind_Records_Insert_Input;
   on_conflict?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Mindshare_BoostsArgs = {
+  objects: Array<Mindshare_Boosts_Insert_Input>;
+  on_conflict?: InputMaybe<Mindshare_Boosts_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Mindshare_Boosts_OneArgs = {
+  object: Mindshare_Boosts_Insert_Input;
+  on_conflict?: InputMaybe<Mindshare_Boosts_On_Conflict>;
 };
 
 /** mutation root */
@@ -1088,6 +2623,18 @@ export type Mutation_RootInsert_Point_TransactionsArgs = {
 export type Mutation_RootInsert_Point_Transactions_OneArgs = {
   object: Point_Transactions_Insert_Input;
   on_conflict?: InputMaybe<Point_Transactions_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Raw_EventsArgs = {
+  objects: Array<Raw_Events_Insert_Input>;
+  on_conflict?: InputMaybe<Raw_Events_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Raw_Events_OneArgs = {
+  object: Raw_Events_Insert_Input;
+  on_conflict?: InputMaybe<Raw_Events_On_Conflict>;
 };
 
 /** mutation root */
@@ -1148,6 +2695,18 @@ export type Mutation_RootInsert_User_TasksArgs = {
 export type Mutation_RootInsert_User_Tasks_OneArgs = {
   object: User_Tasks_Insert_Input;
   on_conflict?: InputMaybe<User_Tasks_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_UsersArgs = {
+  objects: Array<Users_Insert_Input>;
+  on_conflict?: InputMaybe<Users_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Users_OneArgs = {
+  object: Users_Insert_Input;
+  on_conflict?: InputMaybe<Users_On_Conflict>;
 };
 
 /** mutation root */
@@ -1235,6 +2794,11 @@ export type Mutation_RootInsert_Vote_Type_OneArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootPostGeneralNotificationArgs = {
+  input: PostGeneralNotificationInput;
+};
+
+/** mutation root */
 export type Mutation_RootPostTasksArgs = {
   input: PostTasksInput;
 };
@@ -1269,6 +2833,59 @@ export type Mutation_RootUpdate_Action_Types_ManyArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootUpdate_Boost_Recast_RecordsArgs = {
+  _inc?: InputMaybe<Boost_Recast_Records_Inc_Input>;
+  _set?: InputMaybe<Boost_Recast_Records_Set_Input>;
+  where: Boost_Recast_Records_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Boost_Recast_Records_By_PkArgs = {
+  _inc?: InputMaybe<Boost_Recast_Records_Inc_Input>;
+  _set?: InputMaybe<Boost_Recast_Records_Set_Input>;
+  pk_columns: Boost_Recast_Records_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Boost_Recast_Records_ManyArgs = {
+  updates: Array<Boost_Recast_Records_Updates>;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Boost_StatusesArgs = {
+  _set?: InputMaybe<Boost_Statuses_Set_Input>;
+  where: Boost_Statuses_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Boost_Statuses_By_PkArgs = {
+  _set?: InputMaybe<Boost_Statuses_Set_Input>;
+  pk_columns: Boost_Statuses_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Boost_Statuses_ManyArgs = {
+  updates: Array<Boost_Statuses_Updates>;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Boost_Tx_StatusesArgs = {
+  _set?: InputMaybe<Boost_Tx_Statuses_Set_Input>;
+  where: Boost_Tx_Statuses_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Boost_Tx_Statuses_By_PkArgs = {
+  _set?: InputMaybe<Boost_Tx_Statuses_Set_Input>;
+  pk_columns: Boost_Tx_Statuses_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Boost_Tx_Statuses_ManyArgs = {
+  updates: Array<Boost_Tx_Statuses_Updates>;
+};
+
+/** mutation root */
 export type Mutation_RootUpdate_Early_Inflyncer_Nft_Mind_RecordsArgs = {
   _set?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_Set_Input>;
   where: Early_Inflyncer_Nft_Mind_Records_Bool_Exp;
@@ -1283,6 +2900,25 @@ export type Mutation_RootUpdate_Early_Inflyncer_Nft_Mind_Records_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Early_Inflyncer_Nft_Mind_Records_ManyArgs = {
   updates: Array<Early_Inflyncer_Nft_Mind_Records_Updates>;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Mindshare_BoostsArgs = {
+  _inc?: InputMaybe<Mindshare_Boosts_Inc_Input>;
+  _set?: InputMaybe<Mindshare_Boosts_Set_Input>;
+  where: Mindshare_Boosts_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Mindshare_Boosts_By_PkArgs = {
+  _inc?: InputMaybe<Mindshare_Boosts_Inc_Input>;
+  _set?: InputMaybe<Mindshare_Boosts_Set_Input>;
+  pk_columns: Mindshare_Boosts_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Mindshare_Boosts_ManyArgs = {
+  updates: Array<Mindshare_Boosts_Updates>;
 };
 
 /** mutation root */
@@ -1336,6 +2972,35 @@ export type Mutation_RootUpdate_Point_Transactions_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Point_Transactions_ManyArgs = {
   updates: Array<Point_Transactions_Updates>;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Raw_EventsArgs = {
+  _append?: InputMaybe<Raw_Events_Append_Input>;
+  _delete_at_path?: InputMaybe<Raw_Events_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Raw_Events_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Raw_Events_Delete_Key_Input>;
+  _inc?: InputMaybe<Raw_Events_Inc_Input>;
+  _prepend?: InputMaybe<Raw_Events_Prepend_Input>;
+  _set?: InputMaybe<Raw_Events_Set_Input>;
+  where: Raw_Events_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Raw_Events_By_PkArgs = {
+  _append?: InputMaybe<Raw_Events_Append_Input>;
+  _delete_at_path?: InputMaybe<Raw_Events_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Raw_Events_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Raw_Events_Delete_Key_Input>;
+  _inc?: InputMaybe<Raw_Events_Inc_Input>;
+  _prepend?: InputMaybe<Raw_Events_Prepend_Input>;
+  _set?: InputMaybe<Raw_Events_Set_Input>;
+  pk_columns: Raw_Events_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Raw_Events_ManyArgs = {
+  updates: Array<Raw_Events_Updates>;
 };
 
 /** mutation root */
@@ -1429,6 +3094,23 @@ export type Mutation_RootUpdate_User_Tasks_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_User_Tasks_ManyArgs = {
   updates: Array<User_Tasks_Updates>;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_UsersArgs = {
+  _set?: InputMaybe<Users_Set_Input>;
+  where: Users_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Users_By_PkArgs = {
+  _set?: InputMaybe<Users_Set_Input>;
+  pk_columns: Users_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Users_ManyArgs = {
+  updates: Array<Users_Updates>;
 };
 
 /** mutation root */
@@ -1552,6 +3234,11 @@ export type Mutation_RootUpdate_Vote_Type_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Vote_Type_ManyArgs = {
   updates: Array<Vote_Type_Updates>;
+};
+
+/** mutation root */
+export type Mutation_RootVerifyBoostRecastArgs = {
+  input: VerifyBoostRecastInput;
 };
 
 /** Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'. */
@@ -2323,6 +4010,28 @@ export type Query_Root = {
   action_types_aggregate: Action_Types_Aggregate;
   /** fetch data from the table: "action_types" using primary key columns */
   action_types_by_pk?: Maybe<Action_Types>;
+  /** fetch data from the table: "boost_recast_records" */
+  boost_recast_records: Array<Boost_Recast_Records>;
+  /** fetch aggregated fields from the table: "boost_recast_records" */
+  boost_recast_records_aggregate: Boost_Recast_Records_Aggregate;
+  /** fetch data from the table: "boost_recast_records" using primary key columns */
+  boost_recast_records_by_pk?: Maybe<Boost_Recast_Records>;
+  /** fetch data from the table: "boost_statuses" */
+  boost_statuses: Array<Boost_Statuses>;
+  /** fetch aggregated fields from the table: "boost_statuses" */
+  boost_statuses_aggregate: Boost_Statuses_Aggregate;
+  /** fetch data from the table: "boost_statuses" using primary key columns */
+  boost_statuses_by_pk?: Maybe<Boost_Statuses>;
+  /** fetch data from the table: "boost_tx_statuses" */
+  boost_tx_statuses: Array<Boost_Tx_Statuses>;
+  /** fetch aggregated fields from the table: "boost_tx_statuses" */
+  boost_tx_statuses_aggregate: Boost_Tx_Statuses_Aggregate;
+  /** fetch data from the table: "boost_tx_statuses" using primary key columns */
+  boost_tx_statuses_by_pk?: Maybe<Boost_Tx_Statuses>;
+  /** fetch data from the table: "daily_completed_tasks" */
+  daily_completed_tasks: Array<Daily_Completed_Tasks>;
+  /** fetch aggregated fields from the table: "daily_completed_tasks" */
+  daily_completed_tasks_aggregate: Daily_Completed_Tasks_Aggregate;
   /** fetch data from the table: "early_inflyncer_nft_mind_records" */
   early_inflyncer_nft_mind_records: Array<Early_Inflyncer_Nft_Mind_Records>;
   /** fetch aggregated fields from the table: "early_inflyncer_nft_mind_records" */
@@ -2333,6 +4042,12 @@ export type Query_Root = {
   getCryptoPrice?: Maybe<CryptoPriceOutput>;
   getMindshareByFid?: Maybe<MindshareResult>;
   getTopMindshare?: Maybe<Array<Maybe<MindshareResult>>>;
+  /** fetch data from the table: "mindshare_boosts" */
+  mindshare_boosts: Array<Mindshare_Boosts>;
+  /** fetch aggregated fields from the table: "mindshare_boosts" */
+  mindshare_boosts_aggregate: Mindshare_Boosts_Aggregate;
+  /** fetch data from the table: "mindshare_boosts" using primary key columns */
+  mindshare_boosts_by_pk?: Maybe<Mindshare_Boosts>;
   /** fetch data from the table: "point_transaction_directions" */
   point_transaction_directions: Array<Point_Transaction_Directions>;
   /** fetch aggregated fields from the table: "point_transaction_directions" */
@@ -2351,6 +4066,16 @@ export type Query_Root = {
   point_transactions_aggregate: Point_Transactions_Aggregate;
   /** fetch data from the table: "point_transactions" using primary key columns */
   point_transactions_by_pk?: Maybe<Point_Transactions>;
+  /** fetch data from the table: "raw_event_type_summary_by_day" */
+  raw_event_type_summary_by_day: Array<Raw_Event_Type_Summary_By_Day>;
+  /** fetch aggregated fields from the table: "raw_event_type_summary_by_day" */
+  raw_event_type_summary_by_day_aggregate: Raw_Event_Type_Summary_By_Day_Aggregate;
+  /** fetch data from the table: "raw_events" */
+  raw_events: Array<Raw_Events>;
+  /** fetch aggregated fields from the table: "raw_events" */
+  raw_events_aggregate: Raw_Events_Aggregate;
+  /** fetch data from the table: "raw_events" using primary key columns */
+  raw_events_by_pk?: Maybe<Raw_Events>;
   /** fetch data from the table: "task_types" */
   task_types: Array<Task_Types>;
   /** fetch aggregated fields from the table: "task_types" */
@@ -2386,6 +4111,12 @@ export type Query_Root = {
   user_tasks_aggregate: User_Tasks_Aggregate;
   /** fetch data from the table: "user_tasks" using primary key columns */
   user_tasks_by_pk?: Maybe<User_Tasks>;
+  /** fetch data from the table: "users" */
+  users: Array<Users>;
+  /** fetch aggregated fields from the table: "users" */
+  users_aggregate: Users_Aggregate;
+  /** fetch data from the table: "users" using primary key columns */
+  users_by_pk?: Maybe<Users>;
   /** fetch data from the table: "vote_outcome" */
   vote_outcome: Array<Vote_Outcome>;
   /** fetch aggregated fields from the table: "vote_outcome" */
@@ -2450,6 +4181,82 @@ export type Query_RootAction_Types_By_PkArgs = {
   id: Scalars['Int']['input'];
 };
 
+export type Query_RootBoost_Recast_RecordsArgs = {
+  distinct_on?: InputMaybe<Array<Boost_Recast_Records_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Boost_Recast_Records_Order_By>>;
+  where?: InputMaybe<Boost_Recast_Records_Bool_Exp>;
+};
+
+export type Query_RootBoost_Recast_Records_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Boost_Recast_Records_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Boost_Recast_Records_Order_By>>;
+  where?: InputMaybe<Boost_Recast_Records_Bool_Exp>;
+};
+
+export type Query_RootBoost_Recast_Records_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Query_RootBoost_StatusesArgs = {
+  distinct_on?: InputMaybe<Array<Boost_Statuses_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Boost_Statuses_Order_By>>;
+  where?: InputMaybe<Boost_Statuses_Bool_Exp>;
+};
+
+export type Query_RootBoost_Statuses_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Boost_Statuses_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Boost_Statuses_Order_By>>;
+  where?: InputMaybe<Boost_Statuses_Bool_Exp>;
+};
+
+export type Query_RootBoost_Statuses_By_PkArgs = {
+  status: Scalars['String']['input'];
+};
+
+export type Query_RootBoost_Tx_StatusesArgs = {
+  distinct_on?: InputMaybe<Array<Boost_Tx_Statuses_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Boost_Tx_Statuses_Order_By>>;
+  where?: InputMaybe<Boost_Tx_Statuses_Bool_Exp>;
+};
+
+export type Query_RootBoost_Tx_Statuses_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Boost_Tx_Statuses_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Boost_Tx_Statuses_Order_By>>;
+  where?: InputMaybe<Boost_Tx_Statuses_Bool_Exp>;
+};
+
+export type Query_RootBoost_Tx_Statuses_By_PkArgs = {
+  status: Scalars['String']['input'];
+};
+
+export type Query_RootDaily_Completed_TasksArgs = {
+  distinct_on?: InputMaybe<Array<Daily_Completed_Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Daily_Completed_Tasks_Order_By>>;
+  where?: InputMaybe<Daily_Completed_Tasks_Bool_Exp>;
+};
+
+export type Query_RootDaily_Completed_Tasks_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Daily_Completed_Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Daily_Completed_Tasks_Order_By>>;
+  where?: InputMaybe<Daily_Completed_Tasks_Bool_Exp>;
+};
+
 export type Query_RootEarly_Inflyncer_Nft_Mind_RecordsArgs = {
   distinct_on?: InputMaybe<Array<Early_Inflyncer_Nft_Mind_Records_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2480,6 +4287,26 @@ export type Query_RootGetMindshareByFidArgs = {
 
 export type Query_RootGetTopMindshareArgs = {
   input: GetMindshareInput;
+};
+
+export type Query_RootMindshare_BoostsArgs = {
+  distinct_on?: InputMaybe<Array<Mindshare_Boosts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Mindshare_Boosts_Order_By>>;
+  where?: InputMaybe<Mindshare_Boosts_Bool_Exp>;
+};
+
+export type Query_RootMindshare_Boosts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Mindshare_Boosts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Mindshare_Boosts_Order_By>>;
+  where?: InputMaybe<Mindshare_Boosts_Bool_Exp>;
+};
+
+export type Query_RootMindshare_Boosts_By_PkArgs = {
+  id: Scalars['uuid']['input'];
 };
 
 export type Query_RootPoint_Transaction_DirectionsArgs = {
@@ -2539,6 +4366,42 @@ export type Query_RootPoint_Transactions_AggregateArgs = {
 };
 
 export type Query_RootPoint_Transactions_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Query_RootRaw_Event_Type_Summary_By_DayArgs = {
+  distinct_on?: InputMaybe<Array<Raw_Event_Type_Summary_By_Day_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Raw_Event_Type_Summary_By_Day_Order_By>>;
+  where?: InputMaybe<Raw_Event_Type_Summary_By_Day_Bool_Exp>;
+};
+
+export type Query_RootRaw_Event_Type_Summary_By_Day_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Raw_Event_Type_Summary_By_Day_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Raw_Event_Type_Summary_By_Day_Order_By>>;
+  where?: InputMaybe<Raw_Event_Type_Summary_By_Day_Bool_Exp>;
+};
+
+export type Query_RootRaw_EventsArgs = {
+  distinct_on?: InputMaybe<Array<Raw_Events_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Raw_Events_Order_By>>;
+  where?: InputMaybe<Raw_Events_Bool_Exp>;
+};
+
+export type Query_RootRaw_Events_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Raw_Events_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Raw_Events_Order_By>>;
+  where?: InputMaybe<Raw_Events_Bool_Exp>;
+};
+
+export type Query_RootRaw_Events_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -2659,6 +4522,26 @@ export type Query_RootUser_Tasks_AggregateArgs = {
 };
 
 export type Query_RootUser_Tasks_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Query_RootUsersArgs = {
+  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+export type Query_RootUsers_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+export type Query_RootUsers_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -2802,6 +4685,488 @@ export type Query_RootVote_Type_By_PkArgs = {
   key: Scalars['String']['input'];
 };
 
+/** columns and relationships of "raw_event_type_summary_by_day" */
+export type Raw_Event_Type_Summary_By_Day = {
+  __typename?: 'raw_event_type_summary_by_day';
+  cast_type_1_count?: Maybe<Scalars['bigint']['output']>;
+  day?: Maybe<Scalars['date']['output']>;
+  reaction_type_3_count?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** aggregated selection of "raw_event_type_summary_by_day" */
+export type Raw_Event_Type_Summary_By_Day_Aggregate = {
+  __typename?: 'raw_event_type_summary_by_day_aggregate';
+  aggregate?: Maybe<Raw_Event_Type_Summary_By_Day_Aggregate_Fields>;
+  nodes: Array<Raw_Event_Type_Summary_By_Day>;
+};
+
+/** aggregate fields of "raw_event_type_summary_by_day" */
+export type Raw_Event_Type_Summary_By_Day_Aggregate_Fields = {
+  __typename?: 'raw_event_type_summary_by_day_aggregate_fields';
+  avg?: Maybe<Raw_Event_Type_Summary_By_Day_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Raw_Event_Type_Summary_By_Day_Max_Fields>;
+  min?: Maybe<Raw_Event_Type_Summary_By_Day_Min_Fields>;
+  stddev?: Maybe<Raw_Event_Type_Summary_By_Day_Stddev_Fields>;
+  stddev_pop?: Maybe<Raw_Event_Type_Summary_By_Day_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Raw_Event_Type_Summary_By_Day_Stddev_Samp_Fields>;
+  sum?: Maybe<Raw_Event_Type_Summary_By_Day_Sum_Fields>;
+  var_pop?: Maybe<Raw_Event_Type_Summary_By_Day_Var_Pop_Fields>;
+  var_samp?: Maybe<Raw_Event_Type_Summary_By_Day_Var_Samp_Fields>;
+  variance?: Maybe<Raw_Event_Type_Summary_By_Day_Variance_Fields>;
+};
+
+/** aggregate fields of "raw_event_type_summary_by_day" */
+export type Raw_Event_Type_Summary_By_Day_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Raw_Event_Type_Summary_By_Day_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Raw_Event_Type_Summary_By_Day_Avg_Fields = {
+  __typename?: 'raw_event_type_summary_by_day_avg_fields';
+  cast_type_1_count?: Maybe<Scalars['Float']['output']>;
+  reaction_type_3_count?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "raw_event_type_summary_by_day". All fields are combined with a logical 'AND'. */
+export type Raw_Event_Type_Summary_By_Day_Bool_Exp = {
+  _and?: InputMaybe<Array<Raw_Event_Type_Summary_By_Day_Bool_Exp>>;
+  _not?: InputMaybe<Raw_Event_Type_Summary_By_Day_Bool_Exp>;
+  _or?: InputMaybe<Array<Raw_Event_Type_Summary_By_Day_Bool_Exp>>;
+  cast_type_1_count?: InputMaybe<Bigint_Comparison_Exp>;
+  day?: InputMaybe<Date_Comparison_Exp>;
+  reaction_type_3_count?: InputMaybe<Bigint_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Raw_Event_Type_Summary_By_Day_Max_Fields = {
+  __typename?: 'raw_event_type_summary_by_day_max_fields';
+  cast_type_1_count?: Maybe<Scalars['bigint']['output']>;
+  day?: Maybe<Scalars['date']['output']>;
+  reaction_type_3_count?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** aggregate min on columns */
+export type Raw_Event_Type_Summary_By_Day_Min_Fields = {
+  __typename?: 'raw_event_type_summary_by_day_min_fields';
+  cast_type_1_count?: Maybe<Scalars['bigint']['output']>;
+  day?: Maybe<Scalars['date']['output']>;
+  reaction_type_3_count?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** Ordering options when selecting data from "raw_event_type_summary_by_day". */
+export type Raw_Event_Type_Summary_By_Day_Order_By = {
+  cast_type_1_count?: InputMaybe<Order_By>;
+  day?: InputMaybe<Order_By>;
+  reaction_type_3_count?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "raw_event_type_summary_by_day" */
+export enum Raw_Event_Type_Summary_By_Day_Select_Column {
+  /** column name */
+  CastType_1Count = 'cast_type_1_count',
+  /** column name */
+  Day = 'day',
+  /** column name */
+  ReactionType_3Count = 'reaction_type_3_count',
+}
+
+/** aggregate stddev on columns */
+export type Raw_Event_Type_Summary_By_Day_Stddev_Fields = {
+  __typename?: 'raw_event_type_summary_by_day_stddev_fields';
+  cast_type_1_count?: Maybe<Scalars['Float']['output']>;
+  reaction_type_3_count?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Raw_Event_Type_Summary_By_Day_Stddev_Pop_Fields = {
+  __typename?: 'raw_event_type_summary_by_day_stddev_pop_fields';
+  cast_type_1_count?: Maybe<Scalars['Float']['output']>;
+  reaction_type_3_count?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Raw_Event_Type_Summary_By_Day_Stddev_Samp_Fields = {
+  __typename?: 'raw_event_type_summary_by_day_stddev_samp_fields';
+  cast_type_1_count?: Maybe<Scalars['Float']['output']>;
+  reaction_type_3_count?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "raw_event_type_summary_by_day" */
+export type Raw_Event_Type_Summary_By_Day_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Raw_Event_Type_Summary_By_Day_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Raw_Event_Type_Summary_By_Day_Stream_Cursor_Value_Input = {
+  cast_type_1_count?: InputMaybe<Scalars['bigint']['input']>;
+  day?: InputMaybe<Scalars['date']['input']>;
+  reaction_type_3_count?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Raw_Event_Type_Summary_By_Day_Sum_Fields = {
+  __typename?: 'raw_event_type_summary_by_day_sum_fields';
+  cast_type_1_count?: Maybe<Scalars['bigint']['output']>;
+  reaction_type_3_count?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** aggregate var_pop on columns */
+export type Raw_Event_Type_Summary_By_Day_Var_Pop_Fields = {
+  __typename?: 'raw_event_type_summary_by_day_var_pop_fields';
+  cast_type_1_count?: Maybe<Scalars['Float']['output']>;
+  reaction_type_3_count?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Raw_Event_Type_Summary_By_Day_Var_Samp_Fields = {
+  __typename?: 'raw_event_type_summary_by_day_var_samp_fields';
+  cast_type_1_count?: Maybe<Scalars['Float']['output']>;
+  reaction_type_3_count?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Raw_Event_Type_Summary_By_Day_Variance_Fields = {
+  __typename?: 'raw_event_type_summary_by_day_variance_fields';
+  cast_type_1_count?: Maybe<Scalars['Float']['output']>;
+  reaction_type_3_count?: Maybe<Scalars['Float']['output']>;
+};
+
+/** columns and relationships of "raw_events" */
+export type Raw_Events = {
+  __typename?: 'raw_events';
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  event_type?: Maybe<Scalars['Int']['output']>;
+  fid?: Maybe<Scalars['String']['output']>;
+  id: Scalars['uuid']['output'];
+  payload?: Maybe<Scalars['jsonb']['output']>;
+  source_user?: Maybe<Scalars['jsonb']['output']>;
+  target_user?: Maybe<Scalars['jsonb']['output']>;
+  timestamp?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** columns and relationships of "raw_events" */
+export type Raw_EventsPayloadArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** columns and relationships of "raw_events" */
+export type Raw_EventsSource_UserArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** columns and relationships of "raw_events" */
+export type Raw_EventsTarget_UserArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregated selection of "raw_events" */
+export type Raw_Events_Aggregate = {
+  __typename?: 'raw_events_aggregate';
+  aggregate?: Maybe<Raw_Events_Aggregate_Fields>;
+  nodes: Array<Raw_Events>;
+};
+
+/** aggregate fields of "raw_events" */
+export type Raw_Events_Aggregate_Fields = {
+  __typename?: 'raw_events_aggregate_fields';
+  avg?: Maybe<Raw_Events_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Raw_Events_Max_Fields>;
+  min?: Maybe<Raw_Events_Min_Fields>;
+  stddev?: Maybe<Raw_Events_Stddev_Fields>;
+  stddev_pop?: Maybe<Raw_Events_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Raw_Events_Stddev_Samp_Fields>;
+  sum?: Maybe<Raw_Events_Sum_Fields>;
+  var_pop?: Maybe<Raw_Events_Var_Pop_Fields>;
+  var_samp?: Maybe<Raw_Events_Var_Samp_Fields>;
+  variance?: Maybe<Raw_Events_Variance_Fields>;
+};
+
+/** aggregate fields of "raw_events" */
+export type Raw_Events_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Raw_Events_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Raw_Events_Append_Input = {
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+  source_user?: InputMaybe<Scalars['jsonb']['input']>;
+  target_user?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Raw_Events_Avg_Fields = {
+  __typename?: 'raw_events_avg_fields';
+  event_type?: Maybe<Scalars['Float']['output']>;
+  timestamp?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "raw_events". All fields are combined with a logical 'AND'. */
+export type Raw_Events_Bool_Exp = {
+  _and?: InputMaybe<Array<Raw_Events_Bool_Exp>>;
+  _not?: InputMaybe<Raw_Events_Bool_Exp>;
+  _or?: InputMaybe<Array<Raw_Events_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  event_type?: InputMaybe<Int_Comparison_Exp>;
+  fid?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  payload?: InputMaybe<Jsonb_Comparison_Exp>;
+  source_user?: InputMaybe<Jsonb_Comparison_Exp>;
+  target_user?: InputMaybe<Jsonb_Comparison_Exp>;
+  timestamp?: InputMaybe<Bigint_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "raw_events" */
+export enum Raw_Events_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  RawEventsPkey = 'raw_events_pkey',
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Raw_Events_Delete_At_Path_Input = {
+  payload?: InputMaybe<Array<Scalars['String']['input']>>;
+  source_user?: InputMaybe<Array<Scalars['String']['input']>>;
+  target_user?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Raw_Events_Delete_Elem_Input = {
+  payload?: InputMaybe<Scalars['Int']['input']>;
+  source_user?: InputMaybe<Scalars['Int']['input']>;
+  target_user?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Raw_Events_Delete_Key_Input = {
+  payload?: InputMaybe<Scalars['String']['input']>;
+  source_user?: InputMaybe<Scalars['String']['input']>;
+  target_user?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** input type for incrementing numeric columns in table "raw_events" */
+export type Raw_Events_Inc_Input = {
+  event_type?: InputMaybe<Scalars['Int']['input']>;
+  timestamp?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** input type for inserting data into table "raw_events" */
+export type Raw_Events_Insert_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  event_type?: InputMaybe<Scalars['Int']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+  source_user?: InputMaybe<Scalars['jsonb']['input']>;
+  target_user?: InputMaybe<Scalars['jsonb']['input']>;
+  timestamp?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** aggregate max on columns */
+export type Raw_Events_Max_Fields = {
+  __typename?: 'raw_events_max_fields';
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  event_type?: Maybe<Scalars['Int']['output']>;
+  fid?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  timestamp?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** aggregate min on columns */
+export type Raw_Events_Min_Fields = {
+  __typename?: 'raw_events_min_fields';
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  event_type?: Maybe<Scalars['Int']['output']>;
+  fid?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  timestamp?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** response of any mutation on the table "raw_events" */
+export type Raw_Events_Mutation_Response = {
+  __typename?: 'raw_events_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Raw_Events>;
+};
+
+/** on_conflict condition type for table "raw_events" */
+export type Raw_Events_On_Conflict = {
+  constraint: Raw_Events_Constraint;
+  update_columns?: Array<Raw_Events_Update_Column>;
+  where?: InputMaybe<Raw_Events_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "raw_events". */
+export type Raw_Events_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  event_type?: InputMaybe<Order_By>;
+  fid?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  payload?: InputMaybe<Order_By>;
+  source_user?: InputMaybe<Order_By>;
+  target_user?: InputMaybe<Order_By>;
+  timestamp?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: raw_events */
+export type Raw_Events_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Raw_Events_Prepend_Input = {
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+  source_user?: InputMaybe<Scalars['jsonb']['input']>;
+  target_user?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** select columns of table "raw_events" */
+export enum Raw_Events_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  EventType = 'event_type',
+  /** column name */
+  Fid = 'fid',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Payload = 'payload',
+  /** column name */
+  SourceUser = 'source_user',
+  /** column name */
+  TargetUser = 'target_user',
+  /** column name */
+  Timestamp = 'timestamp',
+}
+
+/** input type for updating data in table "raw_events" */
+export type Raw_Events_Set_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  event_type?: InputMaybe<Scalars['Int']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+  source_user?: InputMaybe<Scalars['jsonb']['input']>;
+  target_user?: InputMaybe<Scalars['jsonb']['input']>;
+  timestamp?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Raw_Events_Stddev_Fields = {
+  __typename?: 'raw_events_stddev_fields';
+  event_type?: Maybe<Scalars['Float']['output']>;
+  timestamp?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Raw_Events_Stddev_Pop_Fields = {
+  __typename?: 'raw_events_stddev_pop_fields';
+  event_type?: Maybe<Scalars['Float']['output']>;
+  timestamp?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Raw_Events_Stddev_Samp_Fields = {
+  __typename?: 'raw_events_stddev_samp_fields';
+  event_type?: Maybe<Scalars['Float']['output']>;
+  timestamp?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "raw_events" */
+export type Raw_Events_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Raw_Events_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Raw_Events_Stream_Cursor_Value_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  event_type?: InputMaybe<Scalars['Int']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+  source_user?: InputMaybe<Scalars['jsonb']['input']>;
+  target_user?: InputMaybe<Scalars['jsonb']['input']>;
+  timestamp?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Raw_Events_Sum_Fields = {
+  __typename?: 'raw_events_sum_fields';
+  event_type?: Maybe<Scalars['Int']['output']>;
+  timestamp?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** update columns of table "raw_events" */
+export enum Raw_Events_Update_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  EventType = 'event_type',
+  /** column name */
+  Fid = 'fid',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Payload = 'payload',
+  /** column name */
+  SourceUser = 'source_user',
+  /** column name */
+  TargetUser = 'target_user',
+  /** column name */
+  Timestamp = 'timestamp',
+}
+
+export type Raw_Events_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<Raw_Events_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<Raw_Events_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<Raw_Events_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<Raw_Events_Delete_Key_Input>;
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Raw_Events_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<Raw_Events_Prepend_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Raw_Events_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Raw_Events_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Raw_Events_Var_Pop_Fields = {
+  __typename?: 'raw_events_var_pop_fields';
+  event_type?: Maybe<Scalars['Float']['output']>;
+  timestamp?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Raw_Events_Var_Samp_Fields = {
+  __typename?: 'raw_events_var_samp_fields';
+  event_type?: Maybe<Scalars['Float']['output']>;
+  timestamp?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Raw_Events_Variance_Fields = {
+  __typename?: 'raw_events_variance_fields';
+  event_type?: Maybe<Scalars['Float']['output']>;
+  timestamp?: Maybe<Scalars['Float']['output']>;
+};
+
 export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** fetch data from the table: "action_types" */
@@ -2812,6 +5177,36 @@ export type Subscription_Root = {
   action_types_by_pk?: Maybe<Action_Types>;
   /** fetch data from the table in a streaming manner: "action_types" */
   action_types_stream: Array<Action_Types>;
+  /** fetch data from the table: "boost_recast_records" */
+  boost_recast_records: Array<Boost_Recast_Records>;
+  /** fetch aggregated fields from the table: "boost_recast_records" */
+  boost_recast_records_aggregate: Boost_Recast_Records_Aggregate;
+  /** fetch data from the table: "boost_recast_records" using primary key columns */
+  boost_recast_records_by_pk?: Maybe<Boost_Recast_Records>;
+  /** fetch data from the table in a streaming manner: "boost_recast_records" */
+  boost_recast_records_stream: Array<Boost_Recast_Records>;
+  /** fetch data from the table: "boost_statuses" */
+  boost_statuses: Array<Boost_Statuses>;
+  /** fetch aggregated fields from the table: "boost_statuses" */
+  boost_statuses_aggregate: Boost_Statuses_Aggregate;
+  /** fetch data from the table: "boost_statuses" using primary key columns */
+  boost_statuses_by_pk?: Maybe<Boost_Statuses>;
+  /** fetch data from the table in a streaming manner: "boost_statuses" */
+  boost_statuses_stream: Array<Boost_Statuses>;
+  /** fetch data from the table: "boost_tx_statuses" */
+  boost_tx_statuses: Array<Boost_Tx_Statuses>;
+  /** fetch aggregated fields from the table: "boost_tx_statuses" */
+  boost_tx_statuses_aggregate: Boost_Tx_Statuses_Aggregate;
+  /** fetch data from the table: "boost_tx_statuses" using primary key columns */
+  boost_tx_statuses_by_pk?: Maybe<Boost_Tx_Statuses>;
+  /** fetch data from the table in a streaming manner: "boost_tx_statuses" */
+  boost_tx_statuses_stream: Array<Boost_Tx_Statuses>;
+  /** fetch data from the table: "daily_completed_tasks" */
+  daily_completed_tasks: Array<Daily_Completed_Tasks>;
+  /** fetch aggregated fields from the table: "daily_completed_tasks" */
+  daily_completed_tasks_aggregate: Daily_Completed_Tasks_Aggregate;
+  /** fetch data from the table in a streaming manner: "daily_completed_tasks" */
+  daily_completed_tasks_stream: Array<Daily_Completed_Tasks>;
   /** fetch data from the table: "early_inflyncer_nft_mind_records" */
   early_inflyncer_nft_mind_records: Array<Early_Inflyncer_Nft_Mind_Records>;
   /** fetch aggregated fields from the table: "early_inflyncer_nft_mind_records" */
@@ -2820,6 +5215,14 @@ export type Subscription_Root = {
   early_inflyncer_nft_mind_records_by_pk?: Maybe<Early_Inflyncer_Nft_Mind_Records>;
   /** fetch data from the table in a streaming manner: "early_inflyncer_nft_mind_records" */
   early_inflyncer_nft_mind_records_stream: Array<Early_Inflyncer_Nft_Mind_Records>;
+  /** fetch data from the table: "mindshare_boosts" */
+  mindshare_boosts: Array<Mindshare_Boosts>;
+  /** fetch aggregated fields from the table: "mindshare_boosts" */
+  mindshare_boosts_aggregate: Mindshare_Boosts_Aggregate;
+  /** fetch data from the table: "mindshare_boosts" using primary key columns */
+  mindshare_boosts_by_pk?: Maybe<Mindshare_Boosts>;
+  /** fetch data from the table in a streaming manner: "mindshare_boosts" */
+  mindshare_boosts_stream: Array<Mindshare_Boosts>;
   /** fetch data from the table: "point_transaction_directions" */
   point_transaction_directions: Array<Point_Transaction_Directions>;
   /** fetch aggregated fields from the table: "point_transaction_directions" */
@@ -2844,6 +5247,20 @@ export type Subscription_Root = {
   point_transactions_by_pk?: Maybe<Point_Transactions>;
   /** fetch data from the table in a streaming manner: "point_transactions" */
   point_transactions_stream: Array<Point_Transactions>;
+  /** fetch data from the table: "raw_event_type_summary_by_day" */
+  raw_event_type_summary_by_day: Array<Raw_Event_Type_Summary_By_Day>;
+  /** fetch aggregated fields from the table: "raw_event_type_summary_by_day" */
+  raw_event_type_summary_by_day_aggregate: Raw_Event_Type_Summary_By_Day_Aggregate;
+  /** fetch data from the table in a streaming manner: "raw_event_type_summary_by_day" */
+  raw_event_type_summary_by_day_stream: Array<Raw_Event_Type_Summary_By_Day>;
+  /** fetch data from the table: "raw_events" */
+  raw_events: Array<Raw_Events>;
+  /** fetch aggregated fields from the table: "raw_events" */
+  raw_events_aggregate: Raw_Events_Aggregate;
+  /** fetch data from the table: "raw_events" using primary key columns */
+  raw_events_by_pk?: Maybe<Raw_Events>;
+  /** fetch data from the table in a streaming manner: "raw_events" */
+  raw_events_stream: Array<Raw_Events>;
   /** fetch data from the table: "task_types" */
   task_types: Array<Task_Types>;
   /** fetch aggregated fields from the table: "task_types" */
@@ -2890,6 +5307,14 @@ export type Subscription_Root = {
   user_tasks_by_pk?: Maybe<User_Tasks>;
   /** fetch data from the table in a streaming manner: "user_tasks" */
   user_tasks_stream: Array<User_Tasks>;
+  /** fetch data from the table: "users" */
+  users: Array<Users>;
+  /** fetch aggregated fields from the table: "users" */
+  users_aggregate: Users_Aggregate;
+  /** fetch data from the table: "users" using primary key columns */
+  users_by_pk?: Maybe<Users>;
+  /** fetch data from the table in a streaming manner: "users" */
+  users_stream: Array<Users>;
   /** fetch data from the table: "vote_outcome" */
   vote_outcome: Array<Vote_Outcome>;
   /** fetch aggregated fields from the table: "vote_outcome" */
@@ -2974,6 +5399,106 @@ export type Subscription_RootAction_Types_StreamArgs = {
   where?: InputMaybe<Action_Types_Bool_Exp>;
 };
 
+export type Subscription_RootBoost_Recast_RecordsArgs = {
+  distinct_on?: InputMaybe<Array<Boost_Recast_Records_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Boost_Recast_Records_Order_By>>;
+  where?: InputMaybe<Boost_Recast_Records_Bool_Exp>;
+};
+
+export type Subscription_RootBoost_Recast_Records_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Boost_Recast_Records_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Boost_Recast_Records_Order_By>>;
+  where?: InputMaybe<Boost_Recast_Records_Bool_Exp>;
+};
+
+export type Subscription_RootBoost_Recast_Records_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Subscription_RootBoost_Recast_Records_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Boost_Recast_Records_Stream_Cursor_Input>>;
+  where?: InputMaybe<Boost_Recast_Records_Bool_Exp>;
+};
+
+export type Subscription_RootBoost_StatusesArgs = {
+  distinct_on?: InputMaybe<Array<Boost_Statuses_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Boost_Statuses_Order_By>>;
+  where?: InputMaybe<Boost_Statuses_Bool_Exp>;
+};
+
+export type Subscription_RootBoost_Statuses_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Boost_Statuses_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Boost_Statuses_Order_By>>;
+  where?: InputMaybe<Boost_Statuses_Bool_Exp>;
+};
+
+export type Subscription_RootBoost_Statuses_By_PkArgs = {
+  status: Scalars['String']['input'];
+};
+
+export type Subscription_RootBoost_Statuses_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Boost_Statuses_Stream_Cursor_Input>>;
+  where?: InputMaybe<Boost_Statuses_Bool_Exp>;
+};
+
+export type Subscription_RootBoost_Tx_StatusesArgs = {
+  distinct_on?: InputMaybe<Array<Boost_Tx_Statuses_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Boost_Tx_Statuses_Order_By>>;
+  where?: InputMaybe<Boost_Tx_Statuses_Bool_Exp>;
+};
+
+export type Subscription_RootBoost_Tx_Statuses_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Boost_Tx_Statuses_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Boost_Tx_Statuses_Order_By>>;
+  where?: InputMaybe<Boost_Tx_Statuses_Bool_Exp>;
+};
+
+export type Subscription_RootBoost_Tx_Statuses_By_PkArgs = {
+  status: Scalars['String']['input'];
+};
+
+export type Subscription_RootBoost_Tx_Statuses_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Boost_Tx_Statuses_Stream_Cursor_Input>>;
+  where?: InputMaybe<Boost_Tx_Statuses_Bool_Exp>;
+};
+
+export type Subscription_RootDaily_Completed_TasksArgs = {
+  distinct_on?: InputMaybe<Array<Daily_Completed_Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Daily_Completed_Tasks_Order_By>>;
+  where?: InputMaybe<Daily_Completed_Tasks_Bool_Exp>;
+};
+
+export type Subscription_RootDaily_Completed_Tasks_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Daily_Completed_Tasks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Daily_Completed_Tasks_Order_By>>;
+  where?: InputMaybe<Daily_Completed_Tasks_Bool_Exp>;
+};
+
+export type Subscription_RootDaily_Completed_Tasks_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Daily_Completed_Tasks_Stream_Cursor_Input>>;
+  where?: InputMaybe<Daily_Completed_Tasks_Bool_Exp>;
+};
+
 export type Subscription_RootEarly_Inflyncer_Nft_Mind_RecordsArgs = {
   distinct_on?: InputMaybe<Array<Early_Inflyncer_Nft_Mind_Records_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2998,6 +5523,32 @@ export type Subscription_RootEarly_Inflyncer_Nft_Mind_Records_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Early_Inflyncer_Nft_Mind_Records_Stream_Cursor_Input>>;
   where?: InputMaybe<Early_Inflyncer_Nft_Mind_Records_Bool_Exp>;
+};
+
+export type Subscription_RootMindshare_BoostsArgs = {
+  distinct_on?: InputMaybe<Array<Mindshare_Boosts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Mindshare_Boosts_Order_By>>;
+  where?: InputMaybe<Mindshare_Boosts_Bool_Exp>;
+};
+
+export type Subscription_RootMindshare_Boosts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Mindshare_Boosts_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Mindshare_Boosts_Order_By>>;
+  where?: InputMaybe<Mindshare_Boosts_Bool_Exp>;
+};
+
+export type Subscription_RootMindshare_Boosts_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Subscription_RootMindshare_Boosts_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Mindshare_Boosts_Stream_Cursor_Input>>;
+  where?: InputMaybe<Mindshare_Boosts_Bool_Exp>;
 };
 
 export type Subscription_RootPoint_Transaction_DirectionsArgs = {
@@ -3076,6 +5627,54 @@ export type Subscription_RootPoint_Transactions_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Point_Transactions_Stream_Cursor_Input>>;
   where?: InputMaybe<Point_Transactions_Bool_Exp>;
+};
+
+export type Subscription_RootRaw_Event_Type_Summary_By_DayArgs = {
+  distinct_on?: InputMaybe<Array<Raw_Event_Type_Summary_By_Day_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Raw_Event_Type_Summary_By_Day_Order_By>>;
+  where?: InputMaybe<Raw_Event_Type_Summary_By_Day_Bool_Exp>;
+};
+
+export type Subscription_RootRaw_Event_Type_Summary_By_Day_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Raw_Event_Type_Summary_By_Day_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Raw_Event_Type_Summary_By_Day_Order_By>>;
+  where?: InputMaybe<Raw_Event_Type_Summary_By_Day_Bool_Exp>;
+};
+
+export type Subscription_RootRaw_Event_Type_Summary_By_Day_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Raw_Event_Type_Summary_By_Day_Stream_Cursor_Input>>;
+  where?: InputMaybe<Raw_Event_Type_Summary_By_Day_Bool_Exp>;
+};
+
+export type Subscription_RootRaw_EventsArgs = {
+  distinct_on?: InputMaybe<Array<Raw_Events_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Raw_Events_Order_By>>;
+  where?: InputMaybe<Raw_Events_Bool_Exp>;
+};
+
+export type Subscription_RootRaw_Events_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Raw_Events_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Raw_Events_Order_By>>;
+  where?: InputMaybe<Raw_Events_Bool_Exp>;
+};
+
+export type Subscription_RootRaw_Events_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Subscription_RootRaw_Events_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Raw_Events_Stream_Cursor_Input>>;
+  where?: InputMaybe<Raw_Events_Bool_Exp>;
 };
 
 export type Subscription_RootTask_TypesArgs = {
@@ -3228,6 +5827,32 @@ export type Subscription_RootUser_Tasks_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<User_Tasks_Stream_Cursor_Input>>;
   where?: InputMaybe<User_Tasks_Bool_Exp>;
+};
+
+export type Subscription_RootUsersArgs = {
+  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+export type Subscription_RootUsers_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+export type Subscription_RootUsers_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Subscription_RootUsers_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Users_Stream_Cursor_Input>>;
+  where?: InputMaybe<Users_Bool_Exp>;
 };
 
 export type Subscription_RootVote_OutcomeArgs = {
@@ -3626,8 +6251,9 @@ export type Tasks = {
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['uuid']['output'];
   isActive: Scalars['Boolean']['output'];
-  rewardIp: Scalars['Int']['output'];
+  rewardIp: Scalars['numeric']['output'];
   target: Scalars['Int']['output'];
+  taskOrder?: Maybe<Scalars['Int']['output']>;
   /** An object relationship */
   taskType: Task_Types;
   taskTypeId: Scalars['Int']['output'];
@@ -3693,6 +6319,7 @@ export type Tasks_Avg_Fields = {
   actionTypeId?: Maybe<Scalars['Float']['output']>;
   rewardIp?: Maybe<Scalars['Float']['output']>;
   target?: Maybe<Scalars['Float']['output']>;
+  taskOrder?: Maybe<Scalars['Float']['output']>;
   taskTypeId?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -3706,8 +6333,9 @@ export type Tasks_Bool_Exp = {
   description?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   isActive?: InputMaybe<Boolean_Comparison_Exp>;
-  rewardIp?: InputMaybe<Int_Comparison_Exp>;
+  rewardIp?: InputMaybe<Numeric_Comparison_Exp>;
   target?: InputMaybe<Int_Comparison_Exp>;
+  taskOrder?: InputMaybe<Int_Comparison_Exp>;
   taskType?: InputMaybe<Task_Types_Bool_Exp>;
   taskTypeId?: InputMaybe<Int_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
@@ -3726,8 +6354,9 @@ export enum Tasks_Constraint {
 /** input type for incrementing numeric columns in table "tasks" */
 export type Tasks_Inc_Input = {
   actionTypeId?: InputMaybe<Scalars['Int']['input']>;
-  rewardIp?: InputMaybe<Scalars['Int']['input']>;
+  rewardIp?: InputMaybe<Scalars['numeric']['input']>;
   target?: InputMaybe<Scalars['Int']['input']>;
+  taskOrder?: InputMaybe<Scalars['Int']['input']>;
   taskTypeId?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -3738,8 +6367,9 @@ export type Tasks_Insert_Input = {
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   isActive?: InputMaybe<Scalars['Boolean']['input']>;
-  rewardIp?: InputMaybe<Scalars['Int']['input']>;
+  rewardIp?: InputMaybe<Scalars['numeric']['input']>;
   target?: InputMaybe<Scalars['Int']['input']>;
+  taskOrder?: InputMaybe<Scalars['Int']['input']>;
   taskType?: InputMaybe<Task_Types_Obj_Rel_Insert_Input>;
   taskTypeId?: InputMaybe<Scalars['Int']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -3754,8 +6384,9 @@ export type Tasks_Max_Fields = {
   actionTypeId?: Maybe<Scalars['Int']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
-  rewardIp?: Maybe<Scalars['Int']['output']>;
+  rewardIp?: Maybe<Scalars['numeric']['output']>;
   target?: Maybe<Scalars['Int']['output']>;
+  taskOrder?: Maybe<Scalars['Int']['output']>;
   taskTypeId?: Maybe<Scalars['Int']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   validFrom?: Maybe<Scalars['date']['output']>;
@@ -3768,8 +6399,9 @@ export type Tasks_Min_Fields = {
   actionTypeId?: Maybe<Scalars['Int']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
-  rewardIp?: Maybe<Scalars['Int']['output']>;
+  rewardIp?: Maybe<Scalars['numeric']['output']>;
   target?: Maybe<Scalars['Int']['output']>;
+  taskOrder?: Maybe<Scalars['Int']['output']>;
   taskTypeId?: Maybe<Scalars['Int']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   validFrom?: Maybe<Scalars['date']['output']>;
@@ -3808,6 +6440,7 @@ export type Tasks_Order_By = {
   isActive?: InputMaybe<Order_By>;
   rewardIp?: InputMaybe<Order_By>;
   target?: InputMaybe<Order_By>;
+  taskOrder?: InputMaybe<Order_By>;
   taskType?: InputMaybe<Task_Types_Order_By>;
   taskTypeId?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
@@ -3836,6 +6469,8 @@ export enum Tasks_Select_Column {
   /** column name */
   Target = 'target',
   /** column name */
+  TaskOrder = 'taskOrder',
+  /** column name */
   TaskTypeId = 'taskTypeId',
   /** column name */
   Title = 'title',
@@ -3851,8 +6486,9 @@ export type Tasks_Set_Input = {
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   isActive?: InputMaybe<Scalars['Boolean']['input']>;
-  rewardIp?: InputMaybe<Scalars['Int']['input']>;
+  rewardIp?: InputMaybe<Scalars['numeric']['input']>;
   target?: InputMaybe<Scalars['Int']['input']>;
+  taskOrder?: InputMaybe<Scalars['Int']['input']>;
   taskTypeId?: InputMaybe<Scalars['Int']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   validFrom?: InputMaybe<Scalars['date']['input']>;
@@ -3865,6 +6501,7 @@ export type Tasks_Stddev_Fields = {
   actionTypeId?: Maybe<Scalars['Float']['output']>;
   rewardIp?: Maybe<Scalars['Float']['output']>;
   target?: Maybe<Scalars['Float']['output']>;
+  taskOrder?: Maybe<Scalars['Float']['output']>;
   taskTypeId?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -3874,6 +6511,7 @@ export type Tasks_Stddev_Pop_Fields = {
   actionTypeId?: Maybe<Scalars['Float']['output']>;
   rewardIp?: Maybe<Scalars['Float']['output']>;
   target?: Maybe<Scalars['Float']['output']>;
+  taskOrder?: Maybe<Scalars['Float']['output']>;
   taskTypeId?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -3883,6 +6521,7 @@ export type Tasks_Stddev_Samp_Fields = {
   actionTypeId?: Maybe<Scalars['Float']['output']>;
   rewardIp?: Maybe<Scalars['Float']['output']>;
   target?: Maybe<Scalars['Float']['output']>;
+  taskOrder?: Maybe<Scalars['Float']['output']>;
   taskTypeId?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -3900,8 +6539,9 @@ export type Tasks_Stream_Cursor_Value_Input = {
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   isActive?: InputMaybe<Scalars['Boolean']['input']>;
-  rewardIp?: InputMaybe<Scalars['Int']['input']>;
+  rewardIp?: InputMaybe<Scalars['numeric']['input']>;
   target?: InputMaybe<Scalars['Int']['input']>;
+  taskOrder?: InputMaybe<Scalars['Int']['input']>;
   taskTypeId?: InputMaybe<Scalars['Int']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   validFrom?: InputMaybe<Scalars['date']['input']>;
@@ -3912,8 +6552,9 @@ export type Tasks_Stream_Cursor_Value_Input = {
 export type Tasks_Sum_Fields = {
   __typename?: 'tasks_sum_fields';
   actionTypeId?: Maybe<Scalars['Int']['output']>;
-  rewardIp?: Maybe<Scalars['Int']['output']>;
+  rewardIp?: Maybe<Scalars['numeric']['output']>;
   target?: Maybe<Scalars['Int']['output']>;
+  taskOrder?: Maybe<Scalars['Int']['output']>;
   taskTypeId?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -3931,6 +6572,8 @@ export enum Tasks_Update_Column {
   RewardIp = 'rewardIp',
   /** column name */
   Target = 'target',
+  /** column name */
+  TaskOrder = 'taskOrder',
   /** column name */
   TaskTypeId = 'taskTypeId',
   /** column name */
@@ -3956,6 +6599,7 @@ export type Tasks_Var_Pop_Fields = {
   actionTypeId?: Maybe<Scalars['Float']['output']>;
   rewardIp?: Maybe<Scalars['Float']['output']>;
   target?: Maybe<Scalars['Float']['output']>;
+  taskOrder?: Maybe<Scalars['Float']['output']>;
   taskTypeId?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -3965,6 +6609,7 @@ export type Tasks_Var_Samp_Fields = {
   actionTypeId?: Maybe<Scalars['Float']['output']>;
   rewardIp?: Maybe<Scalars['Float']['output']>;
   target?: Maybe<Scalars['Float']['output']>;
+  taskOrder?: Maybe<Scalars['Float']['output']>;
   taskTypeId?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -3974,6 +6619,7 @@ export type Tasks_Variance_Fields = {
   actionTypeId?: Maybe<Scalars['Float']['output']>;
   rewardIp?: Maybe<Scalars['Float']['output']>;
   target?: Maybe<Scalars['Float']['output']>;
+  taskOrder?: Maybe<Scalars['Float']['output']>;
   taskTypeId?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -4934,6 +7580,176 @@ export type User_Tasks_Variance_Order_By = {
   progress?: InputMaybe<Order_By>;
 };
 
+/** columns and relationships of "users" */
+export type Users = {
+  __typename?: 'users';
+  created_at: Scalars['timestamp']['output'];
+  fid: Scalars['String']['output'];
+  id: Scalars['uuid']['output'];
+  isPro: Scalars['Boolean']['output'];
+  updated_at: Scalars['timestamp']['output'];
+  user?: Maybe<User>;
+};
+
+/** aggregated selection of "users" */
+export type Users_Aggregate = {
+  __typename?: 'users_aggregate';
+  aggregate?: Maybe<Users_Aggregate_Fields>;
+  nodes: Array<Users>;
+};
+
+/** aggregate fields of "users" */
+export type Users_Aggregate_Fields = {
+  __typename?: 'users_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Users_Max_Fields>;
+  min?: Maybe<Users_Min_Fields>;
+};
+
+/** aggregate fields of "users" */
+export type Users_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Users_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
+export type Users_Bool_Exp = {
+  _and?: InputMaybe<Array<Users_Bool_Exp>>;
+  _not?: InputMaybe<Users_Bool_Exp>;
+  _or?: InputMaybe<Array<Users_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  fid?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  isPro?: InputMaybe<Boolean_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "users" */
+export enum Users_Constraint {
+  /** unique or primary key constraint on columns "fid" */
+  UsersFidKey = 'users_fid_key',
+  /** unique or primary key constraint on columns "id" */
+  UsersPkey = 'users_pkey',
+}
+
+/** input type for inserting data into table "users" */
+export type Users_Insert_Input = {
+  created_at?: InputMaybe<Scalars['timestamp']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  isPro?: InputMaybe<Scalars['Boolean']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
+};
+
+/** aggregate max on columns */
+export type Users_Max_Fields = {
+  __typename?: 'users_max_fields';
+  created_at?: Maybe<Scalars['timestamp']['output']>;
+  fid?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  updated_at?: Maybe<Scalars['timestamp']['output']>;
+};
+
+/** aggregate min on columns */
+export type Users_Min_Fields = {
+  __typename?: 'users_min_fields';
+  created_at?: Maybe<Scalars['timestamp']['output']>;
+  fid?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  updated_at?: Maybe<Scalars['timestamp']['output']>;
+};
+
+/** response of any mutation on the table "users" */
+export type Users_Mutation_Response = {
+  __typename?: 'users_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Users>;
+};
+
+/** on_conflict condition type for table "users" */
+export type Users_On_Conflict = {
+  constraint: Users_Constraint;
+  update_columns?: Array<Users_Update_Column>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "users". */
+export type Users_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  fid?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  isPro?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: users */
+export type Users_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "users" */
+export enum Users_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Fid = 'fid',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsPro = 'isPro',
+  /** column name */
+  UpdatedAt = 'updated_at',
+}
+
+/** input type for updating data in table "users" */
+export type Users_Set_Input = {
+  created_at?: InputMaybe<Scalars['timestamp']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  isPro?: InputMaybe<Scalars['Boolean']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
+};
+
+/** Streaming cursor of the table "users" */
+export type Users_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Users_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Users_Stream_Cursor_Value_Input = {
+  created_at?: InputMaybe<Scalars['timestamp']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  isPro?: InputMaybe<Scalars['Boolean']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
+};
+
+/** update columns of table "users" */
+export enum Users_Update_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Fid = 'fid',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsPro = 'isPro',
+  /** column name */
+  UpdatedAt = 'updated_at',
+}
+
+export type Users_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Users_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Users_Bool_Exp;
+};
+
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
 export type Uuid_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['uuid']['input']>;
@@ -4945,6 +7761,17 @@ export type Uuid_Comparison_Exp = {
   _lte?: InputMaybe<Scalars['uuid']['input']>;
   _neq?: InputMaybe<Scalars['uuid']['input']>;
   _nin?: InputMaybe<Array<Scalars['uuid']['input']>>;
+};
+
+export type VerifyBoostRecastInput = {
+  address: Scalars['String']['input'];
+  boostId: Scalars['String']['input'];
+  userId: Scalars['String']['input'];
+};
+
+export type VerifyBoostRecastOutput = {
+  __typename?: 'verifyBoostRecastOutput';
+  status?: Maybe<Scalars['Int']['output']>;
 };
 
 /** columns and relationships of "vote_outcome" */
@@ -6287,6 +9114,193 @@ export type Vote_Type_Updates = {
   where: Vote_Type_Bool_Exp;
 };
 
+export type PostBoostMutationVariables = Exact<{
+  castUrl: Scalars['String']['input'];
+  creatorFid: Scalars['String']['input'];
+  txHash: Scalars['String']['input'];
+  mindshareFilterDuration: Scalars['Int']['input'];
+  minMindshare: Scalars['numeric']['input'];
+  campaignBudget: Scalars['numeric']['input'];
+}>;
+
+export type PostBoostMutation = {
+  __typename?: 'mutation_root';
+  insert_mindshare_boosts_one?: {
+    __typename?: 'mindshare_boosts';
+    campaignBudget: any;
+    updatedAt?: any | null;
+    txStatus?: string | null;
+    txHash?: string | null;
+    remainingBudget: any;
+    minMindshare: any;
+    mindshareFilterDuration: number;
+    id: any;
+    creatorFid: string;
+    createdAt?: any | null;
+    costMultiplier: any;
+    castUrl: string;
+    boostStatus?: string | null;
+  } | null;
+};
+
+export type GetBoostsQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type GetBoostsQuery = {
+  __typename?: 'query_root';
+  mindshare_boosts: Array<{
+    __typename?: 'mindshare_boosts';
+    updatedAt?: any | null;
+    txStatus?: string | null;
+    txHash?: string | null;
+    remainingBudget: any;
+    mindshareFilterDuration: number;
+    id: any;
+    minMindshare: any;
+    creatorFid: string;
+    createdAt?: any | null;
+    costMultiplier: any;
+    castUrl: string;
+    campaignBudget: any;
+    boostStatus?: string | null;
+    user?: {
+      __typename?: 'User';
+      displayName?: string | null;
+      fid: string;
+      pfpUrl?: string | null;
+      username?: string | null;
+    } | null;
+    boostRecastRecords: Array<{
+      __typename?: 'boost_recast_records';
+      recasterFid: string;
+      user?: {
+        __typename?: 'User';
+        fid: string;
+        pfpUrl?: string | null;
+        username?: string | null;
+        displayName?: string | null;
+      } | null;
+    }>;
+    boostRecastRecords_aggregate: {
+      __typename?: 'boost_recast_records_aggregate';
+      aggregate?: { __typename?: 'boost_recast_records_aggregate_fields'; count: number } | null;
+    };
+  }>;
+};
+
+export type VerifyBoostRecastMutationVariables = Exact<{
+  boostId: Scalars['String']['input'];
+  userId: Scalars['String']['input'];
+  address: Scalars['String']['input'];
+}>;
+
+export type VerifyBoostRecastMutation = {
+  __typename?: 'mutation_root';
+  verifyBoostRecast?: { __typename?: 'verifyBoostRecastOutput'; status?: number | null } | null;
+};
+
+export type GetBoostsByFidQueryVariables = Exact<{
+  fid: Scalars['String']['input'];
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type GetBoostsByFidQuery = {
+  __typename?: 'query_root';
+  mindshare_boosts: Array<{
+    __typename?: 'mindshare_boosts';
+    updatedAt?: any | null;
+    txStatus?: string | null;
+    txHash?: string | null;
+    remainingBudget: any;
+    mindshareFilterDuration: number;
+    id: any;
+    minMindshare: any;
+    creatorFid: string;
+    createdAt?: any | null;
+    costMultiplier: any;
+    castUrl: string;
+    campaignBudget: any;
+    boostStatus?: string | null;
+    user?: {
+      __typename?: 'User';
+      displayName?: string | null;
+      fid: string;
+      pfpUrl?: string | null;
+      username?: string | null;
+    } | null;
+    boostRecastRecords: Array<{
+      __typename?: 'boost_recast_records';
+      user?: {
+        __typename?: 'User';
+        fid: string;
+        pfpUrl?: string | null;
+        username?: string | null;
+        displayName?: string | null;
+      } | null;
+    }>;
+    boostRecastRecords_aggregate: {
+      __typename?: 'boost_recast_records_aggregate';
+      aggregate?: { __typename?: 'boost_recast_records_aggregate_fields'; count: number } | null;
+    };
+  }>;
+};
+
+export type GetBoostRecastsByFidQueryVariables = Exact<{
+  recasterFid: Scalars['String']['input'];
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type GetBoostRecastsByFidQuery = {
+  __typename?: 'query_root';
+  boost_recast_records: Array<{
+    __typename?: 'boost_recast_records';
+    id: any;
+    transactionHash?: string | null;
+    recasterFid: string;
+    earnedAmount: any;
+    mindshareBoost: {
+      __typename?: 'mindshare_boosts';
+      minMindshare: any;
+      mindshareFilterDuration: number;
+      boostStatus?: string | null;
+      user?: {
+        __typename?: 'User';
+        displayName?: string | null;
+        username?: string | null;
+        fid: string;
+        pfpUrl?: string | null;
+      } | null;
+    };
+  }>;
+};
+
+export type GetBoostRecastsByBoostIdQueryVariables = Exact<{
+  boostId: Scalars['uuid']['input'];
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type GetBoostRecastsByBoostIdQuery = {
+  __typename?: 'query_root';
+  boost_recast_records: Array<{
+    __typename?: 'boost_recast_records';
+    recasterFid: string;
+    createdAt?: any | null;
+    mindshare: any;
+    user?: {
+      __typename?: 'User';
+      displayName?: string | null;
+      username?: string | null;
+      fid: string;
+      pfpUrl?: string | null;
+    } | null;
+  }>;
+};
+
 export type InsertEarlyInflyncerNftMindRecordMutationVariables = Exact<{
   fid: Scalars['String']['input'];
   address: Scalars['String']['input'];
@@ -6364,6 +9378,7 @@ export type MindshareResultFragment = {
       ' $fragmentRefs'?: { DailyMindshareFragment: DailyMindshareFragment };
     }
   >;
+  proUser?: { __typename?: 'users'; isPro: boolean } | null;
 } & { ' $fragmentName'?: 'MindshareResultFragment' };
 
 export type GetCryptoPriceQueryVariables = Exact<{
@@ -6521,6 +9536,7 @@ export type GetLeaderboardQuery = {
       pfpUrl?: string | null;
       username?: string | null;
       isSmartUser?: boolean | null;
+      proUser?: { __typename?: 'users'; isPro: boolean } | null;
     } | null;
   }>;
 };
@@ -6546,8 +9562,9 @@ export type GetUserTasksQuery = {
       __typename?: 'tasks';
       title: string;
       target: number;
-      rewardIp: number;
+      rewardIp: any;
       isActive: boolean;
+      taskOrder?: number | null;
       description?: string | null;
       taskType: { __typename?: 'task_types'; id: number; name: string };
       actionType: { __typename?: 'action_types'; id: number; name: string };
@@ -6902,6 +9919,14 @@ export const MindshareResultFragmentDoc = {
               ],
             },
           },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'proUser' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'isPro' } }],
+            },
+          },
         ],
       },
     },
@@ -6981,6 +10006,794 @@ export const PointTransactionFieldsFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<PointTransactionFieldsFragment, unknown>;
+export const PostBoostDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'PostBoost' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'castUrl' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'creatorFid' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'txHash' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'mindshareFilterDuration' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'minMindshare' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'numeric' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'campaignBudget' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'numeric' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'insert_mindshare_boosts_one' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'object' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'castUrl' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'castUrl' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'creatorFid' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'creatorFid' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'txHash' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'txHash' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'mindshareFilterDuration' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'mindshareFilterDuration' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'campaignBudget' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'campaignBudget' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'minMindshare' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'minMindshare' } },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'campaignBudget' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'txStatus' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'txHash' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'remainingBudget' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'minMindshare' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'mindshareFilterDuration' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'creatorFid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'costMultiplier' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'castUrl' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'campaignBudget' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'boostStatus' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PostBoostMutation, PostBoostMutationVariables>;
+export const GetBoostsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetBoosts' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mindshare_boosts' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'boostStatus' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'StringValue', value: 'active', block: false },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'createdAt' },
+                      value: { kind: 'EnumValue', value: 'desc' },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'limit' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'offset' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'user' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'txStatus' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'txHash' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'remainingBudget' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'mindshareFilterDuration' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'minMindshare' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'creatorFid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'costMultiplier' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'castUrl' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'campaignBudget' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'boostStatus' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'boostRecastRecords' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'limit' },
+                      value: { kind: 'IntValue', value: '5' },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'recasterFid' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'user' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'boostRecastRecords_aggregate' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'count' },
+                              arguments: [
+                                {
+                                  kind: 'Argument',
+                                  name: { kind: 'Name', value: 'columns' },
+                                  value: { kind: 'EnumValue', value: 'boostId' },
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetBoostsQuery, GetBoostsQueryVariables>;
+export const VerifyBoostRecastDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'VerifyBoostRecast' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'boostId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'address' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'verifyBoostRecast' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'input' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'boostId' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'boostId' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'userId' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'userId' } },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'address' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'address' } },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'status' } }],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<VerifyBoostRecastMutation, VerifyBoostRecastMutationVariables>;
+export const GetBoostsByFidDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetBoostsByFid' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'mindshare_boosts' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'creatorFid' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'fid' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'createdAt' },
+                      value: { kind: 'EnumValue', value: 'desc' },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'limit' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'offset' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'user' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'txStatus' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'txHash' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'remainingBudget' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'mindshareFilterDuration' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'minMindshare' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'creatorFid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'costMultiplier' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'castUrl' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'campaignBudget' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'boostStatus' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'boostRecastRecords' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'limit' },
+                      value: { kind: 'IntValue', value: '5' },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'user' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'boostRecastRecords_aggregate' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'count' },
+                              arguments: [
+                                {
+                                  kind: 'Argument',
+                                  name: { kind: 'Name', value: 'columns' },
+                                  value: { kind: 'EnumValue', value: 'boostId' },
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetBoostsByFidQuery, GetBoostsByFidQueryVariables>;
+export const GetBoostRecastsByFidDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetBoostRecastsByFid' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'recasterFid' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'boost_recast_records' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'recasterFid' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'recasterFid' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'createdAt' },
+                      value: { kind: 'EnumValue', value: 'desc' },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'limit' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'offset' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'transactionHash' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'recasterFid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'earnedAmount' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'mindshareBoost' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'minMindshare' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'mindshareFilterDuration' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'user' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'boostStatus' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetBoostRecastsByFidQuery, GetBoostRecastsByFidQueryVariables>;
+export const GetBoostRecastsByBoostIdDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetBoostRecastsByBoostId' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'boostId' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'uuid' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'boost_recast_records' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'boostId' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_eq' },
+                            value: { kind: 'Variable', name: { kind: 'Name', value: 'boostId' } },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'order_by' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'createdAt' },
+                      value: { kind: 'EnumValue', value: 'desc' },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'limit' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'limit' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'offset' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'offset' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'recasterFid' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'mindshare' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'user' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'fid' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetBoostRecastsByBoostIdQuery, GetBoostRecastsByBoostIdQueryVariables>;
 export const InsertEarlyInflyncerNftMindRecordDocument = {
   kind: 'Document',
   definitions: [
@@ -7320,6 +11133,14 @@ export const GetMindshareByFidDocument = {
               selections: [
                 { kind: 'FragmentSpread', name: { kind: 'Name', value: 'DailyMindshare' } },
               ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'proUser' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'isPro' } }],
             },
           },
         ],
@@ -8206,6 +12027,14 @@ export const GetLeaderboardDocument = {
                       { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'username' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'isSmartUser' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'proUser' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'isPro' } }],
+                        },
+                      },
                     ],
                   },
                 },
@@ -8329,6 +12158,7 @@ export const GetUserTasksDocument = {
                       { kind: 'Field', name: { kind: 'Name', value: 'target' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'rewardIp' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'isActive' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'taskOrder' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'description' } },
                       {
                         kind: 'Field',
@@ -8532,6 +12362,14 @@ export const GetTopMindshareDocument = {
               selections: [
                 { kind: 'FragmentSpread', name: { kind: 'Name', value: 'DailyMindshare' } },
               ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'proUser' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'isPro' } }],
             },
           },
         ],

@@ -10,37 +10,32 @@ import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepart
 import LocalFireDepartmentFilledIcon from '@mui/icons-material/LocalFireDepartment';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import AccountCircleFilledIcon from '@mui/icons-material/AccountCircle';
-import frameSdk from '@farcaster/frame-sdk';
-import { usePrivy } from '@privy-io/react-auth';
-import { useLoginToFrame } from '@privy-io/react-auth/farcaster';
+import BoltIcon from '@mui/icons-material/Bolt';
 import { useEffect } from 'react';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import { useMiniKit, useAddFrame } from '@coinbase/onchainkit/minikit';
-import { useIdentityToken } from '@privy-io/react-auth';
 import { useMutation } from '@tanstack/react-query';
 import { PostNotificationTokenMutationOptions } from '@/queryFn/postNotificationToken';
-import { handleFarcasterLogin } from '@/utils/auth';
 import YesterdayEarn from '@/components/mindshare/dialog/YesterdayEarn';
 import { useYesterdayEarnDialog } from '@/hooks/useYesterdayEarnDialog';
+import { useInflynceAuth } from '@/contexts/InflynceContext';
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const AppLayout: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
-  const { context } = useMiniKit();
+  const { context, isFrameReady } = useMiniKit();
   const addFrame = useAddFrame();
   const pathname = usePathname();
-  const { ready, authenticated } = usePrivy();
-  const { initLoginToFrame, loginToFrame } = useLoginToFrame();
 
-  const { identityToken } = useIdentityToken();
+  const { token, getToken } = useInflynceAuth();
 
   const { open, handleClose } = useYesterdayEarnDialog({ points: 100, enabled: true });
 
   const { mutate: postNotificationToken } = useMutation(
     PostNotificationTokenMutationOptions({
-      token: identityToken ?? '',
+      token: token ?? '',
       options: {
         onSuccess: (data) => {
           // TODO: handle success
@@ -50,13 +45,13 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
   );
 
   useEffect(() => {
-    if (ready && !authenticated) {
+    if (isFrameReady && !token) {
       const login = async () => {
-        await handleFarcasterLogin(initLoginToFrame, loginToFrame);
+        await getToken();
       };
       login();
     }
-  }, [ready, authenticated]);
+  }, [isFrameReady, token]);
 
   useEffect(() => {
     const checkAddFrame = async () => {
@@ -69,10 +64,11 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
         });
       }
     };
-    if (!context?.client.added && identityToken) {
+
+    if (!context?.client.added && !!token) {
       checkAddFrame();
     }
-  }, [context, identityToken]);
+  }, [context, token]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     router.push(newValue);
@@ -128,6 +124,7 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
                 )
               }
             />
+            {/* <BottomNavigationAction label="Boosts" value="/hub" icon={<BoltIcon />} /> */}
             <BottomNavigationAction
               label="Rewards"
               value="/rewards"

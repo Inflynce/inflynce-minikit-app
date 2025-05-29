@@ -5,7 +5,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_URL;
 export async function generateMetadata(): Promise<Metadata> {
   const frame = {
     version: 'next',
-    imageUrl: `${BASE_URL}/rewards/opengraph-image`,
+    imageUrl: `${BASE_URL}/opengraph-image`,
     button: {
       title: 'Leaderboard on Inflynce',
       action: {

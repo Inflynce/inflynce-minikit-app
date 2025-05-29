@@ -4,13 +4,11 @@ import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import { motion } from 'framer-motion';
 import CloseIcon from '@mui/icons-material/Close';
-import Avatar from '@mui/material/Avatar';
 import { GetPointTransactionsByFidAndDirectionAndDateQueryOptions } from '@/queryFn/getPointTransactionByFid';
 import { POINT_TRANSACTION_DIRECTION, TAB } from '@/utils/constants';
 import { useQuery } from '@tanstack/react-query';
 import { getYesterday } from '@/utils/dateUtils';
 import { useMiniKit } from '@coinbase/onchainkit/minikit';
-import { formatPoints } from '@/utils/formatters';
 import ShareIcon from '@mui/icons-material/Share';
 import sdk from '@farcaster/frame-sdk';
 import { useRouter } from 'next/navigation';
@@ -60,7 +58,7 @@ const EarlyInflyncerNFTDialog: React.FC<EarlyInflyncerNFTDialogProps> = ({
   const handleShare = async () => {
     try {
       const shareUrl = `${process.env.NEXT_PUBLIC_URL}/earlyInflyncer`;
-      const shareText = `Just minted my Early Inflyncer Genesis NFT on @inflynce 🚀 Social capital is the new currency and now it’s onchain.`;
+      const shareText = `I’m officially an Early Inflyncer! 🚀 Social capital is onchain now.`;
       await sdk.actions.composeCast({
         text: shareText,
         embeds: [shareUrl],

@@ -14,6 +14,7 @@ interface ShareIconButtonProps {
   displayName?: string;
   userName?: string;
   mindshare?: number;
+  ml?: number;
 }
 
 export default function ShareIconButton({
@@ -23,6 +24,7 @@ export default function ShareIconButton({
   displayName,
   userName,
   mindshare,
+  ml = 1,
 }: ShareIconButtonProps) {
   const { context } = useMiniKit();
   const handleClick = async () => {
@@ -56,7 +58,7 @@ export default function ShareIconButton({
         '&:hover': {
           backgroundColor: 'rgba(255, 255, 255, 0.2)',
         },
-        ml: 1,
+        ml,
       }}
     >
       <ShareIcon fontSize={size} />

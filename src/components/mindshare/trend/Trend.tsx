@@ -7,19 +7,15 @@ import {
 import { GetTopMindshareInfinitQueryOptions } from '@/queryFn/getTopMindshare';
 import { MINDSHARE_DURATION, MINDSHARE_FIELDS } from '@/utils/constants';
 import { useState } from 'react';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { Avatar, Select, MenuItem, Stack, Typography } from '@mui/material';
+import { Select, MenuItem, Stack, Typography } from '@mui/material';
 import { UserDialog } from '../dialog/UserDialog';
 import { Table, TableHead, TableBody, TableCell, TableRow } from '@mui/material';
 import { MindshareResult } from '@/__generated__/graphql';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import TableSkeleton from '@/components/skeleton/TableSkeleton';
-import { getCurrentWeekStart } from '@/utils/dateUtils';
-import VoteCountdown from '@/components/vote/VoteCountdown';
-import InfoMenu from '@/components/common/InfoMenu';
 import Header from '@/components/common/Header';
+import { BadgeAvatar } from '@/components/common/BadgeAvatar';
 
 export interface TopGainerProps {
   width?: string;
@@ -60,7 +56,7 @@ const getMindshare = (duration: string, user: MindshareResult) => {
 };
 
 export const Trend = ({ desc = true }: TopGainerProps) => {
-  const [duration, setDuration] = useState(MINDSHARE_DURATION.SEVEN);
+  const [duration, setDuration] = useState(MINDSHARE_DURATION.THREE);
   const [field] = useState(MINDSHARE_FIELDS.MINDSHARE);
   const [open, setOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<any>(null);
@@ -219,10 +215,12 @@ export const Trend = ({ desc = true }: TopGainerProps) => {
                           textOverflow: 'ellipsis',
                         }}
                       >
-                        <Avatar
-                          alt={user.userInfo.displayName}
-                          src={user.userInfo.pfpUrl}
-                          sx={{ width: 30, height: 30, flexShrink: 0, mr: 0.5 }}
+                        <BadgeAvatar
+                          isPro={user.proUser?.isPro ?? false}
+                          avatarUrl={user.userInfo.pfpUrl ?? ''}
+                          displayName={user.userInfo.displayName ?? ''}
+                          avatarSize={30}
+                          smallAvatarSize={14}
                         />
                         <Stack
                           direction="column"
@@ -230,6 +228,7 @@ export const Trend = ({ desc = true }: TopGainerProps) => {
                           sx={{
                             width: '100%',
                             overflow: 'hidden',
+                            ml: 0.5,
                           }}
                         >
                           <Typography

@@ -12,11 +12,11 @@ import { User_Tasks } from '@/__generated__/graphql';
 import dynamic from 'next/dynamic';
 import { PostTasksMutationOptions } from '@/queryFn/postTasks';
 import TaskSkeleton from '@/components/skeleton/TaskSkeleton';
-import { useIdentityToken } from '@privy-io/react-auth';
 import { UpdateTaskMutationOptions } from '@/queryFn/updateTask';
-import { handleFarcasterLogin } from '@/utils/auth';
-import { useLoginToFrame } from '@privy-io/react-auth/farcaster';
 import { useSnackbar } from '@/contexts/SnackbarContext';
+import { ACTION_TYPE } from '@/utils/constants';
+import EarlyInflyncerTask from '@/components/dailyTask/EarlyInflyncerTask';
+import { useInflynceAuth } from '@/contexts/InflynceContext';
 
 const VisitInflynceTask = dynamic(() => import('@/components/dailyTask/VisitInflynceTask'), {
   ssr: false,
@@ -25,10 +25,9 @@ const VisitInflynceTask = dynamic(() => import('@/components/dailyTask/VisitInfl
 
 export default function DailyTaskPanel() {
   const { context } = useMiniKit();
-  const { identityToken } = useIdentityToken();
-  const { initLoginToFrame, loginToFrame } = useLoginToFrame();
   const [pendingTaskId, setPendingTaskId] = useState<string | null>(null);
   const { showSnackbar } = useSnackbar();
+  const { token, getToken } = useInflynceAuth();
 
   // Format today's date as ISO string
   const today = new Date().toISOString().split('T')[0]; // This will give YYYY-MM-DD format
@@ -74,7 +73,7 @@ export default function DailyTaskPanel() {
       variables: {
         taskId: '',
       },
-      token: identityToken ?? '',
+      token: token ?? '',
       options: {
         onSuccess: () => {
           console.log('Task update successful');
@@ -114,24 +113,28 @@ export default function DailyTaskPanel() {
   }, [context?.user?.fid, isLoading, data, tasks.length, isMutating, mutate, mutationStatus]);
 
   const handleClaim = async (taskId: string) => {
-    if (!identityToken) {
-      await handleFarcasterLogin(initLoginToFrame, loginToFrame);
-      return;
-    }
-
+    await getToken();
     setPendingTaskId(taskId);
     await updateTask({ taskId });
   };
 
   // Function to render the appropriate task component based on action type
   const renderTaskByActionType = (task: User_Tasks) => {
-    const actionTypeId = task.task.actionType.id;
+    const actionTypeId = task.task.actionType.name;
     const isTaskPending = pendingTaskId === task.id;
-
     switch (actionTypeId) {
-      case 1: // "visit" action type
+      case ACTION_TYPE.VISIT: // "visit" action type
         return (
           <VisitInflynceTask
+            key={task.id}
+            task={task}
+            onClaim={handleClaim}
+            isPending={isTaskPending && isUpdatePending}
+          />
+        );
+      case ACTION_TYPE.EARLY_INFLYNCER: // "early_inflyncer_task" action type
+        return (
+          <EarlyInflyncerTask
             key={task.id}
             task={task}
             onClaim={handleClaim}
@@ -175,7 +178,11 @@ export default function DailyTaskPanel() {
           <TaskSkeleton count={4} />
         </List>
       ) : (
-        <List sx={{ width: '100%' }}>{tasks.map((task) => renderTaskByActionType(task))}</List>
+        <List sx={{ width: '100%' }}>
+          {tasks
+            .sort((a, b) => (a.task.taskOrder ?? 0) - (b.task.taskOrder ?? 0))
+            .map((task) => renderTaskByActionType(task))}
+        </List>
       )}
       {/* </InfiniteScroll> */}
     </Box>

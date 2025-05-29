@@ -16,6 +16,7 @@ import { UserDialog } from '@/components/mindshare/dialog/UserDialog';
 import { useState } from 'react';
 import { useMiniKit } from '@coinbase/onchainkit/minikit';
 import ShareRankButton from '@/components/common/ShareRankButton';
+import { BadgeAvatar } from '@/components/common/BadgeAvatar';
 interface LeaderboardTableProps {}
 
 export default function LeaderboardTable({}: LeaderboardTableProps) {
@@ -186,10 +187,12 @@ export default function LeaderboardTable({}: LeaderboardTableProps) {
                         textOverflow: 'ellipsis',
                       }}
                     >
-                      <Avatar
-                        alt={userPoints.user?.displayName ?? ''}
-                        src={userPoints.user?.pfpUrl ?? ''}
-                        sx={{ width: 30, height: 30, flexShrink: 0 }}
+                      <BadgeAvatar
+                        isPro={userPoints.user?.proUser?.isPro ?? false}
+                        avatarUrl={userPoints.user?.pfpUrl ?? ''}
+                        displayName={userPoints.user?.displayName ?? ''}
+                        avatarSize={30}
+                        smallAvatarSize={14}
                       />
                       <Stack
                         direction="column"

@@ -12,6 +12,7 @@ import { Avatar, Box, Link, Typography } from '@mui/material';
 import { Divider } from '@mui/material';
 import { textColor } from '@/utils/color';
 import ShareIconButton from '@/components/common/ShareIconButton';
+import { BadgeAvatar } from '@/components/common/BadgeAvatar';
 
 interface UserDialogProps {
   open: boolean;
@@ -55,9 +56,15 @@ export const UserDialog: React.FC<UserDialogProps> = ({
       <DialogTitle sx={{ p: 2 }}>
         <Box style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Link href={`/profile/${userInfo?.fid}`}>
-            <Avatar src={userInfo?.pfpUrl} alt={userInfo?.displayName} />
+            <BadgeAvatar
+              isPro={mindshare?.proUser?.isPro ?? false}
+              avatarUrl={userInfo?.pfpUrl ?? ''}
+              displayName={userInfo?.displayName ?? ''}
+              avatarSize={40}
+              smallAvatarSize={20}
+            />
           </Link>
-          <Box style={{ flex: 1 }}>
+          <Box style={{ flex: 1 }} ml={1}>
             <Link href={`/profile/${userInfo?.fid}`}>
               <Box
                 sx={{

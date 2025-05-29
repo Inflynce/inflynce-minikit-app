@@ -5,6 +5,7 @@ export const MINDSHARE_FIELDS = {
 };
 
 export const MINDSHARE_DURATION = {
+  ONE: '1',
   THREE: '3',
   SEVEN: '7',
   THIRTY: '30',
@@ -27,4 +28,9 @@ export const POINT_TRANSACTION_DIRECTION = {
 export const TAB = {
   TASKS: 'tasks',
   REWARDS: 'rewards',
+};
+
+export const ACTION_TYPE = {
+  VISIT: 'visit',
+  EARLY_INFLYNCER: 'early_inflyncer_task',
 };

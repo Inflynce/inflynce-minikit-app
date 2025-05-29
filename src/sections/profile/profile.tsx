@@ -5,14 +5,13 @@ import { Box, Typography, AppBar, Tabs, Tab, Stack, IconButton } from '@mui/mate
 import { UserInfoCard } from '@/components/user/UserInfoCard';
 import { useQuery } from '@tanstack/react-query';
 import { GetMindshareByFidQueryOptions } from '@/queryFn/getMindshareByFid';
-import { styled, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { StyledCard } from '@/components/common/BaseCard';
 import { UserMindshareTable } from '@/components/mindshare/dialog/UserMindshareTable';
 import { UserMindshareChart } from '@/components/mindshare/dialog/UserMindshareChart';
 import { MindshareResult } from '@/__generated__/graphql';
 import { useParams, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { UserPointChart } from '@/components/mindshare/dialog/UserPointChart';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import NFT from './NFT';

@@ -31,6 +31,9 @@ async function fetchProfileData(fid: string) {
                 username
                 pfpUrl
               }
+              proUser {
+                isPro
+              }
             }
             user_points_by_pk(fid: $fid) {
               totalPoints
@@ -106,6 +109,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
   // For better image quality, use an absolute URL if possible
   // This works if your app is deployed and the public URL is accessible
   const logoUrl = `${BASE_URL}/cast_logo.png`;
+  const badgeUrl = `${BASE_URL}/pro_user.svg`;
 
   const earlyInflyncerImage = `${BASE_URL}/Early_Inflyncer_NFT.png`;
 
@@ -215,17 +219,32 @@ export default async function Image({ params }: { params: { fid: string } }) {
           <div
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px' }}
           >
-            <img
-              src={pfpUrl}
-              width={72}
-              height={72}
-              style={{
-                borderRadius: '50%',
-                objectFit: 'cover',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-              }}
-              alt={displayName}
-            />
+            <div style={{ position: 'relative', display: 'flex' }}>
+              <img
+                src={pfpUrl}
+                width={64}
+                height={64}
+                style={{
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                }}
+                alt={displayName}
+              />
+              {mindshareData?.proUser?.isPro && (
+                <img
+                  src={badgeUrl}
+                  width={28}
+                  height={28}
+                  style={{
+                    position: 'absolute',
+                    bottom: -6,
+                    right: -6,
+                    zIndex: 10,
+                  }}
+                  alt="Pro User"
+                />
+              )}
+            </div>
 
             <div
               style={{

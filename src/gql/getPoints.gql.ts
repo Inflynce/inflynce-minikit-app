@@ -20,6 +20,9 @@ export const GetLeaderboardGql = gql`
         pfpUrl
         username
         isSmartUser
+        proUser {
+          isPro
+        }
       }
     }
   }

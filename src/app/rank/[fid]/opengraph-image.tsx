@@ -31,6 +31,9 @@ async function fetchRankData(fid: string) {
                 username
                 displayName
                 pfpUrl
+                proUser {
+                  isPro
+                }
               }
             }
           }
@@ -82,6 +85,7 @@ export default async function Image({ params }: { params: { fid: string } }) {
 
   // Logo URL - replace with your actual logo URL
   const logoUrl = `${BASE_URL}/logo.png`;
+  const badgeUrl = `${BASE_URL}/pro_user.svg`;
 
   // Get current date in a nice format
   const currentDate = new Date().toLocaleDateString('en-US', {
@@ -146,16 +150,32 @@ export default async function Image({ params }: { params: { fid: string } }) {
             gap: '20px',
           }}
         >
-          <img
-            src={pfpUrl}
-            width={64}
-            height={64}
-            style={{
-              borderRadius: '50%',
-              objectFit: 'cover',
-            }}
-            alt={displayName}
-          />
+          <div style={{ position: 'relative', display: 'flex' }}>
+            <img
+              src={pfpUrl}
+              width={64}
+              height={64}
+              style={{
+                borderRadius: '50%',
+                objectFit: 'cover',
+              }}
+              alt={displayName}
+            />
+            {rankData?.user?.proUser?.isPro && (
+              <img
+                src={badgeUrl}
+                width={28}
+                height={28}
+                style={{
+                  position: 'absolute',
+                  bottom: -6,
+                  right: -6,
+                  zIndex: 10,
+                }}
+                alt="Pro User"
+              />
+            )}
+          </div>
 
           <div
             style={{

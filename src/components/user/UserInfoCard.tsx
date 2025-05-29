@@ -7,6 +7,7 @@ import { MindshareChip } from './MindshareChip';
 import { PointsEarnedTodayChip } from './PointsChip';
 import { MindshareResult } from '@/__generated__/graphql';
 import ShareIconButton from '@/components/common/ShareIconButton';
+import { BadgeAvatar } from '@/components/common/BadgeAvatar';
 
 interface UserInfo {
   displayName?: string;
@@ -39,7 +40,12 @@ export const UserInfoCard: React.FC<{
     <StyledCard elevation={0}>
       <Box py={2} px={1} sx={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
         <Stack direction="row" spacing={0} alignItems="flex-start" justifyContent="space-between">
-          <StyledAvatar src={user.pfpUrl} alt={user.displayName} />
+          <BadgeAvatar
+            isPro={mindshare?.proUser?.isPro ?? false}
+            avatarUrl={user.pfpUrl ?? ''}
+            displayName={user.displayName ?? ''}
+            avatarSize={48}
+          />
 
           <Box display="flex" flexDirection="column" justifyContent="space-between" px={1}>
             <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 0.5, color: '#FFFFFF' }}>

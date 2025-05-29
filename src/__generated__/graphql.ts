@@ -101,6 +101,7 @@ export type MindshareResult = {
   last3dMindshare: Scalars['Float']['output'];
   last7dMindshare: Scalars['Float']['output'];
   last30dMindshare: Scalars['Float']['output'];
+  proUser?: Maybe<Users>;
   rank: Scalars['Int']['output'];
   time: Scalars['String']['output'];
   userInfo: UserInfo;
@@ -192,6 +193,7 @@ export type User = {
   neynarUserScore?: Maybe<Scalars['Int']['output']>;
   pfpUrl?: Maybe<Scalars['String']['output']>;
   powerBadge?: Maybe<Scalars['Boolean']['output']>;
+  proUser?: Maybe<Users>;
   username?: Maybe<Scalars['String']['output']>;
 };
 
@@ -2004,6 +2006,10 @@ export type Mutation_Root = {
   delete_user_tasks?: Maybe<User_Tasks_Mutation_Response>;
   /** delete single row from the table: "user_tasks" */
   delete_user_tasks_by_pk?: Maybe<User_Tasks>;
+  /** delete data from the table: "users" */
+  delete_users?: Maybe<Users_Mutation_Response>;
+  /** delete single row from the table: "users" */
+  delete_users_by_pk?: Maybe<Users>;
   /** delete data from the table: "vote_outcome" */
   delete_vote_outcome?: Maybe<Vote_Outcome_Mutation_Response>;
   /** delete single row from the table: "vote_outcome" */
@@ -2092,6 +2098,10 @@ export type Mutation_Root = {
   insert_user_tasks?: Maybe<User_Tasks_Mutation_Response>;
   /** insert a single row into the table: "user_tasks" */
   insert_user_tasks_one?: Maybe<User_Tasks>;
+  /** insert data into the table: "users" */
+  insert_users?: Maybe<Users_Mutation_Response>;
+  /** insert a single row into the table: "users" */
+  insert_users_one?: Maybe<Users>;
   /** insert data into the table: "vote_outcome" */
   insert_vote_outcome?: Maybe<Vote_Outcome_Mutation_Response>;
   /** insert a single row into the table: "vote_outcome" */
@@ -2225,6 +2235,12 @@ export type Mutation_Root = {
   update_user_tasks_by_pk?: Maybe<User_Tasks>;
   /** update multiples rows of table: "user_tasks" */
   update_user_tasks_many?: Maybe<Array<Maybe<User_Tasks_Mutation_Response>>>;
+  /** update data of the table: "users" */
+  update_users?: Maybe<Users_Mutation_Response>;
+  /** update single row of the table: "users" */
+  update_users_by_pk?: Maybe<Users>;
+  /** update multiples rows of table: "users" */
+  update_users_many?: Maybe<Array<Maybe<Users_Mutation_Response>>>;
   /** update data of the table: "vote_outcome" */
   update_vote_outcome?: Maybe<Vote_Outcome_Mutation_Response>;
   /** update single row of the table: "vote_outcome" */
@@ -2418,6 +2434,16 @@ export type Mutation_RootDelete_User_TasksArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_User_Tasks_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_UsersArgs = {
+  where: Users_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Users_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -2669,6 +2695,18 @@ export type Mutation_RootInsert_User_TasksArgs = {
 export type Mutation_RootInsert_User_Tasks_OneArgs = {
   object: User_Tasks_Insert_Input;
   on_conflict?: InputMaybe<User_Tasks_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_UsersArgs = {
+  objects: Array<Users_Insert_Input>;
+  on_conflict?: InputMaybe<Users_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Users_OneArgs = {
+  object: Users_Insert_Input;
+  on_conflict?: InputMaybe<Users_On_Conflict>;
 };
 
 /** mutation root */
@@ -3056,6 +3094,23 @@ export type Mutation_RootUpdate_User_Tasks_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_User_Tasks_ManyArgs = {
   updates: Array<User_Tasks_Updates>;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_UsersArgs = {
+  _set?: InputMaybe<Users_Set_Input>;
+  where: Users_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Users_By_PkArgs = {
+  _set?: InputMaybe<Users_Set_Input>;
+  pk_columns: Users_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Users_ManyArgs = {
+  updates: Array<Users_Updates>;
 };
 
 /** mutation root */
@@ -4056,6 +4111,12 @@ export type Query_Root = {
   user_tasks_aggregate: User_Tasks_Aggregate;
   /** fetch data from the table: "user_tasks" using primary key columns */
   user_tasks_by_pk?: Maybe<User_Tasks>;
+  /** fetch data from the table: "users" */
+  users: Array<Users>;
+  /** fetch aggregated fields from the table: "users" */
+  users_aggregate: Users_Aggregate;
+  /** fetch data from the table: "users" using primary key columns */
+  users_by_pk?: Maybe<Users>;
   /** fetch data from the table: "vote_outcome" */
   vote_outcome: Array<Vote_Outcome>;
   /** fetch aggregated fields from the table: "vote_outcome" */
@@ -4461,6 +4522,26 @@ export type Query_RootUser_Tasks_AggregateArgs = {
 };
 
 export type Query_RootUser_Tasks_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Query_RootUsersArgs = {
+  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+export type Query_RootUsers_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+export type Query_RootUsers_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -5226,6 +5307,14 @@ export type Subscription_Root = {
   user_tasks_by_pk?: Maybe<User_Tasks>;
   /** fetch data from the table in a streaming manner: "user_tasks" */
   user_tasks_stream: Array<User_Tasks>;
+  /** fetch data from the table: "users" */
+  users: Array<Users>;
+  /** fetch aggregated fields from the table: "users" */
+  users_aggregate: Users_Aggregate;
+  /** fetch data from the table: "users" using primary key columns */
+  users_by_pk?: Maybe<Users>;
+  /** fetch data from the table in a streaming manner: "users" */
+  users_stream: Array<Users>;
   /** fetch data from the table: "vote_outcome" */
   vote_outcome: Array<Vote_Outcome>;
   /** fetch aggregated fields from the table: "vote_outcome" */
@@ -5738,6 +5827,32 @@ export type Subscription_RootUser_Tasks_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<User_Tasks_Stream_Cursor_Input>>;
   where?: InputMaybe<User_Tasks_Bool_Exp>;
+};
+
+export type Subscription_RootUsersArgs = {
+  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+export type Subscription_RootUsers_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+export type Subscription_RootUsers_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+export type Subscription_RootUsers_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Users_Stream_Cursor_Input>>;
+  where?: InputMaybe<Users_Bool_Exp>;
 };
 
 export type Subscription_RootVote_OutcomeArgs = {
@@ -7465,6 +7580,176 @@ export type User_Tasks_Variance_Order_By = {
   progress?: InputMaybe<Order_By>;
 };
 
+/** columns and relationships of "users" */
+export type Users = {
+  __typename?: 'users';
+  created_at: Scalars['timestamp']['output'];
+  fid: Scalars['String']['output'];
+  id: Scalars['uuid']['output'];
+  isPro: Scalars['Boolean']['output'];
+  updated_at: Scalars['timestamp']['output'];
+  user?: Maybe<User>;
+};
+
+/** aggregated selection of "users" */
+export type Users_Aggregate = {
+  __typename?: 'users_aggregate';
+  aggregate?: Maybe<Users_Aggregate_Fields>;
+  nodes: Array<Users>;
+};
+
+/** aggregate fields of "users" */
+export type Users_Aggregate_Fields = {
+  __typename?: 'users_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Users_Max_Fields>;
+  min?: Maybe<Users_Min_Fields>;
+};
+
+/** aggregate fields of "users" */
+export type Users_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Users_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
+export type Users_Bool_Exp = {
+  _and?: InputMaybe<Array<Users_Bool_Exp>>;
+  _not?: InputMaybe<Users_Bool_Exp>;
+  _or?: InputMaybe<Array<Users_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  fid?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  isPro?: InputMaybe<Boolean_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "users" */
+export enum Users_Constraint {
+  /** unique or primary key constraint on columns "fid" */
+  UsersFidKey = 'users_fid_key',
+  /** unique or primary key constraint on columns "id" */
+  UsersPkey = 'users_pkey',
+}
+
+/** input type for inserting data into table "users" */
+export type Users_Insert_Input = {
+  created_at?: InputMaybe<Scalars['timestamp']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  isPro?: InputMaybe<Scalars['Boolean']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
+};
+
+/** aggregate max on columns */
+export type Users_Max_Fields = {
+  __typename?: 'users_max_fields';
+  created_at?: Maybe<Scalars['timestamp']['output']>;
+  fid?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  updated_at?: Maybe<Scalars['timestamp']['output']>;
+};
+
+/** aggregate min on columns */
+export type Users_Min_Fields = {
+  __typename?: 'users_min_fields';
+  created_at?: Maybe<Scalars['timestamp']['output']>;
+  fid?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  updated_at?: Maybe<Scalars['timestamp']['output']>;
+};
+
+/** response of any mutation on the table "users" */
+export type Users_Mutation_Response = {
+  __typename?: 'users_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Users>;
+};
+
+/** on_conflict condition type for table "users" */
+export type Users_On_Conflict = {
+  constraint: Users_Constraint;
+  update_columns?: Array<Users_Update_Column>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "users". */
+export type Users_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  fid?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  isPro?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: users */
+export type Users_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "users" */
+export enum Users_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Fid = 'fid',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsPro = 'isPro',
+  /** column name */
+  UpdatedAt = 'updated_at',
+}
+
+/** input type for updating data in table "users" */
+export type Users_Set_Input = {
+  created_at?: InputMaybe<Scalars['timestamp']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  isPro?: InputMaybe<Scalars['Boolean']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
+};
+
+/** Streaming cursor of the table "users" */
+export type Users_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Users_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Users_Stream_Cursor_Value_Input = {
+  created_at?: InputMaybe<Scalars['timestamp']['input']>;
+  fid?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  isPro?: InputMaybe<Scalars['Boolean']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
+};
+
+/** update columns of table "users" */
+export enum Users_Update_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Fid = 'fid',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsPro = 'isPro',
+  /** column name */
+  UpdatedAt = 'updated_at',
+}
+
+export type Users_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Users_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Users_Bool_Exp;
+};
+
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
 export type Uuid_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['uuid']['input']>;
@@ -9093,6 +9378,7 @@ export type MindshareResultFragment = {
       ' $fragmentRefs'?: { DailyMindshareFragment: DailyMindshareFragment };
     }
   >;
+  proUser?: { __typename?: 'users'; isPro: boolean } | null;
 } & { ' $fragmentName'?: 'MindshareResultFragment' };
 
 export type GetCryptoPriceQueryVariables = Exact<{
@@ -9250,6 +9536,7 @@ export type GetLeaderboardQuery = {
       pfpUrl?: string | null;
       username?: string | null;
       isSmartUser?: boolean | null;
+      proUser?: { __typename?: 'users'; isPro: boolean } | null;
     } | null;
   }>;
 };
@@ -9630,6 +9917,14 @@ export const MindshareResultFragmentDoc = {
               selections: [
                 { kind: 'FragmentSpread', name: { kind: 'Name', value: 'DailyMindshare' } },
               ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'proUser' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'isPro' } }],
             },
           },
         ],
@@ -10840,6 +11135,14 @@ export const GetMindshareByFidDocument = {
               ],
             },
           },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'proUser' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'isPro' } }],
+            },
+          },
         ],
       },
     },
@@ -11724,6 +12027,14 @@ export const GetLeaderboardDocument = {
                       { kind: 'Field', name: { kind: 'Name', value: 'pfpUrl' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'username' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'isSmartUser' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'proUser' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'isPro' } }],
+                        },
+                      },
                     ],
                   },
                 },
@@ -12051,6 +12362,14 @@ export const GetTopMindshareDocument = {
               selections: [
                 { kind: 'FragmentSpread', name: { kind: 'Name', value: 'DailyMindshare' } },
               ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'proUser' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'isPro' } }],
             },
           },
         ],

@@ -124,7 +124,7 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
                 )
               }
             />
-            <BottomNavigationAction label="Boosts" value="/hub" icon={<BoltIcon />} />
+            {/* <BottomNavigationAction label="Boosts" value="/hub" icon={<BoltIcon />} /> */}
             <BottomNavigationAction
               label="Rewards"
               value="/rewards"
